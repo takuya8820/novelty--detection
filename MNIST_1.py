@@ -51,7 +51,11 @@ def fc_relu(inputs, w, b):
     fc = tf.matmul(inputs, w) + b
     fc = tf.nn.relu(fc)
     return fc
+
+def fc_sigmoid(inputs, w,b):
+    return 1/(1 + np.exp(-inputs))
 #----------------
+    
 
 #reuse=Trueで再利用できるように
 #tf.variable_scope() は，変数の管理に用いるスコープ定義
@@ -67,6 +71,7 @@ def encoderImg(x, z_dim, reuse=None):
         convW2 = weight_variable("convW2", [3, 3, 32, 32])
         convB2 = bias_variable("convB2", [32])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
+        pdb.set_trace()
         
         # 2次元画像を１次元に変更して全結合層へ渡す
         # np.prod で配列要素の積を算出
@@ -75,6 +80,7 @@ def encoderImg(x, z_dim, reuse=None):
         
         conv2size = np.prod(conv2.get_shape().as_list()[1:])
         conv2 = tf.reshape(conv2, [-1, conv2size])
+        pdb.set_trace()
        
         fcW1 = weight_variable("fcW1", [conv2size,z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
@@ -82,7 +88,7 @@ def encoderImg(x, z_dim, reuse=None):
         
         return fc1
     
-def decoderImg(z,z_dim,reuse=False):
+def decoderImg(z,z_dim,reuse=None):
     # tf.variable_scope()は，変数（識別子）を管理するための専用のスコープ定義
     with tf.variable_scope('decoderImg') as scope:
         if reuse:
@@ -105,9 +111,10 @@ def decoderImg(z,z_dim,reuse=False):
         convB2 = bias_variable("convB2", [1])
         output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batch_size,28,28,1], stride=[1,2,2,1])
         
+
         return output
 #Dのネットワーク
-def d_network_architecture(x, z_dim = 2, reuse=False):
+def d_network_architecture(x, z_dim = 1 , reuse=False):
     with tf.variable_scope('d') as scope:
         if reuse:
             scope.reuse_variables()
@@ -125,7 +132,8 @@ def d_network_architecture(x, z_dim = 2, reuse=False):
         # tf.reshapeの-1は特にサイズを指定しないということ
         conv2size = np.prod(conv2.get_shape().as_list()[1:])
         conv2 = tf.reshape(conv2, [-1, conv2size])
-       
+        pdb.set_trace()
+        
         fcW1 = weight_variable("fcW1", [conv2size,z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
         fc1 = fc_relu(conv2, fcW1, fcB1)
@@ -153,94 +161,113 @@ z_img_dim = 100
 #　x_img 28×28×1チャンネル×NONE枚
 #教師データ
 x_img = tf.placeholder(tf.float32, shape=[None,28,28,1])
-d_network_label_img = tf.placeholder(tf.float32, shape=[None,2])
-#入力データ
+x_in_img = tf.placeholder(tf.float32, shape=[None,28,28,1])
+d_network_label_img = tf.placeholder(tf.float32, shape=[None,1])
 noise_x_img = tf.placeholder(tf.float32, shape=[None,28,28,1])
-
-
-
-#　学習用
-#train_z_img_op = encoderImg(x_img, z_img_dim)
-#train_xr_img_op = decoderImg(train_z_img_op, z_img_dim)
+                
 
 # ノイズ版学習用
 train_noise_z_img_op = encoderImg(noise_x_img, z_img_dim)
 train_noise_xr_img_op = decoderImg(train_noise_z_img_op, z_img_dim)
 train_d_concat_img = tf.concat([x_img,train_noise_xr_img_op] ,0)
 train_d_concat_img_op = d_network_architecture(train_d_concat_img)
-#テスト用
-#test_z_img_op = encoderImg(x_img, z_img_dim, reuse=True)
-#test_xr_img_op = decoderImg(test_z_img_op, z_img_dim, reuse=True)
+train_d_img_op = d_network_architecture(x_img, reuse = True) #D(X)
+train_d_noise_img_op = d_network_architecture(train_noise_xr_img_op, reuse = True) #D(R(X~))
+
 
 #ノイズ版テスト用
 test_noise_z_img_op = encoderImg(noise_x_img, z_img_dim, reuse=True)
 test_noise_xr_img_op = decoderImg(test_noise_z_img_op, z_img_dim, reuse=True)
-test_d_concat_img = tf.concat([noise_x_img,test_noise_xr_img_op] ,0)
-test_d_concat_img_op = d_network_architecture(test_d_concat_img,reuse=True)
+test_d_concat_img = tf.concat([x_img,test_noise_xr_img_op] ,0)
+test_d_concat_img_op = d_network_architecture(test_d_concat_img, reuse = True)
 
-#　テンソル形式で保存
-#　tf.random_normalは正規分布から乱数を出力
-#　true_img_samplesはz_img_dim次元数のベクトルが２００本
-true_img_samples = tf.random_normal(tf.stack([200, z_img_dim]))
-loss_mmd_img = compute_mmd(true_img_samples, train_noise_z_img_op)
+
+
+log_d = tf.log(train_d_img_op)#/x_img.shape[0]
+log_dr = tf.log(1 - train_d_noise_img_op)#/noise_x_img.shape[0]
 
 #　tf.reduce_meanは与えたリストに入っている数値の平均値を求める関数
 #　tf.squareは要素ごとに二乗をとる
-#　loss_nll_imgは２乗平均誤差
-loss_rd = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = d_network_label_img , logits = train_d_concat_img_op))
-loss_r = tf.reduce_mean(tf.square(train_noise_xr_img_op - x_img))#式(4)
-loss_img = loss_r + loss_mmd_img
+loss_r = tf.reduce_mean(tf.square(train_noise_xr_img_op - x_img)) #式(4)
+loss_rd_img = log_d #+ log_dr #式(3)
 lamda = 0.4
-loss_rdr_img = loss_rd + lamda*loss_r
-#trainer_img = tf.train.AdamOptimizer(1e-3).minimize(loss_img)
-trainer_img = tf.train.AdamOptimizer(1e-3).minimize(loss_rdr_img)
+loss_r_img = lamda*loss_r
 
-
-#(3)のlossを上と同じように書く
-#loss_r = tf.square(x_img - train_noise_xr_img_op)
-#loss_rd = 
-#loss_img = loss_rd + loss_r + loss_mmd_img
+#loss_rの最小値を取得
+trainer_img = tf.train.AdamOptimizer(1e-3).minimize(loss_r_img)
+#loss_rdの最大値を取得
+trainer_1_img = tf.train.AdamOptimizer(1e-3).minimize(loss_rd_img)
 
 batch_size = 200
+batch_size_all = 200
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 
 # Start training
 for i in range(3000):
-    batch = myImage.train.next_batch(batch_size)
-    batch_x_img = np.reshape(batch[0],(batch_size,28,28,1))
+    batch = myImage.train.next_batch(batch_size) 
+    batch_x_img = np.reshape(batch[0], (batch_size,28,28,1))
+    #1のみ
+    batch_1_img = batch[0][batch[1][:,1]==1]
+    batch_x_1_img = np.reshape(batch_1_img, (batch_1_img.shape[0],28,28,1))
     
-    train_d_network_label_img = np.zeros([batch_size*2,2])
-    train_d_network_label_img[:batch_size,0] = 1
-    train_d_network_label_img[batch_size:,1] = 1
+    #trainのラベル
+    train_d_network_label_img = np.zeros([batch_x_1_img.shape[0]*2,1])
+    train_d_network_label_img[:batch_x_1_img.shape[0]] = 0.9
+    train_d_network_label_img[batch_x_1_img.shape[0]:] = 0.1
+    
 
-    
-    
+    #train_d_network_label_img[batch_1_img.shape[0]:,1] = 1
+     
     #ノイズを追加する(ガウシアンノイズ)
-    sheet,row,column,ch = batch_x_img.shape
+    sheet,row,column,ch = batch_x_1_img.shape
     mean = 0
     sigma = 0.5
     #np.random.normal(平均、分散、出力する件数)　正規分布に従う乱数を出力
-    gauss = np.random.normal(mean,sigma,(batch_size,row,column,ch)) 
+    gauss = np.random.normal(mean,sigma,(batch_size,row,column,ch))
+    gauss_1= np.random.normal(mean,sigma,(sheet,row,column,ch)) 
     
+    #ノイズ付きデータ
     noise_batch_x_img = batch_x_img + gauss
+    noise_batch_x_1_img = batch_x_1_img + gauss_1
     
-    _, r_img, rd_img, train_xr_img, train_z_img = sess.run([trainer_img, loss_r, loss_rd, train_noise_xr_img_op, train_noise_z_img_op], feed_dict={x_img: batch_x_img, noise_x_img: noise_batch_x_img, d_network_label_img:train_d_network_label_img})
+    _, _1, r_img, rd_img, train_xr_img, train_z_img, train_d_img = sess.run([trainer_img,trainer_1_img, loss_r_img, loss_rd_img, train_noise_xr_img_op, train_noise_z_img_op, train_d_concat_img_op], feed_dict={x_img: batch_x_1_img, noise_x_img: noise_batch_x_1_img, d_network_label_img:train_d_network_label_img})
     if i % 10 == 0:
-        print("Image, iteration: %d, Negative log likelihood is %f, rd loss is %f" % (i,r_img, rd_img))
+        #print("Image, iteration: %d, r loss is %f, rd loss is %f" % (i,r_img, rd_img))
+        print("Image, iteration: %d, r loss is %f" % (i,r_img))
         
     if i % 50 == 0:
-        batch_test = myImage.test.next_batch(batch_size)
-        batch_x_test_img = np.reshape(batch_test[0],(batch_size,28,28,1))
-        pdb.set_trace()
+        batch_test = myImage.test.next_batch(batch_size_all)
+        batch_x_test_img = np.reshape(batch_test[0],(batch_size_all,28,28,1))
         
-        test_d_network_label_img = np.zeros([batch_size*2,2])
-        test_d_network_label_img[:batch_size,0] = 1
-        test_d_network_label_img[batch_size:,1] = 1
+        #1のみ
+        batch_1_img = batch_test[0][batch_test[1][:,1]==1] 
+        batch_test_1_img = np.reshape(batch_1_img,(batch_1_img.shape[0],28,28,1))
+        #1以外
+        batch_not_1_img = batch_test[0][batch_test[1][:,1]!=1]
+        batch_test_not_1_img = np.reshape(batch_not_1_img,(batch_not_1_img.shape[0],28,28,1))
+      
+        
+        number = round(batch_test_1_img.shape[0]*0.3)
+        #1の30％程度の1以外データ
+        batch_number_not_1_img = batch_test_not_1_img[:number]
+        
+        #入力データ
+        batch_1_test_img = np.append(batch_1_img, batch_number_not_1_img, axis=0)  
+        batch_x_1_test_img = np.reshape(batch_1_test_img,(batch_1_test_img.shape[0],28,28,1))
+                
+        test_d_network_label_img = np.zeros([batch_test_1_img.shape[0]+batch_test_not_1_img.shape[0],1])
+        test_d_network_label_img[:batch_test_1_img.shape[0]] = 0.9
+        test_d_network_label_img[batch_test_1_img.shape[0]:] = 0.1
+        
+        #test_d_network_label_img[batch_test_1_img.shape[0]:,1] = 1
         
         noise_batch_x_test_img = batch_x_test_img + gauss
         
-        test_xr_img,test_z_img = sess.run([test_noise_xr_img_op,test_noise_z_img_op], feed_dict={x_img: batch_x_test_img, noise_x_img: noise_batch_x_test_img, d_network_label_img:test_d_network_label_img})
+        #test_d_img = sess.run([test_d_concat_img_op], feed_dict={x_in_img: batch_x_1_test_img, x_img: batch_test_1_img, noise_x_img: batch_test_not_1_img, d_network_label_img:test_d_network_label_img})
+
+                
+        test_xr_img, test_z_img, test_d_img = sess.run([test_noise_xr_img_op, test_noise_z_img_op, test_d_concat_img_op], feed_dict={x_in_img: batch_x_1_test_img, x_img: batch_test_1_img, noise_x_img: batch_test_not_1_img, d_network_label_img:test_d_network_label_img})
         
         #　緑字のファイル名をバイナリ形式(2進数)で保存するために開いて変数fpに代入
         with open("./visualization/img_{}.pickle".format(i), "wb") as fp:
@@ -252,14 +279,16 @@ for i in range(3000):
             pickle.dump(noise_batch_x_test_img,fp)
             pickle.dump(test_xr_img,fp)
             pickle.dump(test_z_img,fp)
+            pickle.dump(test_d_img,fp)
         
-        fig, figInds = plt.subplots(nrows=3, ncols=10, sharex=True)
-        
+        '''
+        fig, figInds = plt.subplots(nrows=2, ncols=10, sharex=True)
+    
         for figInd in np.arange(figInds.shape[1]):
 
-            fig0 = figInds[0][figInd].imshow(batch_x_test_img[figInd,:,:,0])
-            fig1 = figInds[1][figInd].imshow(noise_batch_x_test_img[figInd,:,:,0])
-            fig2 = figInds[2][figInd].imshow(test_xr_img[figInd,:,:,0])
+            fig0 = figInds[0][figInd].imshow(batch_x_1_test_img[figInd,:,:,0])
+            fig1 = figInds[1][figInd].imshow(batch_x_not_1_test_img[figInd,:,:,0])
+            #fig2 = figInds[2][figInd].imshow(test_xr_img[figInd,:,:,0])
             
             fig0.axes.get_xaxis().set_visible(False)
             fig0.axes.get_yaxis().set_visible(False)
@@ -269,12 +298,13 @@ for i in range(3000):
             fig1.axes.get_yaxis().set_visible(False)
             fig1.axes.get_xaxis().set_ticks([])
             fig1.axes.get_yaxis().set_ticks([])
-            fig2.axes.get_xaxis().set_visible(False)
-            fig2.axes.get_yaxis().set_visible(False)
-            fig2.axes.get_xaxis().set_ticks([])
-            fig2.axes.get_yaxis().set_ticks([])
+            #fig2.axes.get_xaxis().set_visible(False)
+            #fig2.axes.get_yaxis().set_visible(False)
+            #fig2.axes.get_xaxis().set_ticks([])
+            #fig2.axes.get_yaxis().set_ticks([])
         
-        plt.savefig("./visualization5/img_{}.png".format(i))
+        plt.savefig("./visualization_1/img_{}.png".format(i))
+        '''
         # save model to file
         saver = tf.train.Saver()
-        saver.save(sess,"./modelsMNIST_CNN5/img_{}.ckpt".format(i))      
+        saver.save(sess,"./modelsMNIST_CNN_1/img_{}.ckpt".format(i))      
