@@ -180,20 +180,20 @@ test_d_concat_img_op = d_network_architecture(test_d_concat_img, reuse = True)
 
 
 
-log_d = tf.log(train_d_img_op)#/x_img.shape[0]
-log_dr = tf.log(1 - train_d_noise_img_op)#/noise_x_img.shape[0]
+log_d = tf.log(train_d_img_op)/x_img.shape[0]
+log_dr = tf.log(1 - train_d_noise_img_op)/noise_x_img.shape[0]
 
 #　tf.reduce_meanは与えたリストに入っている数値の平均値を求める関数
 #　tf.squareは要素ごとに二乗をとる
 loss_r = tf.reduce_mean(tf.square(train_noise_xr_img_op - x_img)) #式(4)
-loss_rd_img = log_d #+ log_dr #式(3)
+loss_rd_img = log_d + log_dr #式(3)
 lamda = 0.4
 loss_r_img = lamda*loss_r
 
 #loss_rの最小値を取得
 trainer_img = tf.train.AdamOptimizer(1e-3).minimize(loss_r_img)
 #loss_rdの最大値を取得
-trainer_1_img = tf.train.AdamOptimizer(1e-3).minimize(loss_rd_img)
+trainer_1_img = -tf.train.AdamOptimizer(1e-3).minimize(loss_rd_img)
 
 batch_size = 200
 batch_size_all = 200
