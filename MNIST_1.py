@@ -71,7 +71,6 @@ def encoderImg(x, z_dim, reuse=None):
         convW2 = weight_variable("convW2", [3, 3, 32, 32])
         convB2 = bias_variable("convB2", [32])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
-        pdb.set_trace()
         
         # 2次元画像を１次元に変更して全結合層へ渡す
         # np.prod で配列要素の積を算出
@@ -80,7 +79,6 @@ def encoderImg(x, z_dim, reuse=None):
         
         conv2size = np.prod(conv2.get_shape().as_list()[1:])
         conv2 = tf.reshape(conv2, [-1, conv2size])
-        pdb.set_trace()
        
         fcW1 = weight_variable("fcW1", [conv2size,z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
@@ -132,7 +130,6 @@ def d_network_architecture(x, z_dim = 1 , reuse=False):
         # tf.reshapeの-1は特にサイズを指定しないということ
         conv2size = np.prod(conv2.get_shape().as_list()[1:])
         conv2 = tf.reshape(conv2, [-1, conv2size])
-        pdb.set_trace()
         
         fcW1 = weight_variable("fcW1", [conv2size,z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
