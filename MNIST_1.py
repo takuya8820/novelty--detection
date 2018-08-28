@@ -13,6 +13,7 @@ import pickle
 import pdb
 import input_data
 import matplotlib.pylab as plt
+from sklearn.metrics import precision_score, recall_score, f1_score
     
 # get_variableは既に存在あれば取得なし、無ければ変数を作成
 def weight_variable(name, shape):
@@ -52,8 +53,12 @@ def fc_relu(inputs, w, b):
     fc = tf.nn.relu(fc)
     return fc
 
-def fc_sigmoid(inputs, w,b):
-    return 1/(1 + np.exp(-inputs))
+def ir_metrics(y_true, y_pred):
+    print("label  %s " % y_true)
+    print("predictions  %s " % y_pred)
+    print("precision : %.2f" % precision_score(y_true, y_pred, average='binary'))
+    print("recall    : %.2f" % recall_score(y_true, y_pred, average='binary'))
+    print("F1        : %.2f" % f1_score(y_true, y_pred, average='binary'))
 #----------------
     
 
@@ -137,19 +142,8 @@ def d_network_architecture(x, z_dim = 1 , reuse=False):
         
         return fc1
         
-def compute_kernel(x, y):
-    x_size = tf.shape(x)[0]
-    y_size = tf.shape(y)[0]
-    dim = tf.shape(x)[1]
-    tiled_x = tf.tile(tf.reshape(x, tf.stack([x_size, 1, dim])), tf.stack([1, y_size, 1]))
-    tiled_y = tf.tile(tf.reshape(y, tf.stack([1, y_size, dim])), tf.stack([x_size, 1, 1]))
-    return tf.exp(-tf.reduce_mean(tf.square(tiled_x - tiled_y), axis=2) / tf.cast(dim, tf.float32))
 
-def compute_mmd(x, y):
-    x_kernel = compute_kernel(x, x)
-    y_kernel = compute_kernel(y, y)
-    xy_kernel = compute_kernel(x, y)
-    return tf.reduce_mean(x_kernel) + tf.reduce_mean(y_kernel) - 2 * tf.reduce_mean(xy_kernel)
+    
 
 # load data
 myImage = input_data.read_data_sets("MNIST_data/",one_hot=True)
@@ -166,27 +160,28 @@ noise_x_img = tf.placeholder(tf.float32, shape=[None,28,28,1])
 train_noise_z_img_op = encoderImg(noise_x_img, z_img_dim)
 train_noise_xr_img_op = decoderImg(train_noise_z_img_op, z_img_dim)
 train_d_img_op = d_network_architecture(x_img) #D(X)
-train_d_noise_img_op = d_network_architecture(train_noise_xr_img_op, reuse = True) #D(R(X~))
+#train_d_noise_img_op = d_network_architecture(train_noise_xr_img_op, reuse = True) #D(R(X~))
 
 
 #ノイズ版テスト用
 test_d_img_op = d_network_architecture(x_in_img, reuse = True)
 
+
 # loss
-log_d = tf.divide(tf.log(train_d_img_op), x_img.shape[0])
-log_dr = tf.divide(tf.log(tf.subtract(1, train_d_noise_img_op)), noise_x_img.shape[0])
+#log_d = tf.divide(tf.log(train_d_img_op), x_img.shape[0])
+#log_dr = tf.divide(tf.log(tf.subtract(1, train_d_noise_img_op)), noise_x_img.shape[0])
 
 #　tf.reduce_meanは与えたリストに入っている数値の平均値を求める関数
 #　tf.squareは要素ごとに二乗をとる
 loss_r = tf.reduce_mean(tf.square(train_noise_xr_img_op - x_img)) #式(4)
-loss_rd_img = log_d + log_dr #式(3)
+#loss_rd_img = log_d + log_dr #式(3)
 lamda = 0.4
 loss_r_img = lamda*loss_r 
 
 #loss_rの最小値を取得
 trainer_img = tf.train.AdamOptimizer(1e-3).minimize(loss_r_img)
 #loss_rdの最大値を取得
-trainer_1_img = -tf.train.AdamOptimizer(1e-3).minimize(loss_rd_img)
+#trainer_1_img = tf.train.AdamOptimizer(1e-3).minimize(loss_rd_img)
 
 batch_size = 200
 batch_size_all = 10000
@@ -215,10 +210,13 @@ for i in range(3000):
     noise_batch_x_img = batch_x_img + gauss
     noise_batch_x_1_img = batch_x_1_img + gauss_1
     
-    _, _1, r_img, rd_img, train_xr_img, train_z_img = sess.run([trainer_img,trainer_1_img, loss_r_img, loss_rd_img, train_noise_xr_img_op, train_noise_z_img_op], feed_dict={x_img: batch_x_1_img, noise_x_img: noise_batch_x_1_img})
+    #_, _1, r_img, rd_img, train_xr_img, train_z_img = sess.run([trainer_img,trainer_1_img, loss_r_img, loss_rd_img, train_noise_xr_img_op, train_noise_z_img_op], feed_dict={x_img: batch_x_1_img, noise_x_img: noise_batch_x_1_img})
+    _, r_img, train_xr_img, train_z_img = sess.run([trainer_img, loss_r_img, train_noise_xr_img_op, train_noise_z_img_op], feed_dict={x_img: batch_x_1_img, noise_x_img: noise_batch_x_1_img})
+
 
     if i % 10 == 0:
-        print("Image, iteration: %d, r loss is %f, rd loss is %f" % (i, r_img, rd_img))
+        #print("Image, iteration: %d, r loss is %f, rd loss is %f" % (i, r_img, rd_img))
+        print("Image, iteration: %d, r loss is %f" % (i, r_img))
         
     if i % 100 == 0:
         batch_test = myImage.test.next_batch(batch_size_all)
@@ -231,41 +229,33 @@ for i in range(3000):
         batch_not_1_img = batch_test[0][batch_test[1][:,1]!=1]
         batch_test_not_1_img = np.reshape(batch_not_1_img,(batch_not_1_img.shape[0],28,28,1))
         
+        #1の30％
         number = round(batch_test_1_img.shape[0]*0.3)
         #1の30％程度の1以外データ
         batch_number_not_1_img = batch_test_not_1_img[:number]
-        
         #入力データ
-        batch_1_test_img = np.append(batch_1_img, batch_number_not_1_img, axis=0)  
-        batch_x_1_test_img = np.reshape(batch_1_test_img,(batch_1_test_img.shape[0],28,28,1))   
+        batch_1_test_img = np.append(batch_test_1_img, batch_number_not_1_img, axis=0)  
         
         # test時のラベル
-        test_d_network_label_img = np.zeros([batch_x_1_test_img.shape[0],1])
+        test_d_network_label_img = np.zeros([batch_1_test_img.shape[0],1], dtype=float)
         test_d_network_label_img[:batch_test_1_img.shape[0]] = 1
-        
+
                 
-        test_d_img = sess.run(test_d_img_op, feed_dict={x_in_img: batch_x_1_test_img, x_img: batch_test_1_img, noise_x_img: batch_test_not_1_img, d_network_label_img:test_d_network_label_img})
+        test_d_img = sess.run(test_d_img_op, feed_dict={x_in_img: batch_1_test_img, x_img: batch_test_1_img, noise_x_img: batch_test_not_1_img, d_network_label_img:test_d_network_label_img})
         
-        
-        for n in batch_x_1_test_img.shape[0]:
-            if test_d_img[n] > 0.5:
+        for n in range(batch_1_test_img.shape[0]):
+            if test_d_img[n] > 0.9:
                 test_d_img[n] = 1
             else:
                 test_d_img[n] = 0
         
         predictions = test_d_img
-        
-        #適合率
-        precision = tf.metrics.precision(test_d_network_label_img,predictions)
-        #再現率
-        recall = tf.metrics.precision(test_d_network_label_img,predictions)
+        label = test_d_network_label_img
         
         #F1-score
-        f_score = tf.divide(tf.scalar_mul(2, precision, recall), tf.add(precision, recall))
+        ir_metrics(label,predictions)
         
-        print("Image, iteration: %d, f_score is %f" % (i,f_score))
-        
-        
+
         #　緑字のファイル名をバイナリ形式(2進数)で保存するために開いて変数fpに代入
         with open("./visualization/img_{}.pickle".format(i), "wb") as fp:
         #　変数fpに対してその前の変数の内容を書き込んでいる
@@ -295,6 +285,8 @@ for i in range(3000):
             fig2.axes.get_yaxis().set_visible(False)
             fig2.axes.get_xaxis().set_ticks([])
             fig2.axes.get_yaxis().set_ticks([])
+        
+        plt.savefig("./visualization2/img_{}.png".format(i))
         
         # save model to file
         saver = tf.train.Saver()
