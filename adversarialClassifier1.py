@@ -34,10 +34,11 @@ if len(sys.argv) > 1:#sys.argvには、コマンドで”python ’ファイル�
 else:#何も書かなければtrialNoは定義されないのでエラーが出ます
      #文字の種類
 	targetChar = 0
-	trialNo    = 0
-import pdb; pdb.set_trace()
+	#trialNo    = 0
+
 #ようはコマンドで実行するときに後ろに数字を２つ書いて、１つ目がtargetChar,２つ目がtrialNoです。１つだけでもエラーは出ませんが、今のままでは何も書かなければtrialNoが空でエラーが出るので出ないようにしておきます。
 #スペース区切りを全角にするとエラーが出てしまうので注意してください
+    
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
 
@@ -331,7 +332,7 @@ sess.run(tf.global_variables_initializer())
 
 #--------------
 # MNISTのデータの取得
-myData = input_data.read_data_sets("MNIST/",dtype=tf.uint8)
+myData = input_data.read_data_sets("MNIST_data/",dtype=tf.uint8)
 #myData = input_data.read_data_sets("MNIST/")
 
 targetTrainInds = np.where(myData.train.labels == targetChar)[0]
@@ -366,6 +367,7 @@ lossD_values = []
 
 
 batchInd = 0
+
 for ite in range(30000):
 
 	#--------------
@@ -380,7 +382,8 @@ for ite in range(30000):
 	#targetTrainInds = np.where(batch[1] == targetChar)[0]
 	#batch_x = batch_x_all[targetTrainInds]
 
-	batch = targetTrainData[batchInd*batchSize:(batchInd+1)*batchSize]
+	batch = targetTrainData[batchInd*batchSize:(batchInd+1)*batchSize] 
+    
 	batch_x = np.reshape(batch,(batchSize,28,28,1))
 
 	batchInd += 1
@@ -401,7 +404,9 @@ for ite in range(30000):
 			trainMode = 1
 
 	elif trainMode == 1:
-		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
+                [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
+                feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 
 	# 損失の記録
 	lossR_values.append(lossR_value)
