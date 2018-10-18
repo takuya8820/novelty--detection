@@ -10,6 +10,9 @@ import pdb
 import matplotlib.pylab as plt
 import sys
 
+"""
+takuya test mayu tte dare desuka? toukyou no geidai no hito desuka?
+"""
 
 #===========================
 # ランダムシード
