@@ -450,7 +450,6 @@ for ite in range(15000):
 													feed_dict={xTest: test_x})
             
         
-    
 			#--------------
 			# 評価値の計算と記録
             recallDX, precisionDX, f1DX = calcEval(predictDX_value[ind][:,0], test_y, threFake)
