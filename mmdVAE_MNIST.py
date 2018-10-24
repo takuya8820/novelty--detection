@@ -227,7 +227,7 @@ for i in range(3000):
     #ノイズを追加する(ガウシアンノイズ)
     sheet,row,column,ch = batch_x_img.shape
     mean = 0
-    sigma = 0.5
+    sigma = 10
     #np.random.normal(平均、分散、出力する件数)　正規分布に従う乱数を出力
     gauss = np.random.normal(mean,sigma,(batch_size,row,column,ch)) 
     
@@ -281,7 +281,7 @@ for i in range(3000):
             fig2.axes.get_xaxis().set_ticks([])
             fig2.axes.get_yaxis().set_ticks([])
         
-        plt.savefig("./visualization5/img_{}.png".format(i))
+        plt.savefig("./visualization3/img_{}.png".format(i))
         # save model to file
         saver = tf.train.Saver()
         saver.save(sess,"./modelsMNIST_CNN5/img_{}.ckpt".format(i))      
