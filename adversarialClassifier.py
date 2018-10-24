@@ -66,7 +66,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-noiseSigma = 0.5
+noiseSigma = 10
 
 trainMode = 1
 
@@ -374,7 +374,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(16000):
+for ite in range(30000):
 	
 	#--------------
 	# 学習データの作成
