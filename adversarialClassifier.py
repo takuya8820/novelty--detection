@@ -8,7 +8,11 @@ import pickle
 import pdb
 #import input_data
 import matplotlib.pylab as plt
+plt.switch_backend('agg')
 import sys
+
+
+
 
 
 #===========================
