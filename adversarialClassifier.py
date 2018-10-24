@@ -66,7 +66,11 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
+<<<<<<< HEAD
 noiseSigma =10 
+=======
+noiseSigma = 10
+>>>>>>> 04e8190bbff0a164b7e56f214e195bcde137cb7e
 
 trainMode = 1
 
@@ -394,6 +398,7 @@ for ite in range(30000):
 	
 	# ノイズを追加する(ガウシアンノイズ)
 	# 正規分布に従う乱数を出力
+    #np.random.normal(平均,標準偏差,出力件数)
     batch_x_fake = batch_x + np.random.normal(0,noiseSigma,batch_x.shape)
 	#--------------
 
