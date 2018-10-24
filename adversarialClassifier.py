@@ -66,7 +66,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-noiseSigma = 10
+noiseSigma = 40
 
 trainMode = 1
 
