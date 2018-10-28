@@ -473,7 +473,7 @@ for ite in range(15000):
 
 			#--------------
             print("ratio:%f \t recallDX=%f, precisionDX=%f, f1DX=%f" % (testFakeRatio, recallDX, precisionDX, f1DX))
-            #print("\t recallDRX=%f, precisionDRX=%f, f1DRX=%f" % (recallDRX, precisionDRX, f1DRX))
+            print("\t recallDRX=%f, precisionDRX=%f, f1DRX=%f" % (recallDRX, precisionDRX, f1DRX))
 			#--------------
             
             if ind == 0:
