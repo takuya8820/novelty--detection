@@ -25,12 +25,14 @@ z_dim_R = 100
 if len(sys.argv) > 1:
 	# 文字の種類
     targetChar = int(sys.argv[1])
-
+    trialNo = int(sys.argv[2])
+    noiseSigma = int(sys.argv[3])
 	# trail no.
-    if len(sys.argv) > 2:
-        trialNo = int(sys.argv[2])
-        if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
+    #if len(sys.argv) > 2:
+        #trialNo = int(sys.argv[2])
+        #noiseSigma
+        #if len(sys.argv) > 3:
+            #noiseSigma = int(sys.argv[3])
     #else:
         #trialNo = 1	
 else:
