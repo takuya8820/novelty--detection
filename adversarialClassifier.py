@@ -12,9 +12,6 @@ plt.switch_backend('agg')
 import sys
 
 
-
-
-
 #===========================
 # ランダムシード
 np.random.seed(0)
@@ -32,9 +29,10 @@ if len(sys.argv) > 1:
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
-    else:
-        trialNo = 1	
-
+        if len(sys.argv) > 3:
+            noiseSigma = int(sys.argv[3])
+    #else:
+        #trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
@@ -66,7 +64,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-noiseSigma = 39
+#noiseSigma = 39
 
 
 trainMode = 1
