@@ -22,7 +22,7 @@ np.random.seed(0)
 z_dim_R = 100
 
 #targetCharは対象とする数字
-if len(sys.argv) > 1:
+if len(sys.argv) > 3:
 	# 文字の種類
     targetChar = int(sys.argv[1])
     trialNo = int(sys.argv[2])
