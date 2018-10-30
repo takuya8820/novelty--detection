@@ -25,16 +25,14 @@ z_dim_R = 100
 if len(sys.argv) > 1:
 	# 文字の種類
     targetChar = int(sys.argv[1])
-    trialNo = int(sys.argv[2])
-    noiseSigma = int(sys.argv[3])
 	# trail no.
-    #if len(sys.argv) > 2:
-        #trialNo = int(sys.argv[2])
-        #noiseSigma
-        #if len(sys.argv) > 3:
-            #noiseSigma = int(sys.argv[3])
-    #else:
-        #trialNo = 1	
+    if len(sys.argv) > 2:
+        trialNo = int(sys.argv[2])
+        # noiseSigma
+        if len(sys.argv) > 3:
+            noiseSigma = int(sys.argv[3])
+    else:
+        trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
@@ -419,13 +417,13 @@ for ite in range(15000):
     lossRAll_values.append(lossRAll_value)
     lossD_values.append(lossD_value)
     
-    if ite%100 == 0:
+    if ite%1000 == 0:
         print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
 	# テスト
-    if ite % 1000 == 0:
+    if ite % 5000 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
