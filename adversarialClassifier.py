@@ -3,7 +3,8 @@ import tensorflow as tf
 from tensorflow.python.ops import nn_ops
 from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
-import math, os
+import math
+import os
 import pickle
 import pdb
 #import input_data
@@ -66,12 +67,18 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 #noiseSigma = 0.155
 #noiseSigma = 39
 
+noise = "{}".format(noiseSigma)
+
 
 trainMode = 1
 
 visualPath = 'visualization'
 modelPath = 'models'
 logPath = 'logs'
+noisePath1 = 'noiseSigma_39'
+noisePath2 = 'noiseSigma_157'
+noisePath3 = 'noiseSigma_392'
+pdb.set_trace()
 #===========================
 
 #===========================
@@ -373,7 +380,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(15000):
+for ite in range(150):
 	
 	#--------------
 	# 学習データの作成
@@ -557,28 +564,82 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-path = os.path.join(logPath,"log{}.pickle".format(postFix))
-with open(path, "wb") as fp:
-    pickle.dump(batch_x,fp)
-    pickle.dump(batch_x_fake,fp)
-    pickle.dump(encoderR_train_value,fp)
-    pickle.dump(decoderR_train_value,fp)
-    pickle.dump(predictFake_train_value,fp)
-    pickle.dump(predictTrue_train_value,fp)	
-    pickle.dump(test_x,fp)
-    pickle.dump(test_y,fp)
-    pickle.dump(decoderR_test_value,fp)
-    pickle.dump(predictDX_value,fp)
-    pickle.dump(predictDRX_value,fp)
-    pickle.dump(recallDXs,fp)
-    pickle.dump(precisionDXs,fp)
-    pickle.dump(f1DXs,fp)
-    pickle.dump(recallDRXs,fp)
-    pickle.dump(precisionDRXs,fp)
-    pickle.dump(f1DRXs,fp)	
-    pickle.dump(lossR_values,fp)
-    pickle.dump(lossRAll_values,fp)
-    pickle.dump(lossD_values,fp)
-    pickle.dump(params,fp)
+if noiseSigma==39:
+    path1 = os.path.join(logPath,noisePath1)
+    path = os.path.join(path1,"log{}.pickle".format(postFix))
+    with open(path, "wb") as fp:
+        pickle.dump(batch_x,fp)
+        pickle.dump(batch_x_fake,fp)
+        pickle.dump(encoderR_train_value,fp)
+        pickle.dump(decoderR_train_value,fp)
+        pickle.dump(predictFake_train_value,fp)
+        pickle.dump(predictTrue_train_value,fp)	
+        pickle.dump(test_x,fp)
+        pickle.dump(test_y,fp)
+        pickle.dump(decoderR_test_value,fp)
+        pickle.dump(predictDX_value,fp)
+        pickle.dump(predictDRX_value,fp)
+        pickle.dump(recallDXs,fp)
+        pickle.dump(precisionDXs,fp)
+        pickle.dump(f1DXs,fp)
+        pickle.dump(recallDRXs,fp)
+        pickle.dump(precisionDRXs,fp)
+        pickle.dump(f1DRXs,fp)	
+        pickle.dump(lossR_values,fp)
+        pickle.dump(lossRAll_values,fp)
+        pickle.dump(lossD_values,fp)
+        pickle.dump(params,fp)
+
+if noiseSigma==157:
+    path1 = os.path.join(logPath,noisePath2)
+    path = os.path.join(path1,"log{}.pickle".format(postFix))
+    with open(path, "wb") as fp:
+        pickle.dump(batch_x,fp)
+        pickle.dump(batch_x_fake,fp)
+        pickle.dump(encoderR_train_value,fp)
+        pickle.dump(decoderR_train_value,fp)
+        pickle.dump(predictFake_train_value,fp)
+        pickle.dump(predictTrue_train_value,fp)	
+        pickle.dump(test_x,fp)
+        pickle.dump(test_y,fp)
+        pickle.dump(decoderR_test_value,fp)
+        pickle.dump(predictDX_value,fp)
+        pickle.dump(predictDRX_value,fp)
+        pickle.dump(recallDXs,fp)
+        pickle.dump(precisionDXs,fp)
+        pickle.dump(f1DXs,fp)
+        pickle.dump(recallDRXs,fp)
+        pickle.dump(precisionDRXs,fp)
+        pickle.dump(f1DRXs,fp)	
+        pickle.dump(lossR_values,fp)
+        pickle.dump(lossRAll_values,fp)
+        pickle.dump(lossD_values,fp)
+        pickle.dump(params,fp)
+        
+if noiseSigma==392:
+    path1 = os.path.join(logPath,noisePath3)
+    path = os.path.join(path1,"log{}.pickle".format(postFix))
+    with open(path, "wb") as fp:
+        pickle.dump(batch_x,fp)
+        pickle.dump(batch_x_fake,fp)
+        pickle.dump(encoderR_train_value,fp)
+        pickle.dump(decoderR_train_value,fp)
+        pickle.dump(predictFake_train_value,fp)
+        pickle.dump(predictTrue_train_value,fp)	
+        pickle.dump(test_x,fp)
+        pickle.dump(test_y,fp)
+        pickle.dump(decoderR_test_value,fp)
+        pickle.dump(predictDX_value,fp)
+        pickle.dump(predictDRX_value,fp)
+        pickle.dump(recallDXs,fp)
+        pickle.dump(precisionDXs,fp)
+        pickle.dump(f1DXs,fp)
+        pickle.dump(recallDRXs,fp)
+        pickle.dump(precisionDRXs,fp)
+        pickle.dump(f1DRXs,fp)	
+        pickle.dump(lossR_values,fp)
+        pickle.dump(lossRAll_values,fp)
+        pickle.dump(lossD_values,fp)
+        pickle.dump(params,fp)
 #--------------
 #===========================
