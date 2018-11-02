@@ -84,6 +84,7 @@ logPath = 'logs'
 noisePath1 = 'noiseSigma_39'
 noisePath2 = 'noiseSigma_157'
 noisePath3 = 'noiseSigma_392'
+jikkenPath = 'jikken'
 #===========================
 
 #===========================
@@ -385,7 +386,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(15000):
+for ite in range(150):
 	
 	#--------------
 	# 学習データの作成
@@ -429,13 +430,13 @@ for ite in range(15000):
     lossRAll_values.append(lossRAll_value)
     lossD_values.append(lossD_value)
     
-    if ite%1000 == 0:
+    if ite%100 == 0:
         print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
 	# テスト
-    if ite % 5000 == 0:
+    if ite % 1000 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
@@ -569,7 +570,8 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-    path = os.path.join(logPath,"log{}.pickle".format(postFix))
+    path1 = os.path.join(jikkenPath,"noiseSigma{}.pkl".format(noiseSigma))
+    path = os.path.join(path1,"log{}.pickle".format(postFix))
     with open(path, "wb") as fp:
         pickle.dump(batch_x,fp)
         pickle.dump(batch_x_fake,fp)
