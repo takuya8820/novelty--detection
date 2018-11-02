@@ -570,7 +570,7 @@ for ite in range(150):
 		
 #--------------
 # pickleに保存
-    path1 = os.path.join(jikkenPath,"noiseSigma{}.pkl".format(noiseSigma))
+    path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
     path = os.path.join(path1,"log{}.pickle".format(postFix))
     with open(path, "wb") as fp:
         pickle.dump(batch_x,fp)
