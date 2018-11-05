@@ -369,22 +369,6 @@ targetTestIndsShuffle = targetTestInds[np.random.permutation(len(targetTestInds)
 fakeTestInds = np.setdiff1d(np.arange(len(myData.test.labels)),targetTestInds)
 #--------------
 
-#--------------
-# 評価値、損失を格納するリスト
-recallDXs = [[] for tmp in np.arange(len(testFakeRatios))]
-precisionDXs = [[] for tmp in np.arange(len(testFakeRatios))]
-f1DXs = [[] for tmp in np.arange(len(testFakeRatios))]
-
-recallDRXs = [[] for tmp in np.arange(len(testFakeRatios))]
-precisionDRXs = [[] for tmp in np.arange(len(testFakeRatios))]
-f1DRXs = [[] for tmp in np.arange(len(testFakeRatios))]
-
-lossR_values = []
-lossRAll_values = []
-lossD_values = []
-
-#--------------
-
 
 batchInd = 0
 for ite in range(15000):
@@ -426,10 +410,6 @@ for ite in range(15000):
                     [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
 
-	# 損失の記録
-    lossR_values.append(lossR_value)
-    lossRAll_values.append(lossRAll_value)
-    lossD_values.append(lossD_value)
     
     if ite%100 == 0:
         print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
@@ -470,24 +450,7 @@ for ite in range(15000):
         
         
 			#--------------
-			# 評価値の計算と記録
-            recallDX, precisionDX, f1DX = calcEval(predictDX_value[ind][:,0], test_y, threFake)
-            recallDRX, precisionDRX, f1DRX = calcEval(predictDRX_value[ind][:,0], test_y, threFake)
-            
-            recallDXs[ind].append(recallDX)
-            precisionDXs[ind].append(precisionDX)
-            f1DXs[ind].append(f1DX)
-            
-            recallDRXs[ind].append(recallDRX)
-            precisionDRXs[ind].append(precisionDRX)
-            f1DRXs[ind].append(f1DRX)
-			#--------------
 
-			#--------------
-            print("ratio:%f \t recallDX=%f, precisionDX=%f, f1DX=%f" % (testFakeRatio, recallDX, precisionDX, f1DX))
-            print("\t recallDRX=%f, precisionDRX=%f, f1DRX=%f" % (recallDRX, precisionDRX, f1DRX))
-			#--------------
-            
             if ind == 0:
 				#--------------
 				# 画像を保存
@@ -585,15 +548,6 @@ for ite in range(15000):
         pickle.dump(decoderR_test_value,fp)
         pickle.dump(predictDX_value,fp)
         pickle.dump(predictDRX_value,fp)
-        pickle.dump(recallDXs,fp)
-        pickle.dump(precisionDXs,fp)
-        pickle.dump(f1DXs,fp)
-        pickle.dump(recallDRXs,fp)
-        pickle.dump(precisionDRXs,fp)
-        pickle.dump(f1DRXs,fp)	
-        pickle.dump(lossR_values,fp)
-        pickle.dump(lossRAll_values,fp)
-        pickle.dump(lossD_values,fp)
         pickle.dump(params,fp)
 
 #--------------
