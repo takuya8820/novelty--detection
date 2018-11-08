@@ -423,13 +423,13 @@ for ite in range(15000):
     lossRAll_values.append(lossRAll_value)
     lossD_values.append(lossD_value)
     
-    if ite%1000 == 0:
+    if ite%100 == 0:
         print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
 	# テスト
-    if ite % 5000 == 0:
+    if ite % 1000 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
