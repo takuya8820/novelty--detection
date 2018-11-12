@@ -19,6 +19,9 @@ if len(sys.argv) > 1:
         # noiseSigma
         if len(sys.argv) > 3:
             noiseSigma = int(sys.argv[3])
+            if len(sys.argv) > 4:
+                    late = int(sys.argv[4])
+            
 
 logPath = 'logs'
 postFix = "_{}_{}_Adam".format(targetChar, trialNo)
@@ -47,5 +50,5 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
-for i in 0,1,2,3,4:
-    print(f1DXs[i][2])
+
+print(f1DXs[late][2])
