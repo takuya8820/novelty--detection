@@ -8,6 +8,7 @@ Created on Mon Nov 12 10:12:09 2018
 import pickle
 import sys
 import os
+import pdb
 
 if len(sys.argv) > 1:
 	# 文字の種類
@@ -46,13 +47,5 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
-print("//")
-print("D(X)の値")
-print(f1DXs)
-print("//")
-print("D(R(X))の値")
-print(f1DRXs)
-print("//")
-
-
-
+for i in 0,1,2,3,4:
+    print(f1DXs[i][2])
