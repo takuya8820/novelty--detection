@@ -26,7 +26,7 @@ path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
-    batch_x_fake= pickle.load(fp)
+    batch_x_fake = pickle.load(fp)
     encoderR_train_value = pickle.load(fp)
     decoderR_train_value = pickle.load(fp)
     predictFake_train_value = pickle.load(fp)
@@ -46,9 +46,13 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
+print("//")
 print("D(X)の値")
 print(f1DXs)
 print("//")
 print("D(R(X))の値")
 print(f1DRXs)
+print("//")
+
+
 
