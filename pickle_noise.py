@@ -46,6 +46,9 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
-
-f1DXs()
+print("D(X)の値")
+print(f1DXs)
+print("//")
+print("D(R(X))の値")
+print(f1DRXs)
 
