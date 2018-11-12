@@ -67,7 +67,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 #noiseSigma = 0.155
 #noiseSigma = 39
 
-noise = "{}".format(noiseSigma)
+noise = "_{}".format(noiseSigma)
 
 
 trainMode = 1
@@ -75,9 +75,7 @@ trainMode = 1
 visualPath = 'visualization'
 modelPath = 'models'
 logPath = 'logs'
-noisePath1 = 'noiseSigma_39'
-noisePath2 = 'noiseSigma_157'
-noisePath3 = 'noiseSigma_392'
+noisePath = 'noiseSigma_{}'
 #===========================
 
 #===========================
@@ -379,7 +377,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(15000):
+for ite in range(30000):
 	
 	#--------------
 	# 学習データの作成
@@ -563,7 +561,7 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noiseSigma{}".format(noiseSigma))
+path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
         pickle.dump(batch_x,fp)
