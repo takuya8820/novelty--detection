@@ -1,16 +1,23 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 24 10:22:18 2018
+
+@author: takuya
+"""
+
 import tensorflow as tf
 from tensorflow.python.ops import nn_ops
 from tensorflow.examples.tutorials.mnist import input_data
 import numpy as np
-import math
-import os
+import math, os
 import pickle
 import pdb
 #import input_data
 import matplotlib.pylab as plt
 plt.switch_backend('agg')
 import sys
+
+
 
 
 #===========================
@@ -26,14 +33,13 @@ z_dim_R = 100
 if len(sys.argv) > 1:
 	# 文字の種類
     targetChar = int(sys.argv[1])
+
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
-        # noiseSigma
-        if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
     else:
         trialNo = 1	
+
 else:
 	# 文字の種類
     targetChar = 0
@@ -65,19 +71,13 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-#noiseSigma = 39
-
-noise = "{}".format(noiseSigma)
-
+noiseSigma = 40
 
 trainMode = 1
 
 visualPath = 'visualization'
 modelPath = 'models'
 logPath = 'logs'
-noisePath1 = 'noiseSigma_39'
-noisePath2 = 'noiseSigma_157'
-noisePath3 = 'noiseSigma_392'
 #===========================
 
 #===========================
@@ -399,7 +399,6 @@ for ite in range(15000):
 	
 	# ノイズを追加する(ガウシアンノイズ)
 	# 正規分布に従う乱数を出力
-    #np.random.normal(平均,標準偏差,出力件数)
     batch_x_fake = batch_x + np.random.normal(0,noiseSigma,batch_x.shape)
 	#--------------
 
@@ -477,7 +476,7 @@ for ite in range(15000):
 
 			#--------------
             print("ratio:%f \t recallDX=%f, precisionDX=%f, f1DX=%f" % (testFakeRatio, recallDX, precisionDX, f1DX))
-            print("\t recallDRX=%f, precisionDRX=%f, f1DRX=%f" % (recallDRX, precisionDRX, f1DRX))
+            #print("\t recallDRX=%f, precisionDRX=%f, f1DRX=%f" % (recallDRX, precisionDRX, f1DRX))
 			#--------------
             
             if ind == 0:
@@ -563,30 +562,28 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noiseSigma{}".format(noiseSigma))
-path = os.path.join(path1,"log{}.pickle".format(postFix))
+path = os.path.join(logPath,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
-        pickle.dump(batch_x,fp)
-        pickle.dump(batch_x_fake,fp)
-        pickle.dump(encoderR_train_value,fp)
-        pickle.dump(decoderR_train_value,fp)
-        pickle.dump(predictFake_train_value,fp)
-        pickle.dump(predictTrue_train_value,fp)	
-        pickle.dump(test_x,fp)
-        pickle.dump(test_y,fp)
-        pickle.dump(decoderR_test_value,fp)
-        pickle.dump(predictDX_value,fp)
-        pickle.dump(predictDRX_value,fp)
-        pickle.dump(recallDXs,fp)
-        pickle.dump(precisionDXs,fp)
-        pickle.dump(f1DXs,fp)
-        pickle.dump(recallDRXs,fp)
-        pickle.dump(precisionDRXs,fp)
-        pickle.dump(f1DRXs,fp)	
-        pickle.dump(lossR_values,fp)
-        pickle.dump(lossRAll_values,fp)
-        pickle.dump(lossD_values,fp)
-        pickle.dump(params,fp)
-
+    pickle.dump(batch_x,fp)
+    pickle.dump(batch_x_fake,fp)
+    pickle.dump(encoderR_train_value,fp)
+    pickle.dump(decoderR_train_value,fp)
+    pickle.dump(predictFake_train_value,fp)
+    pickle.dump(predictTrue_train_value,fp)	
+    pickle.dump(test_x,fp)
+    pickle.dump(test_y,fp)
+    pickle.dump(decoderR_test_value,fp)
+    pickle.dump(predictDX_value,fp)
+    pickle.dump(predictDRX_value,fp)
+    pickle.dump(recallDXs,fp)
+    pickle.dump(precisionDXs,fp)
+    pickle.dump(f1DXs,fp)
+    pickle.dump(recallDRXs,fp)
+    pickle.dump(precisionDRXs,fp)
+    pickle.dump(f1DRXs,fp)	
+    pickle.dump(lossR_values,fp)
+    pickle.dump(lossRAll_values,fp)
+    pickle.dump(lossD_values,fp)
+    pickle.dump(params,fp)
 #--------------
 #===========================
