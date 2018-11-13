@@ -234,8 +234,8 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
         convW1 = weight_variable("convW1", [3, 3, 16, 32])
         convB1 = bias_variable("convB1", [16])
         conv1 = conv2d_t_relu(fc1, convW1, convB1, output_shape=[batchSize,14,14,16], stride=[1,2,2,1])
-        pdb.set_trace()
-		# 14 x 2 = 28
+        
+		# 14 x 2 = 28x
         convW2 = weight_variable("convW2", [3, 3, 1, 16])
         convB2 = bias_variable("convB2", [1])
         output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
