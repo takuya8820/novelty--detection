@@ -24,6 +24,8 @@ if len(sys.argv) > 1:
             
 
 logPath = 'logs'
+jikkenPath = 'jikken'
+
 postFix = "_{}_{}_Adam".format(targetChar, trialNo)
 
 path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))

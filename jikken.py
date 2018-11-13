@@ -260,21 +260,27 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 32])
-        convB2 = bias_variable("convB2", [32])
+        convW2 = weight_variable("convW2", [3, 3, 32, 64])
+        convB2 = bias_variable("convB2", [64])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
+        
+      # 7/2 = 4
+        convW3 = weight_variable("convW3", [3, 3, 64, 128])
+        convB3 = bias_variable("convB3", [128])
+        conv3 = conv2d_relu(conv2, convW3, convB3, stride=[1,2,2,1])
+
 
 		#--------------
 		# 特徴マップをembeddingベクトルに変換
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
-        conv2size = np.prod(conv2.get_shape().as_list()[1:])
-        conv2 = tf.reshape(conv2, [-1, conv2size])
+        conv3size = np.prod(conv3.get_shape().as_list()[1:])
+        conv3 = tf.reshape(conv3, [-1, conv3size])
 		
 		# 7 x 7 x 32 -> z-dim
-        fcW1 = weight_variable("fcW1", [conv2size, z_dim])
+        fcW1 = weight_variable("fcW1", [conv3size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        fc1 = fc_sigmoid(conv2, fcW1, fcB1, keepProb)
+        fc1 = fc_sigmoid(conv3, fcW1, fcB1, keepProb)
 		#--------------
         
         return fc1
@@ -577,30 +583,30 @@ for ite in range(30000):
 		
 #--------------
 # pickleに保存
-    path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
-    path = os.path.join(path1,"log{}.pickle".format(postFix))
-    with open(path, "wb") as fp:
-        pickle.dump(batch_x,fp)
-        pickle.dump(batch_x_fake,fp)
-        pickle.dump(encoderR_train_value,fp)
-        pickle.dump(decoderR_train_value,fp)
-        pickle.dump(predictFake_train_value,fp)
-        pickle.dump(predictTrue_train_value,fp)	
-        pickle.dump(test_x,fp)
-        pickle.dump(test_y,fp)
-        pickle.dump(decoderR_test_value,fp)
-        pickle.dump(predictDX_value,fp)
-        pickle.dump(predictDRX_value,fp)
-        pickle.dump(recallDXs,fp)
-        pickle.dump(precisionDXs,fp)
-        pickle.dump(f1DXs,fp)
-        pickle.dump(recallDRXs,fp)
-        pickle.dump(precisionDRXs,fp)
-        pickle.dump(f1DRXs,fp)	
-        pickle.dump(lossR_values,fp)
-        pickle.dump(lossRAll_values,fp)
-        pickle.dump(lossD_values,fp)
-        pickle.dump(params,fp)
+path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+path = os.path.join(path1,"log{}.pickle".format(postFix))
+with open(path, "wb") as fp:
+    pickle.dump(batch_x,fp)
+    pickle.dump(batch_x_fake,fp)
+    pickle.dump(encoderR_train_value,fp)
+    pickle.dump(decoderR_train_value,fp)
+    pickle.dump(predictFake_train_value,fp)
+    pickle.dump(predictTrue_train_value,fp)	
+    pickle.dump(test_x,fp)
+    pickle.dump(test_y,fp)
+    pickle.dump(decoderR_test_value,fp)
+    pickle.dump(predictDX_value,fp)
+    pickle.dump(predictDRX_value,fp)
+    pickle.dump(recallDXs,fp)
+    pickle.dump(precisionDXs,fp)
+    pickle.dump(f1DXs,fp)
+    pickle.dump(recallDRXs,fp)
+    pickle.dump(precisionDRXs,fp)
+    pickle.dump(f1DRXs,fp)	
+    pickle.dump(lossR_values,fp)
+    pickle.dump(lossRAll_values,fp)
+    pickle.dump(lossD_values,fp)
+    pickle.dump(params,fp)
 
 #--------------
 #===========================
