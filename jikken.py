@@ -184,21 +184,26 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 32])
-        convB2 = bias_variable("convB2", [32])
+        convW2 = weight_variable("convW2", [3, 3, 32, 64])
+        convB2 = bias_variable("convB2", [64])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
+        
+      # 7/2 = 4     
+        convW3 = weight_variable("convW3", [3, 3, 64, 128])
+        convB3 = bias_variable("convB3", [128])
+        conv3 = conv2d_relu(conv2, convW3, convB3, stride=[1,2,2,1])
 
 		#--------------
 		# 特徴マップをembeddingベクトルに変換
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
-        conv2size = np.prod(conv2.get_shape().as_list()[1:])
-        conv2 = tf.reshape(conv2, [-1, conv2size])
+        conv3size = np.prod(conv3.get_shape().as_list()[1:])
+        conv3 = tf.reshape(conv3, [-1, conv3size])
 		
 		# 7 x 7 x 32 -> z-dim
-        fcW1 = weight_variable("fcW1", [conv2size, z_dim])
+        fcW1 = weight_variable("fcW1", [conv3size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
+        fc1 = fc_relu(conv3, fcW1, fcB1, keepProb)
 		#--------------
         return fc1
 #===========================
@@ -220,17 +225,18 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
         fc1 = fc_relu(z, fcW1, fcB1, keepProb)
         
         batchSize = tf.shape(fc1)[0]
+        # 4 ×　2 = 7
         fc1 = tf.reshape(fc1, tf.stack([batchSize, 7, 7, 32]))
 		#--------------
 		
 		# padding='SAME'のとき、出力のサイズO = 入力サイズI/ストライドS
 		# 7 x 2 = 14
-        convW1 = weight_variable("convW1", [3, 3, 32, 32])
-        convB1 = bias_variable("convB1", [32])
-        conv1 = conv2d_t_relu(fc1, convW1, convB1, output_shape=[batchSize,14,14,32], stride=[1,2,2,1])
-		
+        convW1 = weight_variable("convW1", [3, 3, 16, 32])
+        convB1 = bias_variable("convB1", [16])
+        conv1 = conv2d_t_relu(fc1, convW1, convB1, output_shape=[batchSize,14,14,16], stride=[1,2,2,1])
+        pdb.set_trace()
 		# 14 x 2 = 28
-        convW2 = weight_variable("convW2", [3, 3, 1, 32])
+        convW2 = weight_variable("convW2", [3, 3, 1, 16])
         convB2 = bias_variable("convB2", [1])
         output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
 		#output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
