@@ -80,7 +80,7 @@ noisePath = 'noiseSigma_{}'
 
 #===========================
 # 評価値の計算用の関数
-def calcEval(predict, gt, threFake=0.4):
+def calcEval(predict, gt, threFake=0.7):
     predict[predict >= threFake] = 1.
     predict[predict < threFake] = 0.
     
@@ -374,7 +374,6 @@ lossRAll_values = []
 lossD_values = []
 
 #--------------
-
 
 batchInd = 0
 for ite in range(30000):
