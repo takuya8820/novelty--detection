@@ -80,7 +80,7 @@ noisePath = 'noiseSigma_{}'
 
 #===========================
 # 評価値の計算用の関数
-def calcEval(predict, gt, threFake=0.7):
+def calcEval(predict, gt, threFake=0.1):
     predict[predict >= threFake] = 1.
     predict[predict < threFake] = 0.
     
