@@ -282,7 +282,7 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
         fcB1 = bias_variable("fcB1", [z_dim])
         fc1 = fc_sigmoid(conv3, fcW1, fcB1, keepProb)
 		#--------------
-        
+    
         return fc1
 #===========================
 
