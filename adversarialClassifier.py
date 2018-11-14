@@ -138,6 +138,11 @@ def conv2d_t_relu(inputs, w, b, output_shape, stride):
     conv = tf.nn.relu(conv)
     return conv
 
+def conv2d_t_tanh(inputs, w, b, output_shape, stride):
+    conv = tf.nn.conv2d_transpose(inputs, w, output_shape=output_shape, strides=stride, padding='SAME') + b
+    conv = tf.nn.tanh(conv)
+    return conv
+
 # 2D deconvolution layer
 def conv2d_t(inputs, w, b, output_shape, stride):
     conv = tf.nn.conv2d_transpose(inputs, w, output_shape=output_shape, strides=stride, padding='SAME') + b
@@ -155,6 +160,12 @@ def fc_sigmoid(inputs, w, b, keepProb=1.0):
     fc = tf.matmul(inputs, w) + b
     fc = tf.nn.dropout(fc, keepProb)
     fc = tf.nn.sigmoid(fc)
+    return fc
+
+def fc_tanh(inputs, w, b, keepProb=1.0):
+    fc = tf.matmul(inputs, w) + b
+    fc = tf.nn.dropout(fc, keepProb)
+    fc = tf.nn.tanh(fc)
     return fc
 #===========================
 
@@ -223,7 +234,8 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
         convW2 = weight_variable("convW2", [3, 3, 1, 32])
         convB2 = bias_variable("convB2", [1])
         #output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-        output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        output = conv2d_t_tanh(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
         
         return output
 #===========================
