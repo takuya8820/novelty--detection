@@ -456,6 +456,8 @@ for ite in range(30000):
             predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],
 													feed_dict={xTest: test_x})
             
+            pdb.set_trace()
+            
         
         
 			#--------------
