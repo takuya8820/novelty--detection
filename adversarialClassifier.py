@@ -233,9 +233,9 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
 		# 14 x 2 = 28
         convW2 = weight_variable("convW2", [3, 3, 1, 32])
         convB2 = bias_variable("convB2", [1])
-        output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
         #output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-        #output = conv2d_t_tanh(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        output = conv2d_t_tanh(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
         
         return output
 #===========================
