@@ -222,8 +222,9 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
 		# 14 x 2 = 28
         convW2 = weight_variable("convW2", [3, 3, 1, 32])
         convB2 = bias_variable("convB2", [1])
-        output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-		#output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        pdb.set_trace()
         
         return output
 #===========================
@@ -455,7 +456,7 @@ for ite in range(30000):
             
             predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],
 													feed_dict={xTest: test_x})
-                        
+    
         
         
 			#--------------
