@@ -199,7 +199,7 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
 		# 7 x 7 x 32 -> z-dim
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
+        fc1 = fc_sigmoid(conv2, fcW1, fcB1, keepProb)
 		#--------------
         return fc1
 #===========================
@@ -234,8 +234,8 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
         convW2 = weight_variable("convW2", [3, 3, 1, 32])
         convB2 = bias_variable("convB2", [1])
         #output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-        #output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-        output = conv2d_t_tanh(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_tanh(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
         
         return output
 #===========================
