@@ -56,5 +56,6 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
 print('D(X)=')
 print(f1DXs)
+print('-----------------------------------------')
 print('DR(X)=')
 print(f1DRXs)
