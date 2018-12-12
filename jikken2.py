@@ -76,7 +76,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 noise = "{}".format(noiseSigma)
 
 
-trainMode = 1
+trainMode = 0
 
 visualPath = 'visualization'
 modelPath = 'models'
@@ -433,9 +433,14 @@ for ite in range(600):
             trainMode = 1
             
     elif trainMode == 1:
+        '''
             _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                     [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+        '''
+        _, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
+                [trainerD, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
+                feed_dict={xTrue: batch_x, xFake: batch_x_fake})
 
 	# 損失の記録
     lossR_values.append(lossR_value)
