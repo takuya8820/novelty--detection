@@ -429,7 +429,7 @@ for ite in range(10000):
         _, lossR_value, lossRAll_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                     [trainerRAll, lossR, lossRAll, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
-        '''
+        
         _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                     [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
@@ -438,21 +438,22 @@ for ite in range(10000):
         _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
 								[trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
 											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
-		 '''
+		 
          
-        '''if lossR_value < threSquaredLoss:'''
-        if lossRAll_value < threSquaredLoss:
+        if lossR_value < threSquaredLoss:
+        
             trainMode = 1
             
     elif trainMode == 1:
-        '''
-            _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
+        
+        _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                     [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
         '''
         _, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                 [trainerD, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+        '''
 
 	# 損失の記録
     lossR_values.append(lossR_value)
@@ -465,7 +466,7 @@ for ite in range(10000):
 
 	#--------------
 	# テスト
-    if ite % 100 == 0:
+    if ite % 50 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
