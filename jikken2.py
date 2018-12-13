@@ -542,7 +542,7 @@ for ite in range(10000):
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])					
                     
-                    path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
                     plt.savefig(path)
 				#--------------
 							
