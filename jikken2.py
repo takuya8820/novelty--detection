@@ -398,7 +398,7 @@ lossD_values = []
 #--------------
 
 batchInd = 0
-for ite in range(600):
+for ite in range(1000):
 	
 	#--------------
 	# 学習データの作成
@@ -460,7 +460,7 @@ for ite in range(600):
 
 	#--------------
 	# テスト
-    if ite % 10 == 0:
+    if ite % 100 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
