@@ -57,7 +57,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 300
+threSquaredLoss = 500
 
 # ファイル名のpostFix
 postFix = "_{}_{}_Adam".format(targetChar, trialNo)
@@ -542,7 +542,7 @@ for ite in range(10000):
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])					
                     
-                    path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
+                    path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 							
@@ -565,7 +565,7 @@ for ite in range(10000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(jikkenvisualPath,"img_test_true_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
+                    path = os.path.join(jikkenvisualPath,"img_test_true_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 		
@@ -588,7 +588,7 @@ for ite in range(10000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(jikkenvisualPath,"img_test_fake_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
+                    path = os.path.join(jikkenvisualPath,"img_test_fake_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 		
