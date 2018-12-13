@@ -440,7 +440,8 @@ for ite in range(10000):
 											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 		 '''
          
-        if lossR_value < threSquaredLoss:
+        '''if lossR_value < threSquaredLoss:'''
+        if lossRAll_value < threSquaredLoss:
             trainMode = 1
             
     elif trainMode == 1:
