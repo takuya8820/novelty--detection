@@ -565,7 +565,7 @@ for ite in range(10000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(jikkenvisualPath,"img_test_true_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(jikkenvisualPath,"img_test_true_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
                     plt.savefig(path)
 				#--------------
 		
@@ -588,7 +588,7 @@ for ite in range(10000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(jikkenvisualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(jikkenvisualPath,"img_test_fake_{}_{}_{}_{}.png".format(postFix,testFakeRatio,noiseSigma,ite))
                     plt.savefig(path)
 				#--------------
 		
