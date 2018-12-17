@@ -58,6 +58,6 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
     
 print(encoderR_train_value)
-
-plt.scatter(encoderR_train_value,encoderR_train_value)
+#zと何を比較して散布図に乗せればよい？
+plt.scatter(encoderR_train_value)
 plt.show()
