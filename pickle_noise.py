@@ -68,5 +68,5 @@ for ind in 299:
 
 xs = x
 ys = y
-plt.plot(x,y,"ro")
+plt.plot(xs,ys,"ro")
     
