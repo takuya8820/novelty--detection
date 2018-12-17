@@ -10,6 +10,7 @@ import sys
 import os
 import pdb
 import matplotlib.pyplot as plt
+import numpy as np
 
 if len(sys.argv) > 1:
 	# 文字の種類
@@ -55,6 +56,17 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
+    
 print(encoderR_train_value)
 
-pdb.set_trace()
+x = [[] for tmp in np.arange(300)]
+y = [[] for tmp in np.arange(300)]
+
+for ind in 299:
+    x[ind].append(encoderR_train_value[ind][0])
+    y[ind].append(encoderR_train_value[ind][1])
+
+xs = x
+ys = y
+plt.plot(x,y,"ro")
+    
