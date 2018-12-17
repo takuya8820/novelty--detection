@@ -60,7 +60,7 @@ threFake = 0.5
 threSquaredLoss = 200
 
 # ファイル名のpostFix
-postFix = "_{}_{}_Adam".format(targetChar, trialNo)
+postFix = "{}_{}".format(targetChar, trialNo)
 
 # バッチデータ数
 batchSize = 300
@@ -398,7 +398,7 @@ lossD_values = []
 #--------------
 
 batchInd = 0
-for ite in range(30000):
+for ite in range(15000):
 	
 	#--------------
 	# 学習データの作成
@@ -435,8 +435,8 @@ for ite in range(30000):
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
         
         '''
-        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
-								[trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
+        _, _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
+								[trainerR, trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
 											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 		 
          
@@ -460,13 +460,13 @@ for ite in range(30000):
     lossRAll_values.append(lossRAll_value)
     lossD_values.append(lossD_value)
     
-    if ite%100 == 0:
+    if ite% 10 == 0:
         print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
 	# テスト
-    if ite % 1000 == 0:
+    if ite % 500 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
@@ -600,7 +600,7 @@ for ite in range(30000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+path1 = os.path.join(jikkenPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
     pickle.dump(batch_x,fp)
