@@ -59,5 +59,5 @@ with open(path, "rb") as fp:
     
 print(encoderR_train_value)
 
-plt.plot(encoderR_train_value)
+plt.scatter(encoderR_train_value)
 plt.show()
