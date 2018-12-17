@@ -57,6 +57,6 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
 print(encoderR_train_value)
 
-plt.plot(encoderR_train_value)
+plt.scatter(encoderR_train_value)
 plt.legend()
 plt.show()
