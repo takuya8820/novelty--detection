@@ -66,7 +66,7 @@ for ind in 299:
     x[ind].append(encoderR_train_value[ind][0])
     y[ind].append(encoderR_train_value[ind][1])
 
-xs = x
-ys = y
+xs=x
+ys=y
 plt.plot(xs,ys,"ro")
     
