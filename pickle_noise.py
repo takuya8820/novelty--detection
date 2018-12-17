@@ -9,6 +9,7 @@ import pickle
 import sys
 import os
 import pdb
+import matplotlib.pyplot as plt
 
 if len(sys.argv) > 1:
 	# 文字の種類
@@ -55,3 +56,7 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
 print(encoderR_train_value)
+
+plt.plot(encoderR_train_value)
+plt.legend()
+plt.show()
