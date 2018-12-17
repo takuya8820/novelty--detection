@@ -58,6 +58,6 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
     
 print(encoderR_train_value)
-for i in 300:
-    plt.scatter(encoderR_train_value[i][0],encoderR_train_value[i][1])
+
+plt.scatter(encoderR_train_value,encoderR_train_value)
 plt.show()
