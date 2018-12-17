@@ -57,4 +57,4 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
 print(encoderR_train_value)
 
-encoderR_train_value.plot()
+pdb.set_trace()
