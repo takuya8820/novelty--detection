@@ -59,10 +59,10 @@ with open(path, "rb") as fp:
     
 print(encoderR_train_value)
 
-x = [[] for tmp in np.arange(300)]
-y = [[] for tmp in np.arange(300)]
+x = [[] for tmp in np.arange(encoderR_train_value.shape[0])]
+y = [[] for tmp in np.arange(encoderR_train_value.shape[0])]
 
-for ind in 299:
+for ind in enumerate(encoderR_train_value):
     x[ind].append(encoderR_train_value[ind][0])
     y[ind].append(encoderR_train_value[ind][1])
 
