@@ -22,15 +22,15 @@ if len(sys.argv) > 1:
             if len(sys.argv) > 4:
                     late = int(sys.argv[4])
             
-
+threSquaredLoss = 200
 logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-postFix = "_{}_{}_Adam".format(targetChar, trialNo)
+postFix = "{}_{}".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
-path1 = os.path.join(jikkenPath2,"noiseSigma{}".format(noiseSigma))
+path1 = os.path.join(jikkenPath2,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
