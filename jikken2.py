@@ -446,7 +446,7 @@ for ite in range(15000):
     lossD_values.append(lossD_value)
     
     if ite% 10 == 0:
-        print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
+        print("#%d %d(%d)(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, noiseSigma, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
