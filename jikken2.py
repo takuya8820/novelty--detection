@@ -57,7 +57,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 500
+threSquaredLoss = 200
 
 # ファイル名のpostFix
 postFix = "{}_{}".format(targetChar, trialNo)
@@ -425,19 +425,21 @@ for ite in range(15000):
 	#--------------
 	# 学習
     if trainMode == 0:
-        '''
-        _, lossR_value, lossRAll_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
-                    [trainerRAll, lossR, lossRAll, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
+        
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
+                    [trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
         
+        '''
         _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
                     [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
         
-        '''
+        
         _, _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
 								[trainerR, trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
 											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+        '''
 		 
          
         if lossR_value < threSquaredLoss:
