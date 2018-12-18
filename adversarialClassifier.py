@@ -195,7 +195,7 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
 		# np.prod で配列要素の積を算出
         conv2size = np.prod(conv2.get_shape().as_list()[1:])
         conv2 = tf.reshape(conv2, [-1, conv2size])
-		
+        
 		# 7 x 7 x 32 -> z-dim
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
