@@ -298,7 +298,7 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
 
 #===========================
 # Rのエンコーダとデコーダの連結
-xTrue = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
+xTrue = tf.placeholder(tf.float32, shape=[300, 28, 28, 1])
 xFake = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
