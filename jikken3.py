@@ -299,7 +299,7 @@ xFake = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
 # 学習用
-encoderR_train = encoderR(xTrue, z_dim_R, noiseSigma, keepProb=1.0)
+encoderR_train = encoderR(xTrue, z_dim_R, noise=1.0, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 
 # テスト用
