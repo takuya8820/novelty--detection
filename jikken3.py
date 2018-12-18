@@ -210,7 +210,9 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
         conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noiseSigma)
         fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
         
+        
         if noise:
+            pdb.set_trace()
             fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
             
 		#--------------
