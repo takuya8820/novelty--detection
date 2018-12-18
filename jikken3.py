@@ -308,6 +308,7 @@ decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 # テスト用
 encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
+
 #===========================
 
 #===========================
@@ -405,6 +406,13 @@ lossRAll_values = []
 lossD_values = []
 
 #--------------
+# 学習用
+encoderR_train = encoderR(xTrue, z_dim_R, noise=True, keepProb=1.0)
+decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
+
+# テスト用
+encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
+decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 batchInd = 0
 for ite in range(15000):
