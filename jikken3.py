@@ -318,8 +318,8 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 #学習用
 # Dの学習用
-encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, keepProb=1.0)
-decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, keepProb=1.0)
+encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, reuse=True, keepProb=1.0)
+decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
 
 predictFake_train = DNet(decoderR_fake_train, keepProb=1.0)
 predictTrue_train = DNet(xTrue,reuse=True, keepProb=1.0)
