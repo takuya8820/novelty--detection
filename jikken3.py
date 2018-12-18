@@ -207,18 +207,12 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
 		# 7 x 7 x 32 -> z-dim
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        pdb.set_trace()
-        
-        
-        
         
         if noise:
-            pdb.set_trace()
-            fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
-        else:
             conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noiseSigma)
             fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
-            
+        else:
+            fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
 		#--------------
         return fc1
 #===========================
@@ -257,7 +251,8 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
     
         return output
 #===========================
-
+        
+    
 #===========================
 # D Network
 # 
@@ -309,11 +304,11 @@ xFake = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
 # 学習用
-encoderR_train = encoderR(xTrue, z_dim_R, keepProb=1.0)
+encoderR_train = encoderR(xFake, z_dim_R, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 
 # テスト用
-encoderR_test = encoderR(xTest, z_dim_R, noise=True, reuse=True, keepProb=1.0)
+encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 #===========================
@@ -322,7 +317,11 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 # 損失関数の設定
 
 #学習用
-predictFake_train = DNet(decoderR_train, keepProb=1.0)
+# Dの学習用
+encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, keepProb=1.0)
+decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, keepProb=1.0)
+
+predictFake_train = DNet(decoderR_fake_train, keepProb=1.0)
 predictTrue_train = DNet(xTrue,reuse=True, keepProb=1.0)
 
 
@@ -436,18 +435,17 @@ for ite in range(15000):
 	# ノイズを追加する(ガウシアンノイズ)
 	# 正規分布に従う乱数を出力
     #np.random.normal(平均,標準偏差,出力件数)
-    #batch_x_fake = batch_x + np.random.normal(0,noiseSigma,batch_x.shape)
+    batch_x_fake = batch_x + np.random.normal(0,noiseSigma,batch_x.shape)
 	#--------------
 
 	#--------------
 	# 学習
     if trainMode == 0:
         
-        _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
-								[trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
-											feed_dict={xTrue: batch_x})
+        _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, encoderR_fake_train_value, decoderR_fake_train_value = sess.run(
+                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, encoderR_fake_train, decoderR_fake_train],
+                feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     
-
 	# 損失の記録
     lossR_values.append(lossR_value)
     lossRAll_values.append(lossRAll_value)
@@ -518,8 +516,8 @@ for ite in range(15000):
                 
                 for figInd in np.arange(figInds.shape[1]):
                     fig0 = figInds[0][figInd].imshow(batch_x[figInd,:,:,0])
-                    #fig1 = figInds[1][figInd].imshow(batch_x_fake[figInd,:,:,0])
-                    fig1 = figInds[2][figInd].imshow(decoderR_train_value[figInd,:,:,0])
+                    fig1 = figInds[1][figInd].imshow(batch_x_fake[figInd,:,:,0])
+                    fig2 = figInds[2][figInd].imshow(decoderR_train_value[figInd,:,:,0])
 
 					# ticks, axisを隠す
                     fig0.axes.get_xaxis().set_visible(False)
@@ -530,12 +528,11 @@ for ite in range(15000):
                     fig1.axes.get_yaxis().set_visible(False)
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
-                    '''
                     fig2.axes.get_xaxis().set_visible(False)
                     fig2.axes.get_yaxis().set_visible(False)
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])
-                    '''            
+                              
                     path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
