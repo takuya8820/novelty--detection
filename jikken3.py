@@ -175,8 +175,7 @@ def fc_sigmoid(inputs, w, b, keepProb=1.0):
 # 画像をz_dim次元のベクトルにエンコード
 # reuse=Trueで再利用できる（tf.variable_scope() は，変数の管理に用いるスコープ定義）
 def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
-    with tf.variable_scope('encoderR') as scope:
-        
+    with tf.variable_scope('encoderR') as scope:   
         if reuse:
             scope.reuse_variables()
             
@@ -208,8 +207,9 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
 		# 7 x 7 x 32 -> z-dim
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        conv2_noise = conv2 + np.random.normal(0,noiseSigma,conv2.shape)
+        conv2_noise = conv2 + tf.random.normal(conv2.shape,0,noiseSigma)
         fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
+        
         if noise:
             fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
             
@@ -440,7 +440,6 @@ for ite in range(15000):
         _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
 								[trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
 											feed_dict={xTrue: batch_x})
-        
     
 
 	# 損失の記録
