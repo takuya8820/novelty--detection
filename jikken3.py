@@ -208,13 +208,16 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
         pdb.set_trace()
-        conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noiseSigma)
-        fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
+        
+        
         
         
         if noise:
             pdb.set_trace()
             fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
+        else:
+            conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noiseSigma)
+            fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
             
 		#--------------
         return fc1
