@@ -200,6 +200,7 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
         fc1 = fc_sigmoid(conv2, fcW1, fcB1, keepProb)
+        pdb.set_trace()
 		#--------------
         return fc1
 #===========================
