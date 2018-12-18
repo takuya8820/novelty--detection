@@ -174,12 +174,12 @@ def fc_sigmoid(inputs, w, b, keepProb=1.0):
 # エンコーダ
 # 画像をz_dim次元のベクトルにエンコード
 # reuse=Trueで再利用できる（tf.variable_scope() は，変数の管理に用いるスコープ定義）
-def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
+def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
     with tf.variable_scope('encoderR') as scope:
-        '''
+        
         if reuse:
             scope.reuse_variables()
-            '''
+            
 	
 		# padding='SAME'のとき、出力のサイズO = 入力サイズI/ストライドS
 		# 28/2 = 14
@@ -210,12 +210,9 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
         fcB1 = bias_variable("fcB1", [z_dim])
         conv2_noise = conv2 + np.random.normal(0,noiseSigma,conv2.shape)
         fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
-        if reuse:
-            scope.reuse_variables()
+        if noise:
             fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
-
-        
-               
+            
 		#--------------
         return fc1
 #===========================
@@ -310,7 +307,7 @@ encoderR_train = encoderR(xTrue, z_dim_R, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 
 # テスト用
-encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
+encoderR_test = encoderR(xTest, z_dim_R, noise=True, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 #===========================
