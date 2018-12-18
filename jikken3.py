@@ -36,13 +36,15 @@ if len(sys.argv) > 1:
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
         # noiseSigma
-        if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
+        #if len(sys.argv) > 3:
+            #noiseSigma = int(sys.argv[3])
     else:
         trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
+    
+noiseSigma = 0.1
 
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
@@ -301,7 +303,7 @@ encoderR_train = encoderR(xTrue, z_dim_R, noiseSigma, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 
 # テスト用
-encoderR_test = encoderR(xTest, z_dim_R, noise=1.0, reuse=True, keepProb=1.0)
+encoderR_test = encoderR(xTest, z_dim_R, noise=0, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 #===========================
 
