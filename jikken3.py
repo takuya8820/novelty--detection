@@ -174,7 +174,7 @@ def fc_sigmoid(inputs, w, b, keepProb=1.0):
 # エンコーダ
 # 画像をz_dim次元のベクトルにエンコード
 # reuse=Trueで再利用できる（tf.variable_scope() は，変数の管理に用いるスコープ定義）
-def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
+def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
     with tf.variable_scope('encoderR') as scope:
         if reuse:
             scope.reuse_variables()
@@ -206,13 +206,8 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
 		# 7 x 7 x 32 -> z-dim
         fcW1 = weight_variable("fcW1", [conv2size, z_dim])
         fcB1 = bias_variable("fcB1", [z_dim])
-        
-        if noise:
-            fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
-        else:
-            conv2_fake = conv2 + np.random.normal(0,noise,conv2.shape)
-            fc1 = fc_relu(conv2_fake, fcW1, fcB1, keepProb)
-        
+        fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
+       
 		#--------------
         return fc1
 #===========================
@@ -304,10 +299,11 @@ xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
 # 学習用
 encoderR_train = encoderR(xTrue, z_dim_R, keepProb=1.0)
-decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
+encoderR_train_fake = encoderR_train + np.random.normal(0,noiseSigma,encoderR_train.shape)
+decoderR_train = decoderR(encoderR_train_fake, z_dim_R, keepProb=1.0)
 
 # テスト用
-encoderR_test = encoderR(xTest, z_dim_R, noise=True, reuse=True, keepProb=1.0)
+encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 #===========================
 
@@ -440,17 +436,7 @@ for ite in range(15000):
 								[trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
 											feed_dict={xTrue: batch_x})
         
-        '''
-        if lossR_value < threSquaredLoss:
-        
-            trainMode = 1
-            
-    elif trainMode == 1:
-        
-        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
-                    [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
-                    feed_dict={xTrue: batch_x})
-        '''
+    
 
 	# 損失の記録
     lossR_values.append(lossR_value)
