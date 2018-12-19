@@ -518,6 +518,7 @@ for ite in range(15000):
                     fig0 = figInds[0][figInd].imshow(batch_x[figInd,:,:,0])
                     fig1 = figInds[1][figInd].imshow(batch_x_fake[figInd,:,:,0])
                     fig2 = figInds[2][figInd].imshow(decoderR_train_value[figInd,:,:,0])
+                    fig3 = figInds[3][figInd].imshow(decoderR_fake_train_value[figInd,:,:,0])
 
 					# ticks, axisを隠す
                     fig0.axes.get_xaxis().set_visible(False)
@@ -532,6 +533,10 @@ for ite in range(15000):
                     fig2.axes.get_yaxis().set_visible(False)
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])
+                    fig3.axes.get_xaxis().set_visible(False)
+                    fig3.axes.get_yaxis().set_visible(False)
+                    fig3.axes.get_xaxis().set_ticks([])
+                    fig3.axes.get_yaxis().set_ticks([])
                               
                     path = os.path.join(jikkenvisualPath,"img_train_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
@@ -598,6 +603,8 @@ with open(path, "wb") as fp:
     #pickle.dump(batch_x_fake,fp)
     pickle.dump(encoderR_train_value,fp)
     pickle.dump(decoderR_train_value,fp)
+    pickle.dump(encoderR_fake_train_value,fp)
+    pickle.dump(decoderR_fake_train_value,fp)
     pickle.dump(predictFake_train_value,fp)
     pickle.dump(predictTrue_train_value,fp)	
     pickle.dump(test_x,fp)
