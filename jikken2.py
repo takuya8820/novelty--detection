@@ -57,7 +57,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 200
+threSquaredLoss = 100
 
 # ファイル名のpostFix
 postFix = "{}_{}".format(targetChar, trialNo)
