@@ -324,7 +324,7 @@ encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape
 decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
 
 predict_train = DNet(decoderR_train, keepProb=1.0)
-predictFake_train = DNet(decoderR_fake_train, keepProb=1.0)
+predictFake_train = DNet(decoderR_fake_train, reuse=True, keepProb=1.0)
 predictTrue_train = DNet(xTrue, reuse=True, keepProb=1.0)
 
 
