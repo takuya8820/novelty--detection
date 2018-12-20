@@ -324,7 +324,7 @@ decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepPro
 
 predict_train = DNet(decoderR_train, keepProb=1.0)
 predictFake_train = DNet(decoderR_fake_train, reuse=True, keepProb=1.0)
-predictTrue_train = DNet(xTrue,creuse=True, keepProb=1.0)
+predictTrue_train = DNet(xTrue, reuse=True, keepProb=1.0)
 
 
 lossR = tf.reduce_mean(tf.square(decoderR_train - xTrue))
