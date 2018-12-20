@@ -443,8 +443,8 @@ for ite in range(15000):
 	# 学習
     if trainMode == 0:
         
-        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values = sess.run(
-                [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
+                [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
         if lossR_value < threSquaredLoss:
             trainMode = 1
