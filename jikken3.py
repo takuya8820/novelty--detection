@@ -323,12 +323,13 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noisez)
 decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
 
+predict_train = DNet(decoderR_train, keepProb=1.0)
 predictFake_train = DNet(decoderR_fake_train, keepProb=1.0)
 predictTrue_train = DNet(xTrue, reuse=True, keepProb=1.0)
 
 
 lossR = tf.reduce_mean(tf.square(decoderR_train - xTrue))
-lossRAll = tf.reduce_mean(tf.log(1 - predictFake_train + lambdaSmall)) + lambdaR * lossR
+lossRAll = tf.reduce_mean(tf.log(1 - predict_train + lambdaSmall)) + lambdaR * lossR
 lossD = tf.reduce_mean(tf.log(predictTrue_train  + lambdaSmall)) + tf.reduce_mean(tf.log(1 - predictFake_train +  lambdaSmall))
 
 # R & Dの変数
