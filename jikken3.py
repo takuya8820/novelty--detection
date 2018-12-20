@@ -318,6 +318,7 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 #学習用
 # Dの学習用
+
 #encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, reuse=True, keepProb=1.0)
 encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noisez)
 decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
@@ -441,6 +442,14 @@ for ite in range(15000):
 
 	#--------------
 	# 学習
+    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
+                [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+                feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+    
+    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+                [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+                feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+    '''
     if trainMode == 0:
         
         _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
@@ -453,6 +462,7 @@ for ite in range(15000):
             _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
                 [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+                '''
         
         
         
