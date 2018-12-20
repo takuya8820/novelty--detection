@@ -59,7 +59,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 200
+threSquaredLoss = 2000
 
 # ファイル名のpostFix
 postFix = "{}_{}".format(targetChar, trialNo)
@@ -322,13 +322,12 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noiseSigma)
 decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
 
-predict_train = DNet(decoderR_train, keepProb=1.0)
 predictFake_train = DNet(decoderR_fake_train, reuse=True, keepProb=1.0)
 predictTrue_train = DNet(xTrue, reuse=True, keepProb=1.0)
 
 
 lossR = tf.reduce_mean(tf.square(decoderR_train - xTrue))
-lossRAll = tf.reduce_mean(tf.log(1 - predict_train + lambdaSmall)) + lambdaR * lossR
+lossRAll = tf.reduce_mean(tf.log(1 - predictFake_train + lambdaSmall)) + lambdaR * lossR
 lossD = tf.reduce_mean(tf.log(predictTrue_train  + lambdaSmall)) + tf.reduce_mean(tf.log(1 - predictFake_train +  lambdaSmall))
 
 # R & Dの変数
@@ -444,9 +443,19 @@ for ite in range(15000):
 	# 学習
     if trainMode == 0:
         
-        _, _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
-                [trainerR, trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+                [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+        if lossR_value < threSquaredLoss:
+            trainMode = 1
+            
+    elif trainMode == 1:
+            _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+                feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+        
+        
+        
     
 	# 損失の記録
     lossR_values.append(lossR_value)
