@@ -512,7 +512,7 @@ for ite in range(15000):
 				#--------------
 				# 画像を保存
                 plt.close()
-                fig, figInds = plt.subplots(nrows=3, ncols=10, sharex=True)
+                fig, figInds = plt.subplots(nrows=4, ncols=10, sharex=True)
                 
                 for figInd in np.arange(figInds.shape[1]):
                     fig0 = figInds[0][figInd].imshow(batch_x[figInd,:,:,0])
