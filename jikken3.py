@@ -44,7 +44,7 @@ else:
 	# 文字の種類
     targetChar = 0
     
-#noiseSigma = 0.1
+noisez = 0.1
 
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
@@ -319,7 +319,7 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 #学習用
 # Dの学習用
 #encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, reuse=True, keepProb=1.0)
-encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noiseSigma)
+encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noisez)
 decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
 
 predictFake_train = DNet(decoderR_fake_train, keepProb=1.0)
