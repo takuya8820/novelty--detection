@@ -36,15 +36,15 @@ if len(sys.argv) > 1:
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
         # noiseSigma
-        #if len(sys.argv) > 3:
-            #noiseSigma = int(sys.argv[3])
+        if len(sys.argv) > 3:
+            noiseSigma = int(sys.argv[3])
     else:
         trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
     
-noiseSigma = 0.1
+#noiseSigma = 0.1
 
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
@@ -600,7 +600,7 @@ path1 = os.path.join(jikkenPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredL
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
     pickle.dump(batch_x,fp)
-    #pickle.dump(batch_x_fake,fp)
+    pickle.dump(batch_x_fake,fp)
     pickle.dump(encoderR_train_value,fp)
     pickle.dump(decoderR_train_value,fp)
     pickle.dump(encoderR_fake_train_value,fp)
