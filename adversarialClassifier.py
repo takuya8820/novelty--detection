@@ -389,7 +389,7 @@ lossD_values = []
 #--------------
 
 batchInd = 0
-for ite in range(30000):
+for ite in range(15000):
 	
 	#--------------
 	# 学習データの作成
@@ -425,7 +425,7 @@ for ite in range(30000):
             
     elif trainMode == 1:
             _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
-                    [trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
+                    [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
                     feed_dict={xTrue: batch_x, xFake: batch_x_fake})
 
 	# 損失の記録

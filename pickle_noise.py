@@ -32,7 +32,7 @@ jikkenPath2 = 'jikken2'
 postFix = "{}_{}".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
-path1 = os.path.join(jikkenPath2,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
+path1 = os.path.join(jikkenPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
