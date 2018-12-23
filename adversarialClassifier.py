@@ -54,7 +54,7 @@ threFake = 0.5
 threSquaredLoss = 200
 
 # ファイル名のpostFix
-postFix = "_{}_{}_Adam".format(targetChar, trialNo)
+postFix = "{}_{}".format(targetChar, trialNo)
 
 # バッチデータ数
 batchSize = 300
@@ -72,9 +72,9 @@ noise = "_{}".format(noiseSigma)
 
 trainMode = 1
 
-visualPath = 'visualization'
+visualPath = 'visualization_jikken'
 modelPath = 'models'
-logPath = 'logs'
+logPath = 'jikken'
 noisePath = 'noiseSigma_{}'
 #===========================
 
@@ -389,7 +389,6 @@ lossD_values = []
 #--------------
 
 batchInd = 0
-
 for ite in range(15000):
 	
 	#--------------
@@ -516,7 +515,7 @@ for ite in range(15000):
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])					
                     
-                    path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(visualPath,"img_train_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 							
@@ -539,7 +538,7 @@ for ite in range(15000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(visualPath,"img_test_true_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 		
@@ -562,19 +561,19 @@ for ite in range(15000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+                    path = os.path.join(visualPath,"img_test_fake_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite))
                     plt.savefig(path)
 				#--------------
 		
 		#--------------
 		# チェックポイントの保存
         saver = tf.train.Saver()
-        saver.save(sess,"./models/model{}.ckpt".format(postFix))
+        saver.save(sess,"./models_jikken/model{}.ckpt".format(postFix))
 		#--------------
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
+path1 = os.path.join(logPath,"noiseSigma{}".format(noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
         pickle.dump(batch_x,fp)
