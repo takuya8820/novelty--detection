@@ -442,15 +442,12 @@ for ite in range(15000):
 	#--------------
 
 	#--------------
-    i=0
 	# 学習
-    if i==0:
-        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
+    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
                 [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
-        i=i+1
-    else:
-        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+    
+    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
                 [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     '''
@@ -476,13 +473,13 @@ for ite in range(15000):
     lossRAll_values.append(lossRAll_value)
     lossD_values.append(lossD_value)
     
-    if ite% 50 == 0:
+    if ite% 100 == 0:
         print("#%d %d(%d)(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, noiseSigma, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
 	# テスト
-    if ite % 500 == 0:
+    if ite % 1000 == 0:
         
         predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
         predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
