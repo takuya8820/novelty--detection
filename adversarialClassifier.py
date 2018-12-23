@@ -389,6 +389,7 @@ lossD_values = []
 #--------------
 
 batchInd = 0
+
 for ite in range(15000):
 	
 	#--------------
