@@ -442,12 +442,15 @@ for ite in range(15000):
 	#--------------
 
 	#--------------
+    i=0
 	# 学習
-    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
+    if i==0:
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
                 [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
-    
-    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+        i=i+1
+    else:
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
                 [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     '''
