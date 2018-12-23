@@ -41,8 +41,6 @@ with open(path, "rb") as fp:
     batch_x_fake = pickle.load(fp)
     encoderR_train_value = pickle.load(fp)
     decoderR_train_value = pickle.load(fp)
-    encoderR_fake_train_value = pickle.load(fp)
-    decoderR_fake_train_value = pickle.load(fp)
     predictFake_train_value = pickle.load(fp)
     predictTrue_train_value = pickle.load(fp)
     test_x = pickle.load(fp)
