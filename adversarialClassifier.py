@@ -51,7 +51,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 2000
+threSquaredLoss = 200
 
 # ファイル名のpostFix
 postFix = "{}_{}".format(targetChar, trialNo)
@@ -433,7 +433,7 @@ for ite in range(15000):
     lossD_values.append(lossD_value)
     
     if ite%100 == 0:
-        print("#%d %d(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, lossR_value, lossRAll_value, lossD_value))
+        print("#%d %d(%d)(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, noiseSigma, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
