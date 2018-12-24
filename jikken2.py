@@ -50,7 +50,7 @@ threFake = 0.5
 threSquaredLoss = 300
 
 # ファイル名のpostFix
-postFix = "_{}_{}_Adam".format(targetChar, trialNo)
+postFix = "{}_{}".format(targetChar, trialNo)
 
 # バッチデータ数
 batchSize = 300
@@ -542,7 +542,8 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-path = os.path.join(logPath,"log{}.pickle".format(postFix))
+path1 = os.path.join(logPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
+path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
 	pickle.dump(batch_x,fp)
 	pickle.dump(batch_x_fake,fp)
