@@ -69,10 +69,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 #noiseSigma = 0.155
 noiseSigma = 51
 
-noise = "_{}".format(noiseSigma)
-
-
-trainMode = 1
+trainMode = 0
 
 visualPath = 'visualization_jikken2'
 modelPath = 'models'
@@ -417,16 +414,15 @@ for ite in range(15000):
 	# 学習
     if trainMode == 0:
         _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
-								[trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
+								[trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
 											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 					
         if lossR_value < threSquaredLoss:
             trainMode = 1
             
     elif trainMode == 1:
-            _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run(
-                    [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],
-                    feed_dict={xTrue: batch_x, xFake: batch_x_fake})
+        _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+
 
 	# 損失の記録
     lossR_values.append(lossR_value)
