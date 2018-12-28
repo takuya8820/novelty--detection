@@ -68,7 +68,6 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 # ノイズの大きさ
 #noiseSigma = 0.155
 noiseSigma = 51
-
 trainMode = 0
 
 visualPath = 'visualization_jikken2'
