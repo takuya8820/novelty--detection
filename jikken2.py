@@ -569,8 +569,8 @@ for ite in range(15000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noiseSigma{}".format(noiseSigma))
-path = os.path.join(path1,"log{}_{}.pickle".format(postFix,threSquaredLoss))
+path1 = os.path.join(logPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
+path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
         pickle.dump(batch_x,fp)
         pickle.dump(batch_x_fake,fp)
