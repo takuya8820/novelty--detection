@@ -8,6 +8,8 @@ import os
 import pickle
 import pdb
 #import input_data
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pylab as plt
 #plt.switch_backend('agg')
 import sys
