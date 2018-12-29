@@ -56,9 +56,7 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
     
-print("------D(X)------")
 print(precisionDXs[late][14])
-print("------D(R(X))------")
 print(precisionDRXs[late][14])
 
 '''    
