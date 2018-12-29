@@ -35,9 +35,9 @@ if len(sys.argv) > 1:
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
-        # noiseSigma
-        #if len(sys.argv) > 3:
-            #noiseSigma = int(sys.argv[3])
+        # noiseZ
+        if len(sys.argv) > 3:
+            noisez = int(sys.argv[3])
     else:
         trialNo = 1	
 else:
@@ -45,7 +45,7 @@ else:
     targetChar = 0
 
 noiseSigma = 51
-noisez = 0.1
+#noisez = 0.1
 
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
