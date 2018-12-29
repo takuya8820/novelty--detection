@@ -21,12 +21,12 @@ if len(sys.argv) > 1:
         trialNo = int(sys.argv[2])
         # noiseSigma
         if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
+            threSquaredLoss = int(sys.argv[3])
             #late
             if len(sys.argv) > 4:
                     late = int(sys.argv[4])
             
-threSquaredLoss = 200
+#threSquaredLoss = 200
 logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
