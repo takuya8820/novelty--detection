@@ -36,14 +36,15 @@ if len(sys.argv) > 1:
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
         # noiseSigma
-        if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
+        #if len(sys.argv) > 3:
+            #noiseSigma = int(sys.argv[3])
     else:
         trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
-    
+
+noiseSigma = 51
 noisez = 0.1
 
 # Rの二乗誤差の重み係数
@@ -59,7 +60,7 @@ testFakeRatios = [0.1, 0.2, 0.3, 0.4, 0.5]
 threFake = 0.5
 
 # Rの二乗誤差の閾値
-threSquaredLoss = 4000
+#threSquaredLoss = 4000
 
 # ファイル名のpostFix
 postFix = "{}_{}".format(targetChar, trialNo)
@@ -246,8 +247,8 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
 		# 14 x 2 = 28x
         convW2 = weight_variable("convW2", [3, 3, 1, 32])
         convB2 = bias_variable("convB2", [1])
-        #output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
-        output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
     
         return output
 #===========================
@@ -329,7 +330,7 @@ predictTrue_train = DNet(xTrue, reuse=True, keepProb=1.0)
 
 
 lossR = tf.reduce_mean(tf.square(decoderR_train - xTrue))
-lossRAll = tf.reduce_mean(tf.log(1 - predict_train + lambdaSmall)) + lambdaR * lossR
+lossRAll = tf.reduce_mean(tf.log(1 - predictFake_train + lambdaSmall)) + lambdaR * lossR
 lossD = tf.reduce_mean(tf.log(predictTrue_train  + lambdaSmall)) + tf.reduce_mean(tf.log(1 - predictFake_train +  lambdaSmall))
 
 # R & Dの変数
@@ -444,14 +445,15 @@ for ite in range(15000):
 
 	#--------------
 	# 学習
-    _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
-                [trainerRAll, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+    _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
+                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     
+    '''
     _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
                 [trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
-    '''
+    
     if trainMode == 0:
         
         _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_values, decoderR_fake_train_value = sess.run(
