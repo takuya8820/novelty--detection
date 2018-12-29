@@ -30,6 +30,7 @@ if len(sys.argv) > 1:
 logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
+noiseSigma = 51
 
 postFix = "{}_{}".format(targetChar, trialNo)
 
