@@ -29,11 +29,11 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-postFix = "{}_{}".format(targetChar, trialNo)
+postFix = "_{}_{}_Adam".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
-path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
-path = os.path.join(path1,"log{}.pickle".format(postFix))
+#path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+path = os.path.join(jikkenPath,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
     batch_x_fake = pickle.load(fp)
