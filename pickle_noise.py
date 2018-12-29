@@ -57,6 +57,7 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
     
+pdb.set_trace()
 print("------D(X)------")
 print(precisionDXs)
 print("------D(R(X))------")
