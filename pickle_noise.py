@@ -20,9 +20,8 @@ if len(sys.argv) > 1:
         trialNo = int(sys.argv[2])
         # noiseSigma
         if len(sys.argv) > 3:
-            noiseSigma = int(sys.argv[3])
-            if len(sys.argv) > 4:
-                    late = int(sys.argv[4])
+            late = int(sys.argv[3])
+            
             
 threSquaredLoss = 200
 logPath = 'logs'
@@ -57,11 +56,10 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
     
-pdb.set_trace()
 print("------D(X)------")
-print(precisionDXs)
+print(precisionDXs[late][14])
 print("------D(R(X))------")
-print(precisionDRXs)
+print(precisionDRXs[late][14])
 
 '''    
 print(encoderR_train_value)
