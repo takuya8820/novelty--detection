@@ -252,7 +252,35 @@ def decoderR(z,z_dim,reuse=False, keepProb = 1.0):
     
         return output
 #===========================
+def decoderR2(z,z_dim,reuse=False, keepProb = 1.0):
+    with tf.variable_scope('decoderR') as scope:
+        if reuse:
+            scope.reuse_variables()
+
+		#--------------
+		# embeddingベクトルを特徴マップに変換
+		# 2次元画像を１次元に変更して全結合層へ渡す
+        fcW1 = weight_variable("fcW1", [z_dim, 7*7*32])
+        fcB1 = bias_variable("fcB1", [7*7*32])
+        fc1 = fc_relu(z, fcW1, fcB1, keepProb)
         
+        batchSize = tf.shape(fc1)[0]
+        fc1 = tf.reshape(fc1, tf.stack([batchSize, 7, 7, 32]))
+		#--------------
+		
+		# padding='SAME'のとき、出力のサイズO = 入力サイズI/ストライドS
+		# 7 x 2 = 14
+        convW1 = weight_variable("convW1", [3, 3, 32, 32])
+        convB1 = bias_variable("convB1", [32])
+        conv1 = conv2d_t_relu(fc1, convW1, convB1, output_shape=[batchSize,14,14,32], stride=[1,2,2,1])
+        
+		# 14 x 2 = 28x
+        convW2 = weight_variable("convW2", [3, 3, 1, 32])
+        convB2 = bias_variable("convB2", [1])
+        output = conv2d_t_relu(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+        #output = conv2d_t_sigmoid(conv1, convW2, convB2, output_shape=[batchSize,28,28,1], stride=[1,2,2,1])
+    
+        return output
     
 #===========================
 # D Network
@@ -322,7 +350,7 @@ decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
 
 #encoderR_fake_train = encoderR(xFake, z_dim_R, noise=True, reuse=True, keepProb=1.0)
 encoderR_fake_train = encoderR_train + tf.random_normal(encoderR_train.get_shape(),0,noisez)
-decoderR_fake_train = decoderR(encoderR_fake_train, z_dim_R, reuse=True, keepProb=1.0)
+decoderR_fake_train = decoderR2(encoderR_fake_train, z_dim_R, keepProb=1.0)
 
 predict_train = DNet(decoderR_train, keepProb=1.0)
 predictFake_train = DNet(decoderR_fake_train, reuse=True, keepProb=1.0)
