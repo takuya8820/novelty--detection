@@ -65,7 +65,7 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
     
-print(precisionDXs[late][test])
+#print(precisionDXs[late][test])
 print(precisionDRXs[late][test])
 '''    
 print(encoderR_train_value)
