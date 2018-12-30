@@ -24,6 +24,10 @@ if len(sys.argv) > 1:
             #late
             if len(sys.argv) > 4:
                     late = int(sys.argv[4])
+                    if len(sys.argv) >5:
+                        test = int(sys.argv[5])
+                    else:
+                        test = 15
             
 noiseSigma = 51
 threSquaredLoss = 200
@@ -61,8 +65,8 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
     
-print(precisionDXs[late][14])
-print(precisionDRXs[late][14])
+print(precisionDXs[late][test])
+print(precisionDRXs[late][test])
 '''    
 print(encoderR_train_value)
 #zと何を比較して散布図に乗せればよい？
