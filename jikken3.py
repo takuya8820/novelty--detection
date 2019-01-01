@@ -37,7 +37,7 @@ if len(sys.argv) > 1:
         trialNo = int(sys.argv[2])
         # noiseZ
         if len(sys.argv) > 3:
-            noisez = int(sys.argv[3])
+            noisez = float(sys.argv[3])
     else:
         trialNo = 1	
 else:
