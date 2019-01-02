@@ -21,14 +21,12 @@ np.random.seed(0)
 z_dim_R = 100
 
 if len(sys.argv) > 1:
-	# 文字の種類
-	targetChar = int(sys.argv[1])
-
-	# trail no.
-	if len(sys.argv) > 2:
-		trialNo = int(sys.argv[2])
-	else:
-		trialNo = 1	
+    targetChar = int(sys.argv[1])
+    if len(sys.argv) > 2:
+        trialNo = int(sys.argv[2])
+        if len(sys.argv) > 3:
+            noiseSigma = int(sys.argv[3])
+	
 
 else:
 	# 文字の種類
@@ -61,7 +59,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-noiseSigma = 51
+#noiseSigma = 51
 
 trainMode = 1
 
