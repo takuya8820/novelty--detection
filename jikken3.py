@@ -38,13 +38,16 @@ if len(sys.argv) > 1:
         # noiseZ
         if len(sys.argv) > 3:
             noisez = float(sys.argv[3])
+            #noiseSigma
+            if len(sys.argv) > 4:
+                noiseSigma = int(sys.argv[4])
     else:
         trialNo = 1	
 else:
 	# 文字の種類
     targetChar = 0
 
-noiseSigma = 128
+#noiseSigma = 128
 #noisez = 0.1
 
 # Rの二乗誤差の重み係数
@@ -620,7 +623,7 @@ for ite in range(20000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(jikkenPath,"noiseZ_{}".format(noisez))
+path1 = os.path.join(jikkenPath,"noiseZ_{}_{}".format(noisez,noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
     pickle.dump(batch_x,fp)

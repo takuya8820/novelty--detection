@@ -18,18 +18,21 @@ if len(sys.argv) > 1:
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
-        # noiseSigma
+        # noiseZ
         if len(sys.argv) > 3:
-            noisez = int(sys.argv[3])
-            #late
+            noisez = float(sys.argv[3])
+            #noiseSigma
             if len(sys.argv) > 4:
-                    late = int(sys.argv[4])
-                    if len(sys.argv) >5:
-                        test = int(sys.argv[5])
-                    else:
-                        test = 15
+                noiseSigma = int(sys.argv[4])
+                #late
+                if len(sys.argv) > 5:
+                    late = int(sys.argv[5])
+                    #test
+                    if len(sys.argv) >6:
+                        test = int(sys.argv[6])
+                    
             
-noiseSigma = 51
+#noiseSigma = 51
 threSquaredLoss = 200
 logPath = 'logs'
 jikkenPath = 'jikken'
@@ -38,7 +41,7 @@ jikkenPath3 = 'jikken3'
 postFix = "{}_{}".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
-path1 = os.path.join(jikkenPath3,"noiseZ_{}".format(noisez))
+path1 = os.path.join(jikkenPath3,"noiseZ_{}_{}".format(noisez,noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
@@ -66,7 +69,7 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
     
 print(precisionDXs[late][test])
-#print(precisionDRXs[late][test])
+print(precisionDRXs[late][test])
 '''    
 print(encoderR_train_value)
 #zと何を比較して散布図に乗せればよい？
