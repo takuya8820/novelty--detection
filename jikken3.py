@@ -44,7 +44,7 @@ else:
 	# 文字の種類
     targetChar = 0
 
-noiseSigma = 13
+noiseSigma = 128
 #noisez = 0.1
 
 # Rの二乗誤差の重み係数
