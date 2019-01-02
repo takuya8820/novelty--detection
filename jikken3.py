@@ -26,7 +26,7 @@ np.random.seed(0)
 
 #===========================
 # パラメータの設定
-z_dim_R = 2
+z_dim_R = 100
 
 #targetCharは対象とする数字
 if len(sys.argv) > 1:
@@ -44,7 +44,7 @@ else:
 	# 文字の種類
     targetChar = 0
 
-noiseSigma = 51
+noiseSigma = 13
 #noisez = 0.1
 
 # Rの二乗誤差の重み係数
