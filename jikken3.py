@@ -565,7 +565,7 @@ for ite in range(20000):
                     fig3.axes.get_xaxis().set_ticks([])
                     fig3.axes.get_yaxis().set_ticks([])
                     
-                    pathvisual = os.path.join(jikkenvisualPath,"noise_{}_{}".format(noisez,noiseSigma))          
+                    pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))          
                     path = os.path.join(pathvisual,"img_train_{}_{}_{}.png".format(postFix,noisez,ite))
                     plt.savefig(path)
 				#--------------
@@ -589,7 +589,7 @@ for ite in range(20000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    pathvisual = os.path.join(jikkenvisualPath,"noise_{}_{}".format(noisez,noiseSigma))
+                    pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))
                     path = os.path.join(pathvisual,"img_test_true_{}_{}_{}.png".format(postFix,noisez,ite))
                     plt.savefig(path)
 				#--------------
@@ -613,7 +613,7 @@ for ite in range(20000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    pathvisual = os.path.join(jikkenvisualPath,"noise_{}_{}".format(noisez,noiseSigma))
+                    pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))
                     path = os.path.join(pathvisual,"img_test_fake_{}_{}_{}.png".format(postFix,noisez,ite))
                     plt.savefig(path)
 				#--------------

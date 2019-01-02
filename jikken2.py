@@ -31,9 +31,12 @@ if len(sys.argv) > 1:
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
-        # noiseSigma
+        # threSquaredLoss
         if len(sys.argv) > 3:
             threSquaredLoss = int(sys.argv[3])
+            # noiseSigma
+            if len(sys.argv) > 4:
+                noiseSigma = int(sys.argv[4])
     else:
         trialNo = 1	
 else:
@@ -67,7 +70,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-noiseSigma = 51
+#noiseSigma = 51
 
 trainMode = 0
 
@@ -513,7 +516,8 @@ for ite in range(15000):
                     fig2.axes.get_xaxis().set_ticks([])
                     fig2.axes.get_yaxis().set_ticks([])					
                     
-                    path = os.path.join(visualPath,"img_train_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
+                    pathvisual = os.path.join(visualPath,"teian1_{}_{}".format(noiseSigma,threSquaredLoss))
+                    path = os.path.join(pathvisual,"img_train_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
                     plt.savefig(path)
 				#--------------
 							
@@ -537,7 +541,8 @@ for ite in range(15000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(visualPath,"img_test_true_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
+                    pathvisual = os.path.join(visualPath,"teian1_{}_{}".format(noiseSigma,threSquaredLoss))
+                    path = os.path.join(pathvisual,"img_test_true_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
                     plt.savefig(path)
 				#--------------
 		
@@ -560,7 +565,8 @@ for ite in range(15000):
                     fig1.axes.get_xaxis().set_ticks([])
                     fig1.axes.get_yaxis().set_ticks([])
                     
-                    path = os.path.join(visualPath,"img_test_fake_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
+                    pathvisual = os.path.join(visualPath,"teian1_{}_{}".format(noiseSigma,threSquaredLoss))
+                    path = os.path.join(pathvisual,"img_test_fake_{}_{}_{}_{}_{}.png".format(postFix,noiseSigma,testFakeRatio,ite,threSquaredLoss))
                     plt.savefig(path)
 				#--------------
 		
