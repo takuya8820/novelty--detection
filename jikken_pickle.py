@@ -26,7 +26,7 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-
+mx = [[] for tmp in np.arange(10)]
 precision = [[] for tmp in np.arange(4)]
 for targetChar in range(10):
     for trialNo in range(1,4):
@@ -57,16 +57,11 @@ for targetChar in range(10):
             params = pickle.load(fp)
         
         precision[trialNo].append(precisionDXs[late][14])
-mx = max(precision)
-pdb.set_trace()
-     
+        #各カテゴリの最大値
+        mx = max(precision)
+    mx[targetChar].append(mx)   
 
 
-#print(precisionDRXs[late][14])
 
-'''    
-print(encoderR_train_value)
-#zと何を比較して散布図に乗せればよい？
-plt.scatter(encoderR_train_value)
-plt.show()
-'''
+
+
