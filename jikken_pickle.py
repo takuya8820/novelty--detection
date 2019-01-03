@@ -26,10 +26,6 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-s = sum(data)
-N = len(data)
-mean = s / N
-print('平均:{0:.2f}'.format(mean))
 
 precision = [[] for tmp in np.arange(4)]
 for targetChar in range(10):
@@ -63,10 +59,7 @@ for targetChar in range(10):
         precision[trialNo].append(precisionDXs[late][14])
         mx = max(precision)
     pdb.set_trace()
-    s = sum(mx)
-    N = len(mx)
-mean = s / N
-print('平均:{0:.2f}'.format(mean))    
+     
 
 
 #print(precisionDRXs[late][14])
