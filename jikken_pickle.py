@@ -57,7 +57,15 @@ for trialNo in range(1,4):
         lossRAll_values = pickle.load(fp)
         lossD_values = pickle.load(fp)
         params = pickle.load(fp)
-    print(precisionDXs[late][14])
+        pdb.set_trace()
+        i=precisionDXs[late][14]
+    print(i)    
+        
+        i=precisionDXs[late][14]
+    if i>precisionDXs[late][14]:
+        i=precisionDXs[late][14]
+
+print(precisionDXs[late][14])
 #print(precisionDRXs[late][14])
 
 '''    
