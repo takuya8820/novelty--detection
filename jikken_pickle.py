@@ -26,8 +26,9 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-maxf = [[] for tmp in np.arange(10)]
-precision = [[] for tmp in np.arange(4)]
+#maxf = [[] for tmp in np.arange(10)]
+#precision = [[] for tmp in np.arange(4)]
+precision = []
 for targetChar in range(10):
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
@@ -56,7 +57,9 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-            precision[trialNo].append(precisionDXs[late][14])
+            
+            precision.append(precisionDXs[late][14])
+            #precision[trialNo].append(precisionDXs[late][14])
         pdb.set_trace()
         #各カテゴリの最大値
         mx = max(precision)
