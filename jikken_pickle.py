@@ -30,7 +30,7 @@ jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
 #postFix = "{}_{}".format(targetChar, trialNo)
-recallDXs = [[] for tmp in np.arange(3)]
+precision = [[] for tmp in np.arange(3)]
 pdb.set_trace()
 for trialNo in range(1,4):
     postFix = "{}_{}".format(targetChar, trialNo)
@@ -59,7 +59,7 @@ for trialNo in range(1,4):
         lossD_values = pickle.load(fp)
         params = pickle.load(fp)
         
-        recallDXs[trialNo].append(precisionDXs[late][14])
+        precision[trialNo].append(precisionDXs[late][14])
         pdb.set_trace()
     print(precisionDXs[late][14])
 #print(precisionDRXs[late][14])
