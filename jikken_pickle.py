@@ -29,40 +29,41 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-#postFix = "{}_{}".format(targetChar, trialNo)
-precision = [[] for tmp in np.arange(4)]
 
-for trialNo in range(1,4):
-    postFix = "{}_{}".format(targetChar, trialNo)
-    path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
-    path = os.path.join(path1,"log{}.pickle".format(postFix))
-    with open(path, "rb") as fp:
-        batch = pickle.load(fp)
-        batch_x_fake = pickle.load(fp)
-        encoderR_train_value = pickle.load(fp)
-        decoderR_train_value = pickle.load(fp)
-        predictFake_train_value = pickle.load(fp)
-        predictTrue_train_value = pickle.load(fp)
-        test_x = pickle.load(fp)
-        test_y = pickle.load(fp)
-        decoderR_test_value = pickle.load(fp)
-        predictDX_value = pickle.load(fp)
-        predictDRX_value = pickle.load(fp)
-        recallDXs = pickle.load(fp)
-        precisionDXs = pickle.load(fp)
-        f1DXs = pickle.load(fp)
-        recallDRXs = pickle.load(fp)
-        precisionDRXs = pickle.load(fp)
-        f1DRXs = pickle.load(fp)
-        lossR_values = pickle.load(fp)
-        lossRAll_values = pickle.load(fp)
-        lossD_values = pickle.load(fp)
-        params = pickle.load(fp)
+
+data = [[] for tmp in np.arange(10)]
+precision = [[] for tmp in np.arange(4)]
+for int in range(10):
+    for trialNo in range(1,4):
+        postFix = "{}_{}".format(targetChar, trialNo)
+        path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+        path = os.path.join(path1,"log{}.pickle".format(postFix))
+        with open(path, "rb") as fp:
+            batch = pickle.load(fp)
+            batch_x_fake = pickle.load(fp)
+            encoderR_train_value = pickle.load(fp)
+            decoderR_train_value = pickle.load(fp)
+            predictFake_train_value = pickle.load(fp)
+            predictTrue_train_value = pickle.load(fp)
+            test_x = pickle.load(fp)
+            test_y = pickle.load(fp)
+            decoderR_test_value = pickle.load(fp)
+            predictDX_value = pickle.load(fp)
+            predictDRX_value = pickle.load(fp)
+            recallDXs = pickle.load(fp)
+            precisionDXs = pickle.load(fp)
+            f1DXs = pickle.load(fp)
+            recallDRXs = pickle.load(fp)
+            precisionDRXs = pickle.load(fp)
+            f1DRXs = pickle.load(fp)
+            lossR_values = pickle.load(fp)
+            lossRAll_values = pickle.load(fp)
+            lossD_values = pickle.load(fp)
+            params = pickle.load(fp)
         
         precision[trialNo].append(precisionDXs[late][14])
-
-mx = max(precision)
-print(mx)
+    data[int].append(max(precision))
+    pdb.set_trace()
 
 
 #print(precisionDRXs[late][14])
