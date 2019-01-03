@@ -525,7 +525,6 @@ for ite in range(16000):
 				# 画像を保存
                 plt.close()
                 fig, figInds = plt.subplots(nrows=2, ncols=10, sharex=True)
-                pdb.set_trace()
                 
                 for figInd in np.arange(figInds.shape[1]):
                     fig0 = figInds[0][figInd].imshow(test_x[figInd,:,:,0])
