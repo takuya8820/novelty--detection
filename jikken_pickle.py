@@ -31,7 +31,7 @@ jikkenPath2 = 'jikken2'
 data = []
 mx = []
 for targetChar in range(10):
-    precision = []
+    data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
         path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
