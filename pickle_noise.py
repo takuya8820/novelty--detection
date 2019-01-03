@@ -31,7 +31,7 @@ logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
-postFix = "_{}_{}_Adam".format(targetChar, trialNo)
+postFix = "{}_{}".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
 #path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
