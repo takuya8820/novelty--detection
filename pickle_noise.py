@@ -61,7 +61,7 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
     
 print(precisionDXs[late][14])
-print(precisionDRXs[late][14])
+#print(precisionDRXs[late][14])
 
 '''    
 print(encoderR_train_value)
