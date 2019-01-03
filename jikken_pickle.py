@@ -31,7 +31,7 @@ jikkenPath2 = 'jikken2'
 
 #postFix = "{}_{}".format(targetChar, trialNo)
 precision = [[] for tmp in np.arange(4)]
-pdb.set_trace()
+
 for trialNo in range(1,4):
     postFix = "{}_{}".format(targetChar, trialNo)
     path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
@@ -60,8 +60,11 @@ for trialNo in range(1,4):
         params = pickle.load(fp)
         
         precision[trialNo].append(precisionDXs[late][14])
-        pdb.set_trace()
-    print(precisionDXs[late][14])
+
+mx = max(precision)
+print(mx)
+
+
 #print(precisionDRXs[late][14])
 
 '''    
