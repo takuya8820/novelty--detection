@@ -30,7 +30,7 @@ jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 
 #postFix = "{}_{}".format(targetChar, trialNo)
-precision = [[] for tmp in np.arange(3)]
+precision = [[] for tmp in np.arange(4)]
 pdb.set_trace()
 for trialNo in range(1,4):
     postFix = "{}_{}".format(targetChar, trialNo)
