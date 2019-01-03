@@ -57,8 +57,8 @@ for targetChar in range(10):
             params = pickle.load(fp)
         
         precision[trialNo].append(precisionDXs[late][14])
-    mx = max(precision)
-    pdb.set_trace()
+mx = max(precision)
+pdb.set_trace()
      
 
 
