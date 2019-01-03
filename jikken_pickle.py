@@ -13,15 +13,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 if len(sys.argv) > 1:
-	# 文字の種類
-    targetChar = int(sys.argv[1])
 	# noiseSigma
+    noiseSigma = int(sys.argv[1])
+	# late
     if len(sys.argv) > 2:
-        noiseSigma = int(sys.argv[2])
-        # late
-        if len(sys.argv) > 3:
-            late = int(sys.argv[3])
-            
+        late = int(sys.argv[2])
+        
             
             
 threSquaredLoss = 200
@@ -33,7 +30,7 @@ jikkenPath2 = 'jikken2'
 
 data = [[] for tmp in np.arange(10)]
 precision = [[] for tmp in np.arange(4)]
-for int in range(10):
+for targetChar in range(10):
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
         path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
@@ -62,8 +59,12 @@ for int in range(10):
             params = pickle.load(fp)
         
         precision[trialNo].append(precisionDXs[late][14])
-    data[int].append(max(precision))
-    pdb.set_trace()
+        mx = max(precision)
+        
+        
+        
+    data[targetChar].append(mx)
+pdb.set_trace()
 
 
 #print(precisionDRXs[late][14])
