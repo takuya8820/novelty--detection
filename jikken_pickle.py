@@ -60,9 +60,10 @@ for targetChar in range(10):
             params = pickle.load(fp)
             
         data.append(precisionDXs[late][14])
-        pdb.set_trace()
     mx.append(max(data))
-pdb.set_trace()
-
+s=sum(mx)
+n=len(mx)
+mean=s/n
+print(mean)
 
 
