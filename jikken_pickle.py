@@ -61,11 +61,9 @@ for targetChar in range(10):
             
             precision.append(precisionDXs[late][14])
             #precision[trialNo].append(precisionDXs[late][14])
-        pdb.set_trace()
         #各カテゴリの最大値
         mx = max(precision)
     maxf.append(mx)
-pdb.set_trace()
 print(mx)
 pdb.set_trace()
     #maxf[targetChar].append(mx)   
