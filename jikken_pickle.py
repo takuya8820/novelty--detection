@@ -30,8 +30,8 @@ jikkenPath2 = 'jikken2'
 #precision = [[] for tmp in np.arange(4)]
 data = []
 mx = []
-precision = []
 for targetChar in range(10):
+    precision = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
         path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
@@ -62,7 +62,7 @@ for targetChar in range(10):
         data.append(precisionDXs[late][14])
         pdb.set_trace()
     mx.append(max(data))
-        
+pdb.set_trace()
 
 
 
