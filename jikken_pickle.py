@@ -28,6 +28,7 @@ jikkenPath2 = 'jikken2'
 
 #maxf = [[] for tmp in np.arange(10)]
 #precision = [[] for tmp in np.arange(4)]
+maxf = []
 precision = []
 for targetChar in range(10):
     for trialNo in range(1,4):
@@ -63,7 +64,7 @@ for targetChar in range(10):
         pdb.set_trace()
         #各カテゴリの最大値
         mx = max(precision)
-
+    maxf.append(mx)
 pdb.set_trace()
 print(mx)
 pdb.set_trace()
