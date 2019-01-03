@@ -28,7 +28,6 @@ jikkenPath2 = 'jikken2'
 
 
 
-data = [[] for tmp in np.arange(10)]
 precision = [[] for tmp in np.arange(4)]
 for targetChar in range(10):
     for trialNo in range(1,4):
@@ -61,9 +60,6 @@ for targetChar in range(10):
         precision[trialNo].append(precisionDXs[late][14])
         mx = max(precision)
         
-        
-        
-    data[targetChar].append(mx)
 pdb.set_trace()
 
 
