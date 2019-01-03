@@ -55,8 +55,9 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-        
-        precision[trialNo].append(precisionDXs[late][14])
+            
+            precision[trialNo].append(precisionDXs[late][14])
+        pdb.set_trace()
         #各カテゴリの最大値
         mx = max(precision)
 
