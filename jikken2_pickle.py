@@ -64,5 +64,9 @@ for targetChar in range(10):
 s=sum(mx)
 n=len(mx)
 mean=s/n
+print("F値平均")
 print(mean)
-print(lossR_values)
+print("lossR=")
+print(lossR_values[15900])
+print("lossD(R)=")
+print(lossR_values[15900])

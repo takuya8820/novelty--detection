@@ -65,7 +65,5 @@ s=sum(mx)
 n=len(mx)
 mean=s/n
 print(mean)
-pdb.set_trace()
-print(lossR_values)
 
 
