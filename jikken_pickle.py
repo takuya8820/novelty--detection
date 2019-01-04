@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-        print(lossR_values)
+        print(lossR_values[15999])
 """
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
