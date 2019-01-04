@@ -19,11 +19,10 @@ if len(sys.argv) > 1:
 	# late
     if len(sys.argv) > 2:
         late = int(sys.argv[2])
-        # noiseSigma
+        # threSquaredLoss
         if len(sys.argv) > 3:
             threSquaredLoss = int(sys.argv[3])
             
-#threSquaredLoss = 200
 logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
@@ -59,14 +58,15 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
+        print("lossR=")
+        print(lossR_values[15900])
+        """    
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
+
 s=sum(mx)
 n=len(mx)
 mean=s/n
 print("F値平均")
 print(mean)
-print("lossR=")
-print(lossR_values[15900])
-print("lossD(R)=")
-print(lossR_values[15900])
+"""
