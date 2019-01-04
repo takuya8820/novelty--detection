@@ -65,5 +65,6 @@ s=sum(mx)
 n=len(mx)
 mean=s/n
 print(mean)
+print(lossR_values)
 
 
