@@ -59,11 +59,14 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
+        print(lossR_values)
+"""
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
 s=sum(mx)
 n=len(mx)
 mean=s/n
 print(mean)
-
+print(lossR_values)
+"""
 
