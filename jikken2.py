@@ -26,8 +26,8 @@ if len(sys.argv) > 1:
         trialNo = int(sys.argv[2])
         if len(sys.argv) > 3:
             noiseSigma = int(sys.argv[3])
-            if len(sys.argv) > 3:
-                threSquaredLoss = int(sys.argv[3])
+            if len(sys.argv) > 4:
+                threSquaredLoss = int(sys.argv[4])
 	
 
 else:
