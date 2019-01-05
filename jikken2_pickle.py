@@ -58,15 +58,12 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-        print("lossR=")
-        print(lossR_values[15900])
-        """    
+        
+        
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
 
 s=sum(mx)
 n=len(mx)
 mean=s/n
-print("F値平均")
 print(mean)
-"""
