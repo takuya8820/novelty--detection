@@ -37,7 +37,7 @@ if len(sys.argv) > 1:
         trialNo = int(sys.argv[2])
         # noiseZ
         if len(sys.argv) > 3:
-            noisez = float(sys.argv[3])
+            noisez = int(sys.argv[3])
             #noiseSigma
             if len(sys.argv) > 4:
                 noiseSigma = int(sys.argv[4])
@@ -626,7 +626,7 @@ for ite in range(16000):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(jikkenPath,"noiseZ_{}_{}".format(noisez,noiseSigma))
+path1 = os.path.join(jikkenPath,"noise{}_{}".format(noisez,noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
     pickle.dump(batch_x,fp)
