@@ -421,7 +421,7 @@ lossD_values = []
 
 batchInd = 0
 
-for ite in range(20000):
+for ite in range(16000):
 	
 	#--------------
 	# 学習データの作成
