@@ -20,7 +20,7 @@ if len(sys.argv) > 1:
         noiseSigma = int(sys.argv[2])
         # late
         if len(sys.argv) > 3:
-            late = float(sys.argv[3])
+            late = int(sys.argv[3])
 
 jikkenPath3 = 'jikken3'
 
