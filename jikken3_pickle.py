@@ -63,4 +63,5 @@ for targetChar in range(10):
 s=sum(mx)
 n=len(mx)
 mean=s/n
-print(mean)
+
+plt.plot(late,mean)
