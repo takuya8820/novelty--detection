@@ -22,18 +22,18 @@ if len(sys.argv) > 1:
         noiseSigma = int(sys.argv[2])
 
 jikkenPath3 = 'jikken3'
+jikkenvisualPath = 'visualization_jikken3'
 
-data = []
-mx1 = []
-mx2 = []
+
 y1 = []
 y2 = []
+
 for late in range(5):
+    noisez=1
+    noiseSigma=13
     mx1 = []
-    mx2 = []
     for targetChar in range(10):
         data1 = []
-        data2 = []
         for trialNo in range(1,4):
             postFix = "{}_{}".format(targetChar, trialNo)
             path1 = os.path.join(jikkenPath3,"noise{}_{}".format(noisez,noiseSigma))
@@ -65,21 +65,66 @@ for late in range(5):
                 
                 #dataは3回実験した結果を格納
             data1.append(precisionDXs[late][14])
-            data2.append(precisionDRXs[late][14])
         #mxは各カテゴリの最大値を格納
         mx1.append(max(data1))
-        mx2.append(max(data2))
         
     s1=sum(mx1)
     n1=len(mx1)
+    #meanは任意のnoiseSigmaとnoiseZのときのF値
+    mean1=s1/n1
+    y1.append(mean1)
+
+
+for late in range(5):
+    noisez=1
+    noiseSigma=128
+    mx2 = []
+    for targetChar in range(10):
+        data2 = []
+        for trialNo in range(1,4):
+            postFix = "{}_{}".format(targetChar, trialNo)
+            path1 = os.path.join(jikkenPath3,"noise{}_{}".format(noisez,noiseSigma))
+            path = os.path.join(path1,"log{}.pickle".format(postFix))
+            with open(path, "rb") as fp:
+                batch = pickle.load(fp)
+                batch_x_fake = pickle.load(fp)
+                encoderR_train_value = pickle.load(fp)
+                decoderR_train_value = pickle.load(fp)
+                #encoderR_fake_train_value = pickle.load(fp)
+                decoderR_fake_train_value = pickle.load(fp)
+                predictFake_train_value = pickle.load(fp)
+                predictTrue_train_value = pickle.load(fp)
+                test_x = pickle.load(fp)
+                test_y = pickle.load(fp)
+                decoderR_test_value = pickle.load(fp)
+                predictDX_value = pickle.load(fp)
+                predictDRX_value = pickle.load(fp)
+                recallDXs = pickle.load(fp)
+                precisionDXs = pickle.load(fp)
+                f1DXs = pickle.load(fp)
+                recallDRXs = pickle.load(fp)
+                precisionDRXs = pickle.load(fp)
+                f1DRXs = pickle.load(fp)
+                lossR_values = pickle.load(fp)
+                lossRAll_values = pickle.load(fp)
+                lossD_values = pickle.load(fp)
+                params = pickle.load(fp)
+                
+                #dataは3回実験した結果を格納
+            data2.append(precisionDRXs[late][14])
+        #mxは各カテゴリの最大値を格納
+        mx2.append(max(data2))
+        
     s2=sum(mx2)
     n2=len(mx2)
     #meanは任意のnoiseSigmaとnoiseZのときのF値
-    mean1=s1/n1
+   
     mean2=s2/n2
-    y1.append(mean1)
+
     y2.append(mean2)
     
+
+ 
 sns.set()
 sns.set_style('white')
 sns.set_palette('Set1')
@@ -99,4 +144,5 @@ ax.set_ylabel("F1-Score")
 ax.set_xlim(10, 50)
 ax.set_ylim(0, 1)
 
-plt.show()
+path = os.path.join(jikkenvisualPath,"jikken3.png")
+plt.savefig(path)
