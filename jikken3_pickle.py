@@ -63,5 +63,5 @@ for targetChar in range(10):
 s=sum(mx)
 n=len(mx)
 mean=s/n
-
+pdb.set_trace()
 plt.plot(late,mean)
