@@ -29,6 +29,8 @@ mx2 = []
 y1 = []
 y2 = []
 for late in range(5):
+    mx1 = []
+    mx2 = []
     for targetChar in range(10):
         data1 = []
         data2 = []
@@ -68,7 +70,6 @@ for late in range(5):
         mx1.append(max(data1))
         mx2.append(max(data2))
         
-    pdb.set_trace()
     s1=sum(mx1)
     n1=len(mx1)
     s2=sum(mx2)
