@@ -80,7 +80,6 @@ for late in range(5):
     y1.append(mean1)
     y2.append(mean2)
     
-pdb.set_trace()
 sns.set()
 sns.set_style('white')
 sns.set_palette('Set1')
@@ -98,6 +97,6 @@ ax.legend()
 ax.set_xlabel("Percentage of outliers(%)")
 ax.set_ylabel("F1-Score")
 ax.set_xlim(10, 50)
-ax.set_ylim(0, 100)
+ax.set_ylim(0, 1)
 
 plt.show()
