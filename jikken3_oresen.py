@@ -28,7 +28,7 @@ mx1 = []
 mx2 = []
 y1 = []
 y2 = []
-for late in range(4):
+for late in range(5):
     for targetChar in range(10):
         data1 = []
         data2 = []
@@ -64,10 +64,11 @@ for late in range(4):
                 #dataは3回実験した結果を格納
             data1.append(precisionDXs[late][14])
             data2.append(precisionDRXs[late][14])
-                #mxは各カテゴリの最大値を格納
+        #mxは各カテゴリの最大値を格納
         mx1.append(max(data1))
         mx2.append(max(data2))
-    
+        
+    pdb.set_trace()
     s1=sum(mx1)
     n1=len(mx1)
     s2=sum(mx2)
@@ -77,6 +78,7 @@ for late in range(4):
     mean2=s2/n2
     y1.append(mean1)
     y2.append(mean2)
+    
 pdb.set_trace()
 sns.set()
 sns.set_style('white')
