@@ -213,7 +213,7 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
         fcB1 = bias_variable("fcB1", [z_dim])
         
         if noise:
-            conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noiseSigma)
+            conv2_noise = conv2 + tf.random_normal(conv2.get_shape(),0,noisez)
             fc1 = fc_relu(conv2_noise, fcW1, fcB1, keepProb)
         else:
             fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
