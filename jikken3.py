@@ -479,7 +479,7 @@ for ite in range(16000):
     lossD_values.append(lossD_value)
     
     if ite% 100 == 0:
-        print("#%d %d(%d)(%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, noisez, lossR_value, lossRAll_value, lossD_value))
+        print("#%d %d(%d)(%d,%d), lossR=%f, lossRAll=%f, lossD=%f" % (ite, targetChar, trialNo, noisez, noiseSigma, lossR_value, lossRAll_value, lossD_value))
 	#--------------
 
 	#--------------
@@ -566,7 +566,7 @@ for ite in range(16000):
                     fig3.axes.get_yaxis().set_ticks([])
                     
                     pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))          
-                    path = os.path.join(pathvisual,"img_train_{}_{}_{}.png".format(postFix,noisez,ite))
+                    path = os.path.join(pathvisual,"img_train_{}_{}.png".format(postFix,ite))
                     plt.savefig(path)
 				#--------------
 							
@@ -590,7 +590,7 @@ for ite in range(16000):
                     fig1.axes.get_yaxis().set_ticks([])
                     
                     pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))
-                    path = os.path.join(pathvisual,"img_test_true_{}_{}_{}.png".format(postFix,noisez,ite))
+                    path = os.path.join(pathvisual,"img_test_true_{}_{}.png".format(postFix,ite))
                     plt.savefig(path)
 				#--------------
 		
@@ -614,7 +614,7 @@ for ite in range(16000):
                     fig1.axes.get_yaxis().set_ticks([])
                     
                     pathvisual = os.path.join(jikkenvisualPath,"teian2_{}_{}".format(noisez,noiseSigma))
-                    path = os.path.join(pathvisual,"img_test_fake_{}_{}_{}.png".format(postFix,noisez,ite))
+                    path = os.path.join(pathvisual,"img_test_fake_{}_{}.png".format(postFix,ite))
                     plt.savefig(path)
 				#--------------
 		
