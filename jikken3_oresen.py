@@ -68,5 +68,5 @@ for late in range(4):
     mean=s/n
     x.append(late)
     y.append(mean)
-    pdb.set_trace()
-    
+
+plt.plot(x,y)    
