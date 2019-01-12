@@ -14,12 +14,14 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+"""
 if len(sys.argv) > 1:
 	# noiseZ
     noisez = int(sys.argv[1])
 	# noiseSigma
     if len(sys.argv) > 2:
         noiseSigma = int(sys.argv[2])
+        """
 
 jikkenPath3 = 'jikken3'
 jikkenvisualPath = 'visualization_jikken3'
