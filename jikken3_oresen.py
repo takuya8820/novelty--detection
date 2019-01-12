@@ -21,10 +21,12 @@ if len(sys.argv) > 1:
 	# noiseSigma
     if len(sys.argv) > 2:
         noiseSigma = int(sys.argv[2])
-        """
-
+ 
+       """
+jikkenPath1 = 'jikken1'
+jikkenPath2 = 'jikken2'
 jikkenPath3 = 'jikken3'
-jikkenvisualPath = 'visualization_jikken3'
+jikkenvisualPath = 'jikkenkekka'
 
 
 y1 = []
