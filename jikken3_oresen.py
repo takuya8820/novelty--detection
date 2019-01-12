@@ -11,6 +11,8 @@ import os
 import pdb
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+import seaborn as sns
 
 if len(sys.argv) > 1:
 	# noiseZ
@@ -66,7 +68,7 @@ for late in range(4):
     n=len(mx)
     #meanは任意のnoiseSigmaとnoiseZのときのF値
     mean=s/n
-    x.append(late)
     y.append(mean)
+    pdb.set_trace()
 
 plt.plot(x,y)    
