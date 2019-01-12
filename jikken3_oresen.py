@@ -67,6 +67,7 @@ for late in range(4):
                 #mxは各カテゴリの最大値を格納
         mx1.append(max(data1))
         mx2.append(max(data2))
+        pdb.set_trace()
     
     s1=sum(mx1)
     n1=len(mx1)
@@ -77,8 +78,8 @@ for late in range(4):
     mean2=s2/n2
     y1.append(mean1)
     y2.append(mean2)
+
     pdb.set_trace()
-    
 sns.set()
 sns.set_style('white')
 sns.set_palette('Set1')
