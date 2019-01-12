@@ -77,13 +77,13 @@ for late in range(4):
     mean2=s2/n2
     y1.append(mean1)
     y2.append(mean2)
-
+pdb.set_trace()
 sns.set()
 sns.set_style('white')
 sns.set_palette('Set1')
 sns.set_context("paper")
     
-x = np.array([10,20,30,40,50])
+x = ([10,20,30,40,50])
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
