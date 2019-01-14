@@ -229,7 +229,7 @@ for late in range(5):
 sns.set()
 sns.set_style('white')
 sns.set_palette('Set1',2)
-sns.set_context("paper",2.0)
+sns.set_context("paper",1.9)
     
 x = ([10,20,30,40,50])
 
