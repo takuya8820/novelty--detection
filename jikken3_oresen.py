@@ -228,18 +228,18 @@ for late in range(5):
  
 sns.set()
 sns.set_style('white')
-sns.set_palette('Set1')
-sns.set_context("paper")
+sns.set_palette('Set1',2)
+sns.set_context("paper",2.0)
     
 x = ([10,20,30,40,50])
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 
-ax.plot(x, y1, label='提案法D(X)')
-ax.plot(x, y2, label='提案法D(R(X))')
-ax.plot(x, y3, label='従来法D(X)')
-ax.plot(x, y4, label='従来法D(R(X))')
+ax.plot(x, y1, label='D(X)')
+ax.plot(x, y2, label='D(R(X))')
+ax.plot(x, y3, label='ALOCC D(X)')
+ax.plot(x, y4, label='ALOCC D(R(X))')
 
 
 ax.legend()
