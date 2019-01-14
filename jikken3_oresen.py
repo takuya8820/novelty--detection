@@ -237,8 +237,8 @@ fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 
 ax.plot(x, y1, label='D(X)', marker="o")
-ax.plot(x, y3, label='ALOCC D(X)', marker="o")
-ax.plot(x, y2, label='D(R(X))')
+ax.plot(x, y2, label='D(R(X))', marker="o")
+ax.plot(x, y3, label='ALOCC D(X)')
 ax.plot(x, y4, label='ALOCC D(R(X))')
 
 
