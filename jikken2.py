@@ -21,18 +21,21 @@ np.random.seed(0)
 z_dim_R = 100
 
 if len(sys.argv) > 1:
+	# 文字の種類
     targetChar = int(sys.argv[1])
+	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
         if len(sys.argv) > 3:
             noiseSigma = int(sys.argv[3])
-            if len(sys.argv) > 4:
-                threSquaredLoss = int(sys.argv[4])
-	
+            if len(sys.argv) > 3:
+                threSquaredLoss = int(sys.argv[3])
+    else:
+        trialNo = 1	
 
 else:
 	# 文字の種類
-	targetChar = 0
+    targetChar = 0
 
 # Rの二乗誤差の重み係数
 lambdaR = 0.4
@@ -61,12 +64,12 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 
 # ノイズの大きさ
 #noiseSigma = 0.155
-#noiseSigma = 51
+#noiseSigma = 40
 
 trainMode = 0
 
 visualPath = 'visualization_jikken2'
-modelPath = 'models'
+modelPath = 'models_jikken2'
 logPath = 'jikken2'
 #===========================
 
@@ -362,7 +365,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(16000):
+for ite in range(15100):
 	
 	#--------------
 	# 学習データの作成
@@ -390,7 +393,6 @@ for ite in range(16000):
 	# 学習
 	if trainMode == 0:
 		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
-
 											
 		if lossR_value < threSquaredLoss:
 			trainMode = 1
@@ -483,7 +485,7 @@ for ite in range(16000):
 					fig2.axes.get_xaxis().set_ticks([])
 					fig2.axes.get_yaxis().set_ticks([])					
 	
-				path = os.path.join(visualPath,"img_train_{}_{}_{}_{}.png".format(postFix,noiseSigma,threSquaredLoss,ite))
+				path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
 				plt.savefig(path)
 				#--------------
 							
@@ -506,7 +508,7 @@ for ite in range(16000):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_true_{}_{}_{}_{}.png".format(postFix,noiseSigma,threSquaredLoss,ite))
+				path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
 				plt.savefig(path)
 				#--------------
 		
@@ -528,21 +530,20 @@ for ite in range(16000):
 					fig1.axes.get_yaxis().set_visible(False)
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
-             
-	       
-				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}_{}.png".format(postFix,noiseSigma,threSquaredLoss,ite))
+	
+				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
 				plt.savefig(path)
 				#--------------
 		
 		#--------------
 		# チェックポイントの保存
 		saver = tf.train.Saver()
-		saver.save(sess,"./models_jikken2/model{}.ckpt".format(postFix))
+		saver.save(sess,"./models/model{}.ckpt".format(postFix))
 		#--------------
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
+path1 = os.path.join(logPath,"noise{}".format(noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
 	pickle.dump(batch_x,fp)
