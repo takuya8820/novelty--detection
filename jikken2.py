@@ -543,7 +543,7 @@ for ite in range(15100):
 		
 #--------------
 # pickleに保存
-path1 = os.path.join(logPath,"noise{}".format(noiseSigma))
+path1 = os.path.join(logPath,"noiseSigma{}_{}".format(noiseSigma,threSquaredLoss))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
 	pickle.dump(batch_x,fp)
