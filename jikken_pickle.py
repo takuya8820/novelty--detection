@@ -31,6 +31,7 @@ jikkenPath2 = 'jikken2'
 data = []
 mx = []
 for targetChar in range(10):
+    print(targetChar)
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
@@ -58,8 +59,8 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            
-        print(lossR_values[15999])
+            print(trialNo)
+            print(precisionDRXs[late][14])
 """
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
