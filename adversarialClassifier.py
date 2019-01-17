@@ -72,10 +72,10 @@ noise = "_{}".format(noiseSigma)
 
 trainMode = 1
 
-visualPath = 'visualization_jikken'
+visualPath = 'visualization_jikken1'
 modelPath = 'models'
 logPath = 'jikken'
-noisePath = 'noiseSigma_{}'
+noisePath = 'noiseSigma{}'
 #===========================
 
 #===========================
@@ -388,7 +388,7 @@ lossD_values = []
 #--------------
 
 batchInd = 0
-for ite in range(15000):
+for ite in range(15100):
 	
 	#--------------
 	# 学習データの作成
