@@ -538,7 +538,7 @@ for ite in range(15100):
 		#--------------
 		# チェックポイントの保存
 		saver = tf.train.Saver()
-		saver.save(sess,"./models/model{}.ckpt".format(postFix))
+		saver.save(sess,"./models_jikken2/model{}.ckpt".format(postFix))
 		#--------------
 		
 #--------------
