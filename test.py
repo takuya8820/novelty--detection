@@ -31,11 +31,11 @@ jikkenPath2 = 'jikken2'
 data = []
 mx = []
 for targetChar in range(10):
-    print("targetChar="targetChar)
+    print(targetChar)
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
-        path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+        path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
         path = os.path.join(path1,"log{}.pickle".format(postFix))
         with open(path, "rb") as fp:
             batch = pickle.load(fp)
@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            print("tirialNo="trialNo)
+            
             print(precisionDRXs[late][14])
 """
         data.append(precisionDRXs[late][14])
