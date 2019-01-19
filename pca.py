@@ -62,12 +62,12 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
 
 pca = PCA(n_components=2)
-pca.fit(encoderR_train_value)
-pca_point = pca.transform(encoderR_train_value)
 pdb.set_trace()
+pca.fit(encoderR_train_value)
+pca_point1 = pca.transform(encoderR_train_value)
 
-x1=pca_point[:,0]
-y1=pca_point[:,1]
+x1=pca_point1[:,0]
+y1=pca_point1[:,1]
 
 plt.scatter(x1, y1)
 plt.show()
