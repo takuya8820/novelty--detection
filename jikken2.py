@@ -485,7 +485,7 @@ for ite in range(15100):
 					fig2.axes.get_xaxis().set_ticks([])
 					fig2.axes.get_yaxis().set_ticks([])					
 	
-				path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 							
@@ -508,7 +508,7 @@ for ite in range(15100):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 		
@@ -531,7 +531,7 @@ for ite in range(15100):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 		
