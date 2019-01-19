@@ -447,8 +447,8 @@ for ite in range(16000):
 
 	#--------------
 	# 学習
-    _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value = sess.run(
-                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train],
+    _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value, encoderR_fake_train_value = sess.run(
+                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train, encoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     
     '''
@@ -633,7 +633,7 @@ with open(path, "wb") as fp:
     pickle.dump(batch_x_fake,fp)
     pickle.dump(encoderR_train_value,fp)
     pickle.dump(decoderR_train_value,fp)
-    #pickle.dump(encoderR_fake_train_value,fp)
+    pickle.dump(encoderR_fake_train_value,fp)
     pickle.dump(decoderR_fake_train_value,fp)
     pickle.dump(predictFake_train_value,fp)
     pickle.dump(predictTrue_train_value,fp)	
