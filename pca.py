@@ -61,10 +61,11 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
 
-pdb.set_trace()
 pca = PCA(n_components=2)
 pca.fit(encoderR_train_value)
 pca_point = pca.transform(encoderR_train_value)
+pdb.set_trace()
+
 x1=encoderR_train_value.shape[0]
 y1=encoderR_train_value.shape[1]
 
