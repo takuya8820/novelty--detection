@@ -60,6 +60,8 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
-    
+
 pdb.set_trace()
-print(lossD_values)
+pca = PCA(n_components=2)
+pca.fit(encoderR_train_value)
+
