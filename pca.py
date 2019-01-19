@@ -66,8 +66,8 @@ pca.fit(encoderR_train_value)
 pca_point = pca.transform(encoderR_train_value)
 pdb.set_trace()
 
-x1=encoderR_train_value.shape[0]
-y1=encoderR_train_value.shape[1]
+x1=pca_point[:,0]
+y1=pca_point[:,1]
 
 plt.scatter(x1, y1)
 plt.show()
