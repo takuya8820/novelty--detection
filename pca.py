@@ -22,11 +22,13 @@ if len(sys.argv) > 1:
     targetChar = int(sys.argv[1])
 	# trail no.
     if len(sys.argv) > 2:
-        trialNo = int(sys.argv[2])   
+        trialNo = int(sys.argv[2])
+        # noiseZ
         if len(sys.argv) > 3:
             noisez = int(sys.argv[3])
+            #noiseSigma
             if len(sys.argv) > 4:
-                 noiseSigma = int(sys.argv[4])
+                noiseSigma = int(sys.argv[4])
             
 
 sess = tf.Session()
@@ -42,9 +44,10 @@ with open(path, "rb") as fp:
     batch_x_fake = pickle.load(fp)
     encoderR_train_value = pickle.load(fp)
     decoderR_train_value = pickle.load(fp)
+    encoderR_fake_train_value = pickle.load(fp)
     decoderR_fake_train_value = pickle.load(fp)
     predictFake_train_value = pickle.load(fp)
-    predictTrue_train_value = pickle.load(fp)
+    predictTrue_train_value = pickle.load(fp)  
     test_x = pickle.load(fp)
     test_y = pickle.load(fp)
     decoderR_test_value = pickle.load(fp)
@@ -60,16 +63,29 @@ with open(path, "rb") as fp:
     lossRAll_values = pickle.load(fp)
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
+    
 
+       
 pca = PCA(n_components=2)
-pdb.set_trace()
 pca.fit(encoderR_train_value)
+pca.fit(encoderR_fake_train_value)
 pca_point1 = pca.transform(encoderR_train_value)
+pca_point2 = pca.transform(encoderR_fake_train_value)
 
 x1=pca_point1[:,0]
 y1=pca_point1[:,1]
+x2=pca_point2[:,0]
+y2=pca_point2[:,1]
 
-plt.scatter(x1, y1)
-plt.show()
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+
+ax.scatter(x1, y1,c='red')
+ax.scatter(x2,y2, c='blue')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+
+fig.show()
 
 

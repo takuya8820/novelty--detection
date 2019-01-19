@@ -79,8 +79,8 @@ def calcEval(predict, gt, threFake=0.5):
 	predict[predict >= threFake] = 1.
 	predict[predict < threFake] = 0.
 
-	recall = np.sum(predict[gt==1])/np.sum(gt==1)
-	precision = np.sum(predict[gt==1])/np.sum(predict==1)
+	recall = np.sum(predict[gt==1])+0.001/np.sum(gt==1)+0.001
+	precision = np.sum(predict[gt==1])+0.001/np.sum(predict==1)+0.001
 	f1 = 2 * (precision * recall)/(precision + recall)
 
 	return recall, precision, f1
@@ -531,7 +531,7 @@ for ite in range(15100):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
+				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
 				plt.savefig(path)
 				#--------------
 		
