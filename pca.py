@@ -64,4 +64,11 @@ with open(path, "rb") as fp:
 pdb.set_trace()
 pca = PCA(n_components=2)
 pca.fit(encoderR_train_value)
+pca_point = pca.transform(encoderR_train_value)
+x1=encoderR_train_value.shape[0]
+y1=encoderR_train_value.shape[1]
+
+plt.scatter(x1, y1)
+plt.show()
+
 
