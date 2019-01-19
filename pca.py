@@ -87,5 +87,3 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 
 fig.show()
-
-
