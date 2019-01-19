@@ -251,7 +251,8 @@ ax.set_ylabel("F1-Score")
 ax.set_xlim(10, 50)
 ax.set_ylim(0, 1)
 
-
-
+plt.show()
+'''
 path = os.path.join(jikkenvisualPath,"jikken.png")
 plt.savefig(path)
+'''
