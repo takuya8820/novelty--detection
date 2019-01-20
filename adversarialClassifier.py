@@ -265,7 +265,6 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
 xTrue = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xFake = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
-
 keep_prob = tf.placeholder(tf.float32)
 
 # 学習用
@@ -394,11 +393,11 @@ for ite in range(15100):
 	#--------------
 	# 学習
 	if trainMode == 0:
-		_, lossR_value, lossRAll_value, decoderR_train_value, encoderR_train_value = sess.run([trainerRAll, lossR, lossRAll, decoderR_train, encoderR_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+		#_, lossR_value, lossRAll_value, decoderR_train_value, encoderR_train_value = sess.run([trainerRAll, lossR, lossRAll, decoderR_train, encoderR_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
         
-		#_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.8})
         					
-		_, lossD_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerD, lossD, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+		#_, lossD_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerD, lossD, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
 	
     # 損失の記録
 	lossR_values.append(lossR_value)
@@ -437,10 +436,10 @@ for ite in range(15100):
 			test_x = np.vstack([test_x, test_x_fake])
 			test_y = np.hstack([np.ones(len(targetTestIndsSelected)),np.zeros(len(fakeTestIndsSelected))])
         
-			predictDX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})#decoderR_test_value[ind] = sess.run([decoderR_test],	feed_dict={xTest: test_x,keep_prob: 1.0})								
+			#predictDX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})#decoderR_test_value[ind] = sess.run([decoderR_test],	feed_dict={xTest: test_x,keep_prob: 1.0})								
          									
   										
-			predictDRX_value[ind] = sess.run(predictDRX,feed_dict={xTest: test_x,keep_prob: 1.0})#predictDX_value[ind], predictDRX_value[ind] = sess.run([predictDX, predictDRX],feed_dict={xTest: test_x,keep_prob: 1.0})
+			predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})#predictDX_value[ind], predictDRX_value[ind] = sess.run([predictDX, predictDRX],feed_dict={xTest: test_x,keep_prob: 1.0})
 													
             
 #predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})									
