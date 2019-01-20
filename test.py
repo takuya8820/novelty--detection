@@ -59,7 +59,6 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            
             pdb.set_trace()
             print(precisionDRXs[late][14])
 """
