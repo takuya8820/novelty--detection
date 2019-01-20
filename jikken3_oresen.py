@@ -239,8 +239,8 @@ plt.rc('font', **font)
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 
-ax.plot(x, y1, label=u'Auto-encoderの特徴空間でのノイズ付加による識別的な異常検知のD(X)', marker="o")
-ax.plot(x, y2, label=u'Auto-encoderの特徴空間でのノイズ付加による識別的な異常検知のD(R(X))', marker="o")
+ax.plot(x, y1, label='Discriminatory outlier detection by adding noise \n in the feature space of Auto-encoder D(X)', marker="o")
+ax.plot(x, y2, label='Discriminatory outlier detection by adding noise \n in the feature space of Auto-encoder D(R(X))', marker="o")
 ax.plot(x, y3, label='ALOCC D(X)')
 ax.plot(x, y4, label='ALOCC D(R(X))')
 
