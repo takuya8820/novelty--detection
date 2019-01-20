@@ -166,18 +166,19 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
 		convW1 = weight_variable("convW1", [3, 3, 1, 32])
 		convB1 = bias_variable("convB1", [32])
 		conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
-		
+		conv1_drop = tf.nn.dropout(conv1, keep_prob)
 		# 14/2 = 7
 		convW2 = weight_variable("convW2", [3, 3, 32, 32])
 		convB2 = bias_variable("convB2", [32])
-		conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
-
-		#--------------
+		conv2 = conv2d_relu(conv1_drop, convW2, convB2, stride=[1,2,2,1])
+		conv2_drop = tf.nn.dropout(conv2, keep_prob)
+    
+       #--------------
 		# 特徴マップをembeddingベクトルに変換
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
-		conv2size = np.prod(conv2.get_shape().as_list()[1:])
-		conv2 = tf.reshape(conv2, [-1, conv2size])
+		conv2size = np.prod(conv2_drop.get_shape().as_list()[1:])
+		conv2 = tf.reshape(conv2_drop, [-1, conv2size])
 		
 		# 7 x 7 x 32 -> z-dim
 		fcW1 = weight_variable("fcW1", [conv2size, z_dim])
@@ -237,18 +238,18 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
 		convW1 = weight_variable("convW1", [3, 3, 1, 32])
 		convB1 = bias_variable("convB1", [32])
 		conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
-		
+		conv1_drop = tf.nn.dropout(conv1, keep_prob)
 		# 14/2 = 7
 		convW2 = weight_variable("convW2", [3, 3, 32, 32])
 		convB2 = bias_variable("convB2", [32])
-		conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
-
-		#--------------
+		conv2 = conv2d_relu(conv1_drop, convW2, convB2, stride=[1,2,2,1])
+		conv2_drop = tf.nn.dropout(conv2, keep_prob)
+        #--------------
 		# 特徴マップをembeddingベクトルに変換
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
-		conv2size = np.prod(conv2.get_shape().as_list()[1:])
-		conv2 = tf.reshape(conv2, [-1, conv2size])
+		conv2size = np.prod(conv2_drop.get_shape().as_list()[1:])
+		conv2 = tf.reshape(conv2_drop, [-1, conv2size])
 		
 		# 7 x 7 x 32 -> z-dim
 		fcW1 = weight_variable("fcW1", [conv2size, z_dim])
@@ -264,6 +265,8 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
 xTrue = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xFake = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
+
+keep_prob = tf.placeholder(tf.float32)
 
 # 学習用
 encoderR_train = encoderR(xFake, z_dim_R, keepProb=1.0)
@@ -399,7 +402,7 @@ for ite in range(15100):
 			trainMode = 1
 
 	elif trainMode == 1:
-		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
 
 	# 損失の記録
 	lossR_values.append(lossR_value)
@@ -439,7 +442,7 @@ for ite in range(15100):
 			test_y = np.hstack([np.ones(len(targetTestIndsSelected)),np.zeros(len(fakeTestIndsSelected))])
 
 			predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],
-													feed_dict={xTest: test_x})
+													feed_dict={xTest: test_x,keep_prob: 1.0})
 													
 
 			#--------------
