@@ -188,10 +188,12 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
         convB2 = bias_variable("convB2", [64])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
         
-      # 7/2 = 4     
+      # 7/2 = 4
+      '''
         convW3 = weight_variable("convW3", [3, 3, 64, 128])
         convB3 = bias_variable("convB3", [128])
         conv3 = conv2d_relu(conv2, convW3, convB3, stride=[1,2,2,1])
+        '''
 
 		#--------------
 		# 特徴マップをembeddingベクトルに変換
