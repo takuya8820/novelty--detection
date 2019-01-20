@@ -65,7 +65,7 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 #noiseSigma = 0.155
 #noiseSigma = 40
 
-trainMode = 1
+trainMode = 0
 
 visualPath = 'visualization_jikken1'
 modelPath = 'models'
@@ -178,12 +178,12 @@ def encoderR(x, z_dim, reuse=False, keepProb = 1.0):
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
 		conv2size = np.prod(conv2_drop.get_shape().as_list()[1:])
-		conv2 = tf.reshape(conv2_drop, [-1, conv2size])
+		conv2_drop = tf.reshape(conv2_drop, [-1, conv2size])
 		
 		# 7 x 7 x 32 -> z-dim
 		fcW1 = weight_variable("fcW1", [conv2size, z_dim])
 		fcB1 = bias_variable("fcB1", [z_dim])
-		fc1 = fc_relu(conv2, fcW1, fcB1, keepProb)
+		fc1 = fc_relu(conv2_drop, fcW1, fcB1, keepProb)
 		#--------------
 
 		return fc1
@@ -249,12 +249,12 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
 		# 2次元画像を１次元に変更して全結合層へ渡す
 		# np.prod で配列要素の積を算出
 		conv2size = np.prod(conv2_drop.get_shape().as_list()[1:])
-		conv2 = tf.reshape(conv2_drop, [-1, conv2size])
+		conv2_drop = tf.reshape(conv2_drop, [-1, conv2size])
 		
 		# 7 x 7 x 32 -> z-dim
 		fcW1 = weight_variable("fcW1", [conv2size, z_dim])
 		fcB1 = bias_variable("fcB1", [z_dim])
-		fc1 = fc_sigmoid(conv2, fcW1, fcB1, keepProb)
+		fc1 = fc_sigmoid(conv2_drop, fcW1, fcB1, keepProb)
 		#--------------
 
 		return fc1
@@ -394,17 +394,13 @@ for ite in range(15100):
 	#--------------
 	# 学習
 	if trainMode == 0:
-		_, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
-											[trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
-											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
-											
-		if lossR_value < threSquaredLoss:
-			trainMode = 1
-
-	elif trainMode == 1:
-		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
-
-	# 損失の記録
+		_, lossR_value, lossRAll_value, decoderR_train_value, encoderR_train_value = sess.run([trainerRAll, lossR, lossRAll, decoderR_train, encoderR_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+        
+		#_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+        					
+		_, lossD_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerD, lossD, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake,keep_prob: 0.5})
+	
+    # 損失の記録
 	lossR_values.append(lossR_value)
 	lossRAll_values.append(lossRAll_value)
 	lossD_values.append(lossD_value)
@@ -441,9 +437,12 @@ for ite in range(15100):
 			test_x = np.vstack([test_x, test_x_fake])
 			test_y = np.hstack([np.ones(len(targetTestIndsSelected)),np.zeros(len(fakeTestIndsSelected))])
 
-			predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],
-													feed_dict={xTest: test_x,keep_prob: 1.0})
-													
+			decoderR_test_value[ind] = sess.run([decoderR_test],									
+            										feed_dict={xTest: test_x,keep_prob: 1.0})
+			predictDX_value[ind], predictDRX_value[ind] = sess.run([predictDX, predictDRX],
+													feed_dict={xTest: test_x,keep_prob: 1.0})	
+            
+#predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})									
 
 			#--------------
 			# 評価値の計算と記録
