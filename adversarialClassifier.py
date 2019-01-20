@@ -436,11 +436,12 @@ for ite in range(15100):
 			test_x_fake = np.reshape(myData.test.images[fakeTestIndsSelected],(len(fakeTestIndsSelected),28,28,1))
 			test_x = np.vstack([test_x, test_x_fake])
 			test_y = np.hstack([np.ones(len(targetTestIndsSelected)),np.zeros(len(fakeTestIndsSelected))])
-
-			decoderR_test_value[ind] = sess.run([decoderR_test],									
-            										feed_dict={xTest: test_x,keep_prob: 1.0})
-			predictDX_value[ind], predictDRX_value[ind] = sess.run([predictDX, predictDRX],
-													feed_dict={xTest: test_x,keep_prob: 1.0})	
+        
+			predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})#decoderR_test_value[ind] = sess.run([decoderR_test],	feed_dict={xTest: test_x,keep_prob: 1.0})								
+          									
+  										
+			#predictDX_value[ind], predictDRX_value[ind] = sess.run([predictDX, predictDRX],feed_dict={xTest: test_x,keep_prob: 1.0})
+													
             
 #predictDX_value[ind], predictDRX_value[ind], decoderR_test_value[ind] = sess.run([predictDX, predictDRX, decoderR_test],feed_dict={xTest: test_x,keep_prob: 1.0})									
 
