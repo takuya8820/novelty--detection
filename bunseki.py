@@ -85,7 +85,7 @@ ax = plt.subplot(aspect='equal')
 ax.scatter(x1, y1, lw=0, s=5, c="red")
 
 for i in range(x.shape[0]):
-    if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
+    #if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
     shown_images = np.r_[b1, [x[i]]]
     ax.add_artist(offsetbox.AnnotationBbox(offsetbox.OffsetImage(decoderR_train_value[i,:,:,0], cmap=plt.cm.gray_r), x[i]))
     
