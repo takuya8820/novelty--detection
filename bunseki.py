@@ -61,6 +61,8 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
 
+#------データのプロット----------
+    
 #Zでノイズを付加したデータ
 x1=encoderR_fake_train_value[:,0]
 y1=encoderR_fake_train_value[:,1]
@@ -69,6 +71,7 @@ y1=encoderR_fake_train_value[:,1]
 x2=encoderR_train_value[:,0]
 y2=encoderR_train_value[:,1]
 
+'''
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 
@@ -77,9 +80,24 @@ ax.scatter(x2, y2, c='blue')
 
 ax.set_xlabel('x')
 ax.set_ylabel('y')
+'''
 
-pdb.set_trace()
-fig.show()
+plt.scatter(x1, y1, c="red")
+plt.scatter(x2, y2, c="blue")
+#---------------------------
 
-a1=decoderR_fake_train_value
-        
+#-------画像の表示------------
+
+for i in range(5):
+    a1=decoderR_fake_train_value[i]
+    b1=decoderR_train_value[i]
+    
+    plt.imshow(a1)
+    plt.imshow(b1)
+
+
+plt.show()
+
+
+
+
