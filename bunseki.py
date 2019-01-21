@@ -85,9 +85,10 @@ y1=encoderR_fake_train_value[:,1]
 x2=encoderR_train_value[:,0]
 y2=encoderR_train_value[:,1]
 
+
 fig, ax = plt.subplots()
-for i in range(x1.shape[0]):
-    imscatter(x1, y1, decoderR_train_value[i,:,:,0], ax=ax,  zoom=0.1)
+for i in range(10):
+    imscatter(x1[i,0], y1[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=0.1)
 
 ax.plot(x1, y1)
 
