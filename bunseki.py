@@ -22,18 +22,19 @@ import numpy as np
 
 if len(sys.argv) > 1:
 	# noiseZ
-    targetChar = int(sys.argv[1])
+    noisez = int(sys.argv[1])
 	# noiseSigma
     if len(sys.argv) > 2:
-        trialNo = int(sys.argv[2])
+        noiseSigma = int(sys.argv[2])
         if len(sys.argv) > 3:
             number = int(sys.argv[3])
+            if len(sys.argv) > 4:
+                trialNo = int(sys.argv[4])
+                
         
   
-
+targetChar = 2
 jikkenPath3 = 'jikken3'
-noisez=51
-noiseSigma=128
 
 
 postFix = "{}_{}".format(targetChar, trialNo)
