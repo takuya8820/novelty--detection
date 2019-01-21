@@ -15,6 +15,7 @@ import pdb
 import matplotlib.pylab as plt
 import sys
 from sklearn.decomposition import PCA
+from matplotlib import offsetbox
 
 
 if len(sys.argv) > 1:
@@ -72,11 +73,39 @@ pca.fit(encoderR_fake_train_value)
 pca_point1 = pca.transform(encoderR_train_value)
 pca_point2 = pca.transform(encoderR_fake_train_value)
 
+
+
+def imscatter(x, y, image, ax=None, zoom=1):
+    imagebox = offsetbox.OffsetImage(image, zoom=zoom)
+    artists = []
+    #for x0,y0 in zip(x,y):
+    ab = offsetbox.AnnotationBbox(imagebox, (x,y), xycoords='data', frameon=False)
+    artists.append(ax.add_artist(ab)) 
+    return artists 
+
+
+
 x1=pca_point1[:,0]
 y1=pca_point1[:,1]
 x2=pca_point2[:,0]
 y2=pca_point2[:,1]
 
+number=5
+
+fig, ax = plt.subplots()
+for i in range(number):
+    imscatter(encoderR_fake_train_value[i,0], encoderR_fake_train_value[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=1.0)
+
+for i in range(number):
+    imscatter(encoderR_train_value[i,0], encoderR_train_value[i,1], decoderR_train_value[i,:,:,0], ax=ax, zoom=1.0)
+
+ax.scatter(x1, y1, s=5, c="red")
+ax.scatter(x2, y2, s=5, c="blue")
+ax.autoscale() 
+plt.gray()
+plt.show()
+
+'''
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 
@@ -87,3 +116,4 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 
 fig.show()
+'''
