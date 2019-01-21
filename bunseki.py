@@ -63,6 +63,15 @@ with open(path, "rb") as fp:
     params = pickle.load(fp)
 
 
+def imscatter(x, y, image, ax=None, zoom=1):
+    
+    imagebox = offsetbox.OffsetImage(image, zoom=zoom)
+    artists = []
+    for x0,y0 in zip(x,y):
+        ab = offsetbox.AnnotationBbox(imagebox, (x0,y0), xycoords='data', frameon=False)
+        artists.append(ax.add_artist(ab)) 
+    return artists 
+
 
 
 #------データのプロット----------
@@ -76,6 +85,20 @@ y1=encoderR_fake_train_value[:,1]
 x2=encoderR_train_value[:,0]
 y2=encoderR_train_value[:,1]
 
+fig, ax = plt.subplots()
+
+imscatter(x1, y1, decoderR_train_value[1,:,:,0], ax=ax,  zoom=1)
+
+ax.plot(x1, y1)
+
+plt.show()
+
+
+
+
+
+
+"""
 a1=decoderR_fake_train_value[:,:,:,0]
 b1=decoderR_train_value[:,:,:,0]
 
@@ -89,12 +112,18 @@ ax.scatter(x1, y1, lw=0, s=5, c="red")
     #if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
     #np.r_は多次元配列の結合
     #shown_images = np.r_[b1, [x[i]]]
+    
+#imageboxに画像が入った
 imagebox = offsetbox.OffsetImage(decoderR_train_value[1,:,:,0], zoom=0.3)
-im_sabo = offsetbox.AnnotationBbox(imagebox, xybox=x1[1,0])
+artists = []
+for x,y in zip(x1.y1):
+    ab = offsetbox.AnnotationBbox(imagebox, (x,y), xycoords='data', frameon=False)
+    artists.append(ax.add_artist(ab)) 
+return artists 
 ax.add_artist(im_sabo)
 
 fig.show()
-    
+"""
 
 
 
