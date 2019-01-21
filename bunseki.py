@@ -89,8 +89,8 @@ plt.scatter(x2, y2, c="blue")
 #-------画像の表示------------
 
 for i in range(5):
-    a1=decoderR_fake_train_value[i]
-    b1=decoderR_train_value[i]
+    a1=decoderR_fake_train_value[i,:,:,0]
+    b1=decoderR_train_value[i,:,:,0]
     
     plt.imshow(a1)
     plt.imshow(b1)
