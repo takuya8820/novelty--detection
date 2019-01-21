@@ -31,8 +31,6 @@ jikkenPath2 = 'jikken2'
 data = []
 mx = []
 for targetChar in range(10):
-    print("targetChar=")
-    print(targetChar)
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
@@ -60,7 +58,6 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            pdb.set_trace()
         if f1DRXs[late][14] is None:
             data.append(0)
             print("None")
@@ -69,6 +66,6 @@ for targetChar in range(10):
     mx.append(max(data))
 
 s=sum(mx)
-n=len(mx)
+n=10
 mean=s/n
 print(mean)
