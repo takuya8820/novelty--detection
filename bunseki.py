@@ -64,18 +64,16 @@ with open(path, "rb") as fp:
 
 
 def imscatter(x, y, image, ax=None, zoom=1):
-    
     imagebox = offsetbox.OffsetImage(image, zoom=zoom)
     artists = []
-    for x0,y0 in zip(x,y):
-        ab = offsetbox.AnnotationBbox(imagebox, (x0,y0), xycoords='data', frameon=False)
-        artists.append(ax.add_artist(ab)) 
+    #for x0,y0 in zip(x,y):
+    ab = offsetbox.AnnotationBbox(imagebox, (x,y), xycoords='data', frameon=False)
+    artists.append(ax.add_artist(ab)) 
     return artists 
 
 
 
-#------データのプロット----------
-x=batch_x
+
 
 #Zでノイズを付加したデータ
 x1=encoderR_fake_train_value[:,0]
@@ -87,7 +85,7 @@ y2=encoderR_train_value[:,1]
 
 
 fig, ax = plt.subplots()
-for i in range(10):
+for i in range(1):
     imscatter(x1[i,0], y1[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=0.1)
 
 ax.plot(x1, y1)
