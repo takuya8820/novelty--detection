@@ -26,6 +26,9 @@ if len(sys.argv) > 1:
 	# noiseSigma
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
+        if len(sys.argv) > 3:
+            number = int(sys.argv[3])
+        
   
 
 jikkenPath3 = 'jikken3'
@@ -85,77 +88,14 @@ y2=encoderR_train_value[:,1]
 
 
 fig, ax = plt.subplots()
-for i in range(5):
+for i in range(number):
     imscatter(encoderR_fake_train_value[i,0], encoderR_fake_train_value[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=1.0)
 
+for i in range(number):
+    imscatter(encoderR_train_value[i,0], encoderR_train_value[i,1], decoderR_train_value[i,:,:,0], ax=ax, zoom=1.0)
+
 ax.scatter(x1, y1, s=5, c="red")
+ax.scatter(x2, y2, s=5, c="blue")
 ax.autoscale() 
 
 plt.show()
-
-
-
-
-
-
-"""
-a1=decoderR_fake_train_value[:,:,:,0]
-b1=decoderR_train_value[:,:,:,0]
-
-plt.figure()
-
-
-ax = plt.subplot(aspect='equal')
-ax.scatter(x1, y1, lw=0, s=5, c="red")
-
-#for i in range(x.shape[0]):
-    #if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
-    #np.r_は多次元配列の結合
-    #shown_images = np.r_[b1, [x[i]]]
-    
-#imageboxに画像が入った
-imagebox = offsetbox.OffsetImage(decoderR_train_value[1,:,:,0], zoom=0.3)
-artists = []
-for x,y in zip(x1.y1):
-    ab = offsetbox.AnnotationBbox(imagebox, (x,y), xycoords='data', frameon=False)
-    artists.append(ax.add_artist(ab)) 
-return artists 
-ax.add_artist(im_sabo)
-
-fig.show()
-"""
-
-
-
-
-
-
-
-
-
-'''
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-
-ax.scatter(x1, y1, c='red')
-ax.scatter(x2, y2, c='blue')
-
-ax.set_xlabel('x')
-ax.set_ylabel('y')
-
-
-plt.scatter(x1, y1, c="red")
-plt.scatter(x2, y2, c="blue")
-pdb.set_trace()
-'''
-#---------------------------
-
-#-------画像の表示------------
-
-
-
-    
-
-
-
-
