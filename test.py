@@ -60,14 +60,14 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             pdb.set_trace()
-            print(precisionDRXs[late][14])
-"""
-        data.append(precisionDRXs[late][14])
+            #print(precisionDRXs[late][14])
+        if precisionDRXs[late][14] == None:
+            data.append(0)
+        else:    
+            data.append(precisionDRXs[late][14])
     mx.append(max(data))
+
 s=sum(mx)
 n=len(mx)
 mean=s/n
 print(mean)
-print(lossR_values)
-"""
-
