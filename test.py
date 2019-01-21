@@ -60,12 +60,12 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            
-        if precisionDRXs[late][14] is None:
+            pdb.set_trace()
+        if f1DRXs[late][14] is None:
             data.append(0)
             print("None")
         else:    
-            data.append(precisionDRXs[late][14])
+            data.append(f1DRXs[late][14])
     mx.append(max(data))
 
 s=sum(mx)
