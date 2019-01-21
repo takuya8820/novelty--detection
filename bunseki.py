@@ -17,6 +17,7 @@ import sys
 import os
 import pdb
 import matplotlib.pyplot as plt
+from matplotlib import offsetbox
 import numpy as np
 
 if len(sys.argv) > 1:
@@ -37,7 +38,7 @@ postFix = "{}_{}".format(targetChar, trialNo)
 path1 = os.path.join(jikkenPath3,"noise{}_{}".format(noisez,noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
-    batch = pickle.load(fp)
+    batch_x = pickle.load(fp)
     batch_x_fake = pickle.load(fp)
     encoderR_train_value = pickle.load(fp)
     decoderR_train_value = pickle.load(fp)
@@ -61,8 +62,12 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
 
+
+
+
 #------データのプロット----------
-    
+x=batch_x
+
 #Zでノイズを付加したデータ
 x1=encoderR_fake_train_value[:,0]
 y1=encoderR_fake_train_value[:,1]
@@ -70,6 +75,29 @@ y1=encoderR_fake_train_value[:,1]
 #Zでノイズを付加していないデータ
 x2=encoderR_train_value[:,0]
 y2=encoderR_train_value[:,1]
+
+a1=decoderR_fake_train_value[:,:,:,0]
+b1=decoderR_train_value[:,:,:,0]
+
+plt.figure()
+ax = plt.subplot(aspect='equal')
+
+ax.scatter(x1, y1, lw=0, s=5, c="red")
+
+for i in range(x.shape[0]):
+    if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
+    shown_images = np.r_[b1, [x[i]]]
+    ax.add_artist(offsetbox.AnnotationBbox(offsetbox.OffsetImage(decoderR_train_value[i,:,:,0], cmap=plt.cm.gray_r), x[i]))
+    
+plt.xticks([]), plt.yticks([])
+plt.show()
+
+
+
+
+
+
+
 
 '''
 fig = plt.figure()
@@ -80,24 +108,19 @@ ax.scatter(x2, y2, c='blue')
 
 ax.set_xlabel('x')
 ax.set_ylabel('y')
-'''
+
 
 plt.scatter(x1, y1, c="red")
 plt.scatter(x2, y2, c="blue")
 pdb.set_trace()
+'''
 #---------------------------
 
 #-------画像の表示------------
 
-for i in range(5):
-    a1=decoderR_fake_train_value[i,:,:,0]
-    b1=decoderR_train_value[i,:,:,0]
+
+
     
-    plt.imshow(a1)
-    plt.imshow(b1)
-
-
-plt.show()
 
 
 
