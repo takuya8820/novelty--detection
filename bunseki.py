@@ -84,6 +84,7 @@ ax.set_ylabel('y')
 
 plt.scatter(x1, y1, c="red")
 plt.scatter(x2, y2, c="blue")
+pdb.set_trace()
 #---------------------------
 
 #-------画像の表示------------
