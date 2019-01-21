@@ -80,17 +80,22 @@ a1=decoderR_fake_train_value[:,:,:,0]
 b1=decoderR_train_value[:,:,:,0]
 
 plt.figure()
-ax = plt.subplot(aspect='equal')
 
+
+ax = plt.subplot(aspect='equal')
 ax.scatter(x1, y1, lw=0, s=5, c="red")
 
-for i in range(x.shape[0]):
+#for i in range(x.shape[0]):
     #if np.min(np.sum((x[i] - b1) ** 2, axis=1)) < 1e-2: continue
-    shown_images = np.r_[b1, [x[i]]]
-    ax.add_artist(offsetbox.AnnotationBbox(offsetbox.OffsetImage(decoderR_train_value[i,:,:,0], cmap=plt.cm.gray_r), x[i]))
+    #np.r_は多次元配列の結合
+    #shown_images = np.r_[b1, [x[i]]]
+imagebox = offsetbox.OffsetImage(decoderR_train_value[1,:,:,0], zoom=0.3)
+im_sabo = offsetbox.AnnotationBbox(imagebox, xybox=x1[1,0])
+ax.add_artist(im_sabo)
+
+fig.show()
     
-plt.xticks([]), plt.yticks([])
-plt.show()
+
 
 
 
