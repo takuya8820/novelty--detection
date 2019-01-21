@@ -31,6 +31,7 @@ jikkenPath2 = 'jikken2'
 data = []
 mx = []
 for targetChar in range(10):
+    print("targetChar=")
     print(targetChar)
     data = []
     for trialNo in range(1,4):
@@ -60,8 +61,9 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-        if recallDRXs[late][14] == 0:
+        if precisionDRXs[late][14] is None:
             data.append(0)
+            print("None")
         else:    
             data.append(precisionDRXs[late][14])
     mx.append(max(data))
