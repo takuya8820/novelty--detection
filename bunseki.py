@@ -98,5 +98,5 @@ for i in range(number):
 ax.scatter(x1, y1, s=5, c="red")
 ax.scatter(x2, y2, s=5, c="blue")
 ax.autoscale() 
-
+plt.gray()
 plt.show()
