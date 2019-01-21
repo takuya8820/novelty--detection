@@ -59,9 +59,8 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            pdb.set_trace()
-            #print(precisionDRXs[late][14])
-        if precisionDRXs[late][14] == None:
+
+        if recallDRXs[late][14] == 0:
             data.append(0)
         else:    
             data.append(precisionDRXs[late][14])
