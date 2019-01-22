@@ -410,7 +410,7 @@ for ite in range(15100):
 
 	#--------------
 	# テスト
-	if ite % 1000 == 0:
+	if ite % 100 == 0:
 		
 		predictDX_value = [[] for tmp in np.arange(len(testFakeRatios))]
 		predictDRX_value = [[] for tmp in np.arange(len(testFakeRatios))]
