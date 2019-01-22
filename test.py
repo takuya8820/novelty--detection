@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             pdb.set_trace()
-        if f1DRXs[late][14] is None:
+        if f1DRXs[late][14] is "nan":
             data.append(0)
             print("None")
         else:    
