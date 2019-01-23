@@ -69,7 +69,7 @@ for late in range(5):
                 params = pickle.load(fp)
                 
                 #dataは3回実験した結果を格納
-            data1.append(precisionDXs[late][14])
+            data1.append(f1DXs[late][14])
         #mxは各カテゴリの最大値を格納
         mx1.append(max(data1))
         
@@ -116,7 +116,7 @@ for late in range(5):
                 params = pickle.load(fp)
                 
                 #dataは3回実験した結果を格納
-            data2.append(precisionDRXs[late][14])
+            data2.append(f1DRXs[late][14])
         #mxは各カテゴリの最大値を格納
         mx2.append(max(data2))
         
@@ -164,7 +164,7 @@ for late in range(5):
                 params = pickle.load(fp)
                 
                 #dataは3回実験した結果を格納
-            data3.append(precisionDXs[late][14])
+            data3.append(f1DXs[late][14])
         #mxは各カテゴリの最大値を格納
         mx3.append(max(data3))
         
@@ -211,7 +211,7 @@ for late in range(5):
                 params = pickle.load(fp)
                 
                 #dataは3回実験した結果を格納
-            data4.append(precisionDRXs[late][14])
+            data4.append(f1DRXs[late][14])
         #mxは各カテゴリの最大値を格納
         mx4.append(max(data4))
         
