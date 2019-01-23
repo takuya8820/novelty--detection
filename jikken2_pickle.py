@@ -60,7 +60,7 @@ for targetChar in range(10):
             
         
         
-        data.append(precisionDXs[late][14])
+        data.append(f1DXs[late][14])
     mx.append(max(data))
 
 s=sum(mx)

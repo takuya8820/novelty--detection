@@ -22,7 +22,7 @@ z_dim_R = 100
 
 if len(sys.argv) > 1:
 	# 文字の種類
-    targetChar = int(sys.argv[1])
+    targetChar = int(sys.argv[1])   
 	# trail no.
     if len(sys.argv) > 2:
         trialNo = int(sys.argv[2])
