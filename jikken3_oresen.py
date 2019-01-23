@@ -136,7 +136,7 @@ for late in range(5):
         data3 = []
         for trialNo in range(1,4):
             postFix = "{}_{}".format(targetChar, trialNo)
-            path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+            path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
             path = os.path.join(path1,"log{}.pickle".format(postFix))
             with open(path, "rb") as fp:
                 batch = pickle.load(fp)
@@ -183,7 +183,7 @@ for late in range(5):
         data4 = []
         for trialNo in range(1,4):
             postFix = "{}_{}".format(targetChar, trialNo)
-            path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+            path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
             path = os.path.join(path1,"log{}.pickle".format(postFix))
             with open(path, "rb") as fp:
                 batch = pickle.load(fp)
