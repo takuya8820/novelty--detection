@@ -130,7 +130,7 @@ for late in range(5):
     
 
 for late in range(5):
-    noiseSigma=51
+    noiseSigma=128
     mx3 = []
     for targetChar in range(10):
         data3 = []
