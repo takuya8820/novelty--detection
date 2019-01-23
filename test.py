@@ -62,6 +62,6 @@ for targetChar in range(10):
     mx.append(max(data))
 
 s=sum(mx)
-n=10
+n=len(mx)
 mean=s/n
 print(mean)
