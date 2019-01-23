@@ -67,11 +67,11 @@ params = {'z_dim_R':z_dim_R, 'testFakeRatios':testFakeRatios, 'labmdaR':lambdaR,
 #noiseSigma = 0.155
 #noiseSigma = 40
 
-trainMode = 1
+trainMode = 0
 
-visualPath = 'visualization'
-modelPath = 'models'
-logPath = 'logs'
+visualPath = 'visualization_jikken2'
+modelPath = 'models_jikken2'
+jikkenPath = 'jikken2'
 #===========================
 
 #===========================
@@ -366,7 +366,7 @@ lossD_values = []
 
 
 batchInd = 0
-for ite in range(30000):
+for ite in range(15100):
 	
 	#--------------
 	# 学習データの作成
@@ -393,15 +393,13 @@ for ite in range(30000):
 	#--------------
 	# 学習
 	if trainMode == 0:
-		_, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value = sess.run(
-											[trainerR, lossR, lossRAll, lossD, decoderR_train, encoderR_train],
-											feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 											
 		if lossR_value < threSquaredLoss:
 			trainMode = 1
 
 	elif trainMode == 1:
-		_, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerRAll, trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
+		_, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value = sess.run([trainerD,lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train],feed_dict={xTrue: batch_x,xFake: batch_x_fake})
 
 	# 損失の記録
 	lossR_values.append(lossR_value)
@@ -474,7 +472,7 @@ for ite in range(30000):
 					fig1 = figInds[1][figInd].imshow(batch_x_fake[figInd,:,:,0])
 					fig2 = figInds[2][figInd].imshow(decoderR_train_value[figInd,:,:,0])
 
-					# ticks, axisを隠す
+					plt.gray()# ticks, axisを隠す
 					fig0.axes.get_xaxis().set_visible(False)
 					fig0.axes.get_yaxis().set_visible(False)
 					fig0.axes.get_xaxis().set_ticks([])
@@ -488,7 +486,7 @@ for ite in range(30000):
 					fig2.axes.get_xaxis().set_ticks([])
 					fig2.axes.get_yaxis().set_ticks([])					
 	
-				path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_train_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 							
@@ -501,7 +499,7 @@ for ite in range(30000):
 					fig0 = figInds[0][figInd].imshow(test_x[figInd,:,:,0])
 					fig1 = figInds[1][figInd].imshow(decoderR_test_value[ind][figInd,:,:,0])
 
-					# ticks, axisを隠す
+					plt.gray()# ticks, axisを隠す
 					fig0.axes.get_xaxis().set_visible(False)
 					fig0.axes.get_yaxis().set_visible(False)
 					fig0.axes.get_xaxis().set_ticks([])
@@ -511,7 +509,7 @@ for ite in range(30000):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_test_true_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 		
@@ -524,7 +522,7 @@ for ite in range(30000):
 					fig0 = figInds[0][figInd].imshow(test_x[-figInd,:,:,0])
 					fig1 = figInds[1][figInd].imshow(decoderR_test_value[ind][-figInd,:,:,0])
 
-					# ticks, axisを隠す
+					plt.gray()# ticks, axisを隠す
 					fig0.axes.get_xaxis().set_visible(False)
 					fig0.axes.get_yaxis().set_visible(False)
 					fig0.axes.get_xaxis().set_ticks([])
@@ -534,7 +532,7 @@ for ite in range(30000):
 					fig1.axes.get_xaxis().set_ticks([])
 					fig1.axes.get_yaxis().set_ticks([])
 	
-				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,testFakeRatio,ite))
+				path = os.path.join(visualPath,"img_test_fake_{}_{}_{}.png".format(postFix,threSquaredLoss,ite))
 				plt.savefig(path)
 				#--------------
 		
@@ -546,7 +544,8 @@ for ite in range(30000):
 		
 #--------------
 # pickleに保存
-path = os.path.join(logPath,"log{}.pickle".format(postFix))
+path1 = os.path.join(jikkenPath,"noise{}_{}".format(threSquaredLoss,noiseSigma))
+path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
 	pickle.dump(batch_x,fp)
 	pickle.dump(batch_x_fake,fp)
