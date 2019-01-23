@@ -191,8 +191,8 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 32])
-        convB2 = bias_variable("convB2", [32])
+        convW2 = weight_variable("convW2", [3, 3, 32, 64])
+        convB2 = bias_variable("convB2", [64])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
         
         '''
@@ -272,8 +272,8 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 32])
-        convB2 = bias_variable("convB2", [32])
+        convW2 = weight_variable("convW2", [3, 3, 32, 64])
+        convB2 = bias_variable("convB2", [64])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
         
         '''
