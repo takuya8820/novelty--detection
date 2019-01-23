@@ -521,7 +521,8 @@ for ite in range(15100):
 					fig0 = figInds[0][figInd].imshow(test_x[-figInd,:,:,0])
 					fig1 = figInds[1][figInd].imshow(decoderR_test_value[ind][-figInd,:,:,0])
 
-					plt.gray()# ticks, axisを隠す
+					plt.gray()
+                    # ticks, axisを隠す
 					fig0.axes.get_xaxis().set_visible(False)
 					fig0.axes.get_yaxis().set_visible(False)
 					fig0.axes.get_xaxis().set_ticks([])
