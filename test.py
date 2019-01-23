@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             pdb.set_trace()  
-            data.append(f1DRXs[late][14])
+        data.append(f1DRXs[late][14])
     mx.append(max(data))
 
 s=sum(mx)
