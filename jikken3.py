@@ -26,7 +26,7 @@ np.random.seed(0)
 
 #===========================
 # パラメータの設定
-z_dim_R = 2
+z_dim_R = 100
 
 #targetCharは対象とする数字
 if len(sys.argv) > 1:
