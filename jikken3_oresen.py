@@ -35,7 +35,7 @@ y3 = []
 y4 = []
 for late in range(5):
     noisez=128
-    noiseSigma=128
+    noiseSigma=13
     mx1 = []
     for targetChar in range(10):
         data1 = []
@@ -82,7 +82,7 @@ for late in range(5):
 
 for late in range(5):
     noisez=51
-    noiseSigma=128
+    noiseSigma=13
     mx2 = []
     for targetChar in range(10):
         data2 = []
