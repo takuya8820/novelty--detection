@@ -57,9 +57,9 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            
+        print(f1DRXs[late[15]])
         
-        
+"""       
         data.append(f1DXs[late][14])
     mx.append(max(data))
 
@@ -67,3 +67,4 @@ s=sum(mx)
 n=len(mx)
 mean=s/n
 print(mean)
+"""
