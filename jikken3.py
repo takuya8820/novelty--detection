@@ -191,16 +191,10 @@ def encoderR(x, z_dim, noise=False, reuse=False, keepProb = 1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 64])
-        convB2 = bias_variable("convB2", [64])
+        convW2 = weight_variable("convW2", [3, 3, 32, 32])
+        convB2 = bias_variable("convB2", [32])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
         
-        '''
-      # 7/2 = 4     
-        convW3 = weight_variable("convW3", [3, 3, 64, 128])
-        convB3 = bias_variable("convB3", [128])
-        conv3 = conv2d_relu(conv2, convW3, convB3, stride=[1,2,2,1])
-        '''
 		#--------------
 		# 特徴マップをembeddingベクトルに変換
 		# 2次元画像を１次元に変更して全結合層へ渡す
@@ -272,17 +266,10 @@ def DNet(x, z_dim=1, reuse=False, keepProb=1.0):
         conv1 = conv2d_relu(x, convW1, convB1, stride=[1,2,2,1])
 		
 		# 14/2 = 7
-        convW2 = weight_variable("convW2", [3, 3, 32, 64])
-        convB2 = bias_variable("convB2", [64])
+        convW2 = weight_variable("convW2", [3, 3, 32, 32])
+        convB2 = bias_variable("convB2", [32])
         conv2 = conv2d_relu(conv1, convW2, convB2, stride=[1,2,2,1])
         
-        '''
-      # 7/2 = 4
-        convW3 = weight_variable("convW3", [3, 3, 64, 128])
-        convB3 = bias_variable("convB3", [128])
-        conv3 = conv2d_relu(conv2, convW3, convB3, stride=[1,2,2,1])
-        '''
-
 
 		#--------------
 		# 特徴マップをembeddingベクトルに変換
