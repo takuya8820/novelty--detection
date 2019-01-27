@@ -35,7 +35,7 @@ y3 = []
 y4 = []
 for late in range(5):
     noisez=128
-    noiseSigma=13
+    noiseSigma=51
     mx1 = []
     for targetChar in range(10):
         data1 = []
@@ -48,7 +48,7 @@ for late in range(5):
                 batch_x_fake = pickle.load(fp)
                 encoderR_train_value = pickle.load(fp)
                 decoderR_train_value = pickle.load(fp)
-                #encoderR_fake_train_value = pickle.load(fp)
+                encoderR_fake_train_value = pickle.load(fp)
                 decoderR_fake_train_value = pickle.load(fp)
                 predictFake_train_value = pickle.load(fp)
                 predictTrue_train_value = pickle.load(fp)
@@ -95,7 +95,7 @@ for late in range(5):
                 batch_x_fake = pickle.load(fp)
                 encoderR_train_value = pickle.load(fp)
                 decoderR_train_value = pickle.load(fp)
-                #encoderR_fake_train_value = pickle.load(fp)
+                encoderR_fake_train_value = pickle.load(fp)
                 decoderR_fake_train_value = pickle.load(fp)
                 predictFake_train_value = pickle.load(fp)
                 predictTrue_train_value = pickle.load(fp)
