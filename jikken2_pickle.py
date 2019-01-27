@@ -29,6 +29,7 @@ jikkenPath2 = 'jikken2'
 
 data = []
 mx = []
+Nan = np.nan
 for targetChar in range(10):
     data = []
     for trialNo in range(1,4):
@@ -57,8 +58,10 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            
-        data.append(f1DXs[late][14])
+        if f1DXs[late][14] == Nan:
+            data.append(0)
+        else:
+            data.append(f1DXs[late][14])
     mx.append(max(data))
 
 s=sum(mx)
