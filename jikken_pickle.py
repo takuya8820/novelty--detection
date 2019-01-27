@@ -9,6 +9,7 @@ import pickle
 import sys
 import os
 import pdb
+matplotlib('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
