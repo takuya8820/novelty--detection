@@ -35,7 +35,7 @@ postFix = "{}_{}".format(targetChar, trialNo)
 
 #path1 = os.path.join(logPath,"noiseSigma_{}".format(noiseSigma))
 #path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
-path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+path1 = os.path.join(jikkenPath2,"noise{}_{}".format(threSquaredLoss,noiseSigma))
 path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch = pickle.load(fp)
@@ -60,13 +60,4 @@ with open(path, "rb") as fp:
     lossD_values = pickle.load(fp)
     params = pickle.load(fp)
 
-    
 print(precisionDXs[late][14])
-#print(precisionDRXs[late][14])
-
-'''    
-print(encoderR_train_value)
-#zと何を比較して散布図に乗せればよい？
-plt.scatter(encoderR_train_value)
-plt.show()
-'''
