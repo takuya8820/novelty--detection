@@ -19,12 +19,16 @@ if len(sys.argv) > 1:
     if len(sys.argv) > 2:
         late = int(sys.argv[2])
         
+        if len(sys.argv) > 3:
+            noisez = int(sys.argv[3])
+        
             
             
 threSquaredLoss = 200
 logPath = 'logs'
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
+jikkenPath3 = 'jikken3'
 
 #maxf = [[] for tmp in np.arange(10)]
 #precision = [[] for tmp in np.arange(4)]
@@ -35,13 +39,15 @@ for targetChar in range(10):
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
-        path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
+        path1 = os.path.join(jikkenPath3,"noise{}".format(noisez,noiseSigma))
         path = os.path.join(path1,"log{}.pickle".format(postFix))
         with open(path, "rb") as fp:
             batch = pickle.load(fp)
             batch_x_fake = pickle.load(fp)
             encoderR_train_value = pickle.load(fp)
             decoderR_train_value = pickle.load(fp)
+            encoderR_fake_train_value = pickle.load(fp)
+            decoderR_fake_train_value = pickle.load(fp)
             predictFake_train_value = pickle.load(fp)
             predictTrue_train_value = pickle.load(fp)
             test_x = pickle.load(fp)
@@ -60,12 +66,15 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
+            print(f1DRXs[late][14]
+            
+            """
             if lossD_values[14999]<=-1:
                 print("失敗")
             else:
-                print(precisionDRXs[late][14])
-"""
-        data.append(precisionDRXs[late][14])
+                print(f1DRXs[late][14])
+                
+        data.append(f1DRXs[late][14])
     mx.append(max(data))
 s=sum(mx)
 n=len(mx)
