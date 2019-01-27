@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-            print(f1DXs[late[14]])
+            print(f1DXs[late][14])
             
 '''  
         data.append(f1DXs[late][14])
