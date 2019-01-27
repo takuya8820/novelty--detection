@@ -60,10 +60,10 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-            if math.isnan(f1DRXs[late][14]):
+            if math.isnan(f1DXs[late][14]):
                 data.append(0)
             else:
-                data.append(f1DRXs[late][14])
+                data.append(f1DXs[late][14])
             
             
     mx.append(max(data))
