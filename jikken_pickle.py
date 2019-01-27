@@ -60,7 +60,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
-            if lossD_values[14999]==-11.512916:
+            if lossD_values[14999]>=-1:
                 print("失敗")
             else:
                 print(precisionDRXs[late][14])
