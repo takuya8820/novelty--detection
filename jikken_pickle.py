@@ -67,19 +67,3 @@ for targetChar in range(10):
             params = pickle.load(fp)
             
             print(f1DRXs[late][14]
-            
-            """
-            if lossD_values[14999]<=-1:
-                print("失敗")
-            else:
-                print(f1DRXs[late][14])
-                
-        data.append(f1DRXs[late][14])
-    mx.append(max(data))
-s=sum(mx)
-n=len(mx)
-mean=s/n
-print(mean)
-print(lossR_values)
-"""
-
