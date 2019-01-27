@@ -65,6 +65,7 @@ for targetChar in range(10):
             else:
                 data.append(f1DRXs[late][14])
             
+            
     mx.append(max(data))
 
 s=sum(mx)
