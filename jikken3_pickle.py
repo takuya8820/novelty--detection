@@ -25,6 +25,7 @@ if len(sys.argv) > 1:
 
 jikkenPath3 = 'jikken3'
 
+
 data = []
 mx = []
 for targetChar in range(10):
