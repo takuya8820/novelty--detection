@@ -11,6 +11,7 @@ import os
 import pdb
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 if len(sys.argv) > 1:
 	# noiseSigma
@@ -58,9 +59,12 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            pdb.set_trace()
             
-        data.append(f1DRXs[late][14])
+            if math.isnan(f1DXs[late][14]):
+                data.append(0)
+            else:
+                data.append(f1DXs[late][14])
+            
     mx.append(max(data))
 
 s=sum(mx)
