@@ -59,8 +59,11 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-          
-            print(precisionDRXs[late][14])
+            
+            if lossD_values==-11.512916:
+                print("失敗")
+            else:
+                print(precisionDRXs[late][14])
 """
         data.append(precisionDRXs[late][14])
     mx.append(max(data))
