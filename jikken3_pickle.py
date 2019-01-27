@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+# noiseZ
 if len(sys.argv) > 1:
-	# noiseZ
     noisez = int(sys.argv[1])
 	# noiseSigma
     if len(sys.argv) > 2:
