@@ -9,9 +9,8 @@ import pickle
 import sys
 import os
 import pdb
-import matplotlib
-matplotlib('agg')
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import numpy as np
 import pandas as pd
 import seaborn as sns
