@@ -56,7 +56,8 @@ for targetChar in range(10):
             lossR_values = pickle.load(fp)
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
-            params = pickle.load(fp)    
+            params = pickle.load(fp)
+            
       
         data.append(f1DXs[late][14])
     mx.append(max(data))
