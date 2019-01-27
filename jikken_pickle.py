@@ -59,7 +59,7 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
-            print(trialNo)
+          
             print(precisionDRXs[late][14])
 """
         data.append(precisionDRXs[late][14])
