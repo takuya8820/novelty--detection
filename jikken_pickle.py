@@ -35,7 +35,7 @@ for targetChar in range(10):
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
-        path1 = os.path.join(jikkenPath,"noiseSigma{}".format(noiseSigma))
+        path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
         path = os.path.join(path1,"log{}.pickle".format(postFix))
         with open(path, "rb") as fp:
             batch = pickle.load(fp)
