@@ -10,20 +10,12 @@ import sys
 import os
 import pdb
 import matplotlib.pyplot as plt
-plt.switch_backend('agg')
+#plt.switch_backend('agg')
 import numpy as np
 import pandas as pd
 import seaborn as sns
 
-"""
-if len(sys.argv) > 1:
-	# noiseZ
-    noisez = int(sys.argv[1])
-	# noiseSigma
-    if len(sys.argv) > 2:
-        noiseSigma = int(sys.argv[2])
- 
-       """
+
 jikkenPath = 'jikken'
 jikkenPath2 = 'jikken2'
 jikkenPath3 = 'jikken3'
