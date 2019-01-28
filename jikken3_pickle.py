@@ -58,6 +58,7 @@ for targetChar in range(10):
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
             
+            
             if math.isnan(f1DRXs[late][14]):
                 data.append(0)
             else:
