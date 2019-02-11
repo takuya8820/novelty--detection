@@ -39,15 +39,13 @@ for targetChar in range(10):
     data = []
     for trialNo in range(1,4):
         postFix = "{}_{}".format(targetChar, trialNo)
-        path1 = os.path.join(jikkenPath3,"noise{}_{}".format(noisez,noiseSigma))
+        path1 = os.path.join(jikkenPath,"noise{}".format(noiseSigma))
         path = os.path.join(path1,"log{}.pickle".format(postFix))
         with open(path, "rb") as fp:
             batch = pickle.load(fp)
             batch_x_fake = pickle.load(fp)
             encoderR_train_value = pickle.load(fp)
             decoderR_train_value = pickle.load(fp)
-            encoderR_fake_train_value = pickle.load(fp)
-            decoderR_fake_train_value = pickle.load(fp)
             predictFake_train_value = pickle.load(fp)
             predictTrue_train_value = pickle.load(fp)
             test_x = pickle.load(fp)
@@ -65,5 +63,7 @@ for targetChar in range(10):
             lossRAll_values = pickle.load(fp)
             lossD_values = pickle.load(fp)
             params = pickle.load(fp)
+            
+            pdb.set_trace()
             
             print(f1DRXs[late][14])
