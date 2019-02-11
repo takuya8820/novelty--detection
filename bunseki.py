@@ -91,7 +91,7 @@ y2=encoderR_train_value[:,1]
 fig, ax = plt.subplots()
 plt.gray()
 for i in range(number):
-    imscatter(encoderR_fake_train_value[i,0], encoderR_fake_train_value[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=0.5)
+    imscatter(encoderR_fake_train_value[i,0], encoderR_fake_train_value[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=0.8)
 
 for i in range(number):
     imscatter(encoderR_train_value[i,0], encoderR_train_value[i,1], decoderR_train_value[i,:,:,0], ax=ax, zoom=0.8)
