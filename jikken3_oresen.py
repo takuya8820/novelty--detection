@@ -232,8 +232,8 @@ plt.rc('font', **font)
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 
-ax.plot(x, y1, label='DODANFS D(X)', marker="o")
-ax.plot(x, y2, label='DODANFS D(R(X))', marker="o")
+ax.plot(x, y1, label='NAFS D(X)', marker="o")
+ax.plot(x, y2, label='NAFS D(R(X))', marker="o")
 ax.plot(x, y3, label='ALOCC D(X)')
 ax.plot(x, y4, label='ALOCC D(R(X))')
 
