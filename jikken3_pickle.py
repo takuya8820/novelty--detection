@@ -30,6 +30,8 @@ mx = []
 for targetChar in range(10):
     data = []
     for trialNo in range(1,4):
+        targetChar=2
+        trialNo=4
         postFix = "{}_{}".format(targetChar, trialNo)
         path1 = os.path.join(jikkenPath3,"noise{}_{}".format(noisez,noiseSigma))
         path = os.path.join(path1,"log{}.pickle".format(postFix))
