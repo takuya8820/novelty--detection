@@ -44,6 +44,7 @@ path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "rb") as fp:
     batch_x = pickle.load(fp)
     batch_x_fake = pickle.load(fp)
+    encoderR_batch_x_value = pickle.load(fp)
     encoderR_train_value = pickle.load(fp)
     decoderR_train_value = pickle.load(fp)
     encoderR_fake_train_value = pickle.load(fp)
@@ -79,13 +80,17 @@ def imscatter(x, y, image, ax=None, zoom=1):
 
 
 
-#Zでノイズを付加したデータ
+#NAFS異常データ
 x1=encoderR_fake_train_value[:,0]
 y1=encoderR_fake_train_value[:,1]
 
-#Zでノイズを付加していないデータ
+#ALOCC異常データ
 x2=encoderR_train_value[:,0]
 y2=encoderR_train_value[:,1]
+
+#正常データ
+x3=encoderR_batch_x_value[:,0]
+y3=encoderR_batch_x_value[:,1]
 
 
 fig, ax = plt.subplots()
@@ -96,6 +101,8 @@ for i in range(number):
     imscatter(encoderR_fake_train_value[i,0], encoderR_fake_train_value[i,1], decoderR_fake_train_value[i,:,:,0], ax=ax, zoom=0.5)
 for i in range(number):
     imscatter(encoderR_train_value[i,0], encoderR_train_value[i,1], decoderR_train_value[i,:,:,0], ax=ax, zoom=0.5)
+for i in range(number):
+    imscatter(encoderR_batch_x_value[i,0], encoderR_batch_x_value[i,1], batch_x[i,:,:,0], ax=ax, zoom=0.5)
 
 
 '''
@@ -106,6 +113,7 @@ imscatter(encoderR_train_value[number,0], encoderR_train_value[number,1], decode
 
 ax.scatter(x1, y1, s=5, c="red")
 ax.scatter(x2, y2, s=5, c="blue")
+ax.scatter(x3 ,y3, s=5, c="green")
 ax.autoscale() 
 
 plt.show()

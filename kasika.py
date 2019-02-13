@@ -293,6 +293,8 @@ xTrue = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 xFake = tf.placeholder(tf.float32, shape=[300, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
+
+encoderR_batch_x = encoderR(xTrue, z_dim_R, keepProb=1.0)
 # 学習用
 encoderR_train = encoderR(xFake, z_dim_R, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
@@ -435,8 +437,8 @@ for ite in range(15100):
 
 	#--------------
 	# 学習
-    _, _, lossR_value, lossRAll_value, lossD_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value, encoderR_fake_train_value = sess.run(
-                [trainerRAll, trainerD, lossR, lossRAll, lossD, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train, encoderR_fake_train],
+    _, _, lossR_value, lossRAll_value, lossD_value, encoderR_batch_x_value, decoderR_train_value, encoderR_train_value, predictFake_train_value, predictTrue_train_value, decoderR_fake_train_value, encoderR_fake_train_value = sess.run(
+                [trainerRAll, trainerD, lossR, lossRAll, lossD, encoderR_batch_x, decoderR_train, encoderR_train, predictFake_train, predictTrue_train, decoderR_fake_train, encoderR_fake_train],
                 feed_dict={xTrue: batch_x, xFake: batch_x_fake})
     
     '''
@@ -623,6 +625,7 @@ path = os.path.join(path1,"log{}.pickle".format(postFix))
 with open(path, "wb") as fp:
     pickle.dump(batch_x,fp)
     pickle.dump(batch_x_fake,fp)
+    pickle.dump(encoderR_batch_x_value,fp)
     pickle.dump(encoderR_train_value,fp)
     pickle.dump(decoderR_train_value,fp)
     pickle.dump(encoderR_fake_train_value,fp)
