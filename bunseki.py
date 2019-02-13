@@ -106,9 +106,9 @@ for i in range(number):
 
 
 '''
-imscatter(encoderR_fake_train_value[number,0], encoderR_fake_train_value[number,1], decoderR_fake_train_value[number,:,:,0], ax=ax, zoom=0.5)
+imscatter(encoderR_fake_train_value[0,0], encoderR_fake_train_value[0,1], decoderR_fake_train_value[number,:,:,0], ax=ax, zoom=0.5)
 
-imscatter(encoderR_train_value[number,0], encoderR_train_value[number,1], decoderR_train_value[number,:,:,0], ax=ax, zoom=0.5)
+imscatter(encoderR_train_value[0,0], encoderR_train_value[0,1], decoderR_train_value[number,:,:,0], ax=ax, zoom=0.5)
 
 imscatter(encoderR_batch_x_value[number,0], encoderR_batch_x_value[number,1], batch_x[number,:,:,0], ax=ax, zoom=0.5)
     
