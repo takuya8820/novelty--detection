@@ -425,7 +425,6 @@ for ite in range(15100):
 	#targetTrainInds = np.where(batch[1] == targetChar)[0]
 	#batch_x = batch_x_all[targetTrainInds]
     batch = targetTrainData[batchInd*batchSize:(batchInd+1)*batchSize]
-    pdb.set_trace()
     batch_x = np.reshape(batch,(batchSize,28,28,1))
     
     batchInd += 1
