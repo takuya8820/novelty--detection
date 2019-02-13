@@ -294,7 +294,6 @@ xFake = tf.placeholder(tf.float32, shape=[300, 28, 28, 1])
 xTest = tf.placeholder(tf.float32, shape=[None, 28, 28, 1])
 
 
-encoderR_batch_x = encoderR(xTrue, z_dim_R, keepProb=1.0)
 # 学習用
 encoderR_train = encoderR(xFake, z_dim_R, keepProb=1.0)
 decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
@@ -302,6 +301,8 @@ decoderR_train = decoderR(encoderR_train, z_dim_R, keepProb=1.0)
 # テスト用
 encoderR_test = encoderR(xTest, z_dim_R, reuse=True, keepProb=1.0)
 decoderR_test = decoderR(encoderR_test, z_dim_R, reuse=True, keepProb=1.0)
+
+encoderR_batch_x = encoderR(xTrue, z_dim_R, reuse=True, keepProb=1.0)
 
 #===========================
 
