@@ -112,8 +112,8 @@ imscatter(encoderR_train_value[number,0], encoderR_train_value[number,1], decode
 '''
 
 ax.scatter(x1, y1, s=5, c="red")
-ax.scatter(x2, y2, s=5, c="blue")
-ax.scatter(x3 ,y3, s=5, c="green")
+ax.scatter(x2, y2, s=5, c="green")
+ax.scatter(x3 ,y3, s=5, c="blue")
 ax.autoscale() 
 
 plt.show()
